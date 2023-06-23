@@ -7,11 +7,11 @@ const activitySchema = mongoose.Schema(
             type: String,
             required: true
         },
-        requiredSkills: [{ //TODO: ref to the new skills collection
-            type: String
+        requiredSkills: [{
+            type: Schema.Types.ObjectId, ref: 'skill'
         }],
-        category: [{ //TODO: ref to the new interest collection
-                type: String
+        category: [{
+                type: Schema.Types.ObjectId, ref: 'interest'
         }],
         dates: [{
             //to confirm date type
