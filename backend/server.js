@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+require("dotenv").config()
 
 const userRouter = require('./routes/users')
 const activityRouter = require('./routes/activity')
@@ -20,7 +21,7 @@ app.get('/', (req, res) => {
 })
 
 mongoose.set('strictQuery', false)
-mongoose.connect('mongodb+srv://admin:eaFtN7I1P3XAfXjA@volunteer-app.kjzmuic.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.DB_URL)
     .then(() => {
         console.log('connected to MongoDB')
         app.listen(3000, () => {
