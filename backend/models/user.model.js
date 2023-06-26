@@ -1,3 +1,5 @@
+const Skill = require('./skill.model')
+const Interest = require('./interest.model')
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema(
@@ -29,15 +31,17 @@ const userSchema = mongoose.Schema(
         },
         availability: {
             //to confirm how availability will look like
-            //maybe as a boolean to show when they are free (liked Linkedin)
+            //maybe as a boolean to show when they are free (like Linkedin)
             //or by months to show their availability
             
         },
-        interest: [{ //TODO: create a new collection
-            type: String
+        interest: [{ 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Interest'
         }],
-        skills: [{ //TODO: create a new collection
-            type: String
+        skills: [{ 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Skill'
         }],
         badges: [{ //TODO: create a new collection KIV
             type: String

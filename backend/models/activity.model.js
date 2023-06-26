@@ -1,3 +1,6 @@
+const Skill = require('./skill.model')
+const Interest = require('./interest.model')
+const VolunteerOrg = require('./volunteerOrg.model')
 const mongoose = require('mongoose')
 
 const activitySchema = mongoose.Schema(
@@ -8,14 +11,20 @@ const activitySchema = mongoose.Schema(
             required: true
         },
         requiredSkills: [{
-            type: Schema.Types.ObjectId, ref: 'skill'
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Skill'
         }],
         category: [{
-                type: Schema.Types.ObjectId, ref: 'interest'
+                type: mongoose.Schema.Types.ObjectId, 
+                ref: 'Interest'
         }],
         dates: [{
             //to confirm date type
         }],
+        organiser: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'VolunteerOrg'
+        },
         description: {
             type: String
         }

@@ -1,4 +1,3 @@
-const Activity = require('./activity.model')
 const mongoose = require('mongoose')
 
 
@@ -14,26 +13,10 @@ const volunteerOrgSchema = mongoose.Schema(
             required: true,
             match: /.+\@.+\..+/
         },
-        memberEmails: [
-            {
-                email: {
-                    type: String,
-                    required: true,
-                    unique: true,
-                    match: /.+\@.+\..+/
-                },
-                password: {
-                    type: String,
-                    required: true
-                }
-            }
-        ],
-        activities: [
-            {
-               type: mongoose.Schema.Types.ObjectId,
-               ref: 'Activity'
-            }
-        ],
+        password: {
+            type: String,
+            required: true
+        }
     },
     {
         timestamps: true
