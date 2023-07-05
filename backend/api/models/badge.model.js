@@ -1,4 +1,7 @@
-const VolunteerOrg = require('./volunteerOrg.model')
+// UPDATED: to check if we should make the interest enums within the user and activity
+// API TESTING:
+// VALIDATIONS:
+// TODO: 
 const mongoose = require('mongoose')
 
 const badgeSchema = mongoose.Schema(

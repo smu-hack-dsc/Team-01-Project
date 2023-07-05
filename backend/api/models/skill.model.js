@@ -1,3 +1,8 @@
+// UPDATED: to check if we should make the skills enum within the user and activity
+// API TESTING:
+// VALIDATIONS:
+// TODO: 
+
 const mongoose = require("mongoose");
 
 const skillSchema = mongoose.Schema({

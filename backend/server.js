@@ -1,32 +1,32 @@
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-require("dotenv").config()
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+require("dotenv").config();
 
-const userRouter = require('./routes/users')
-const activityRouter = require('./routes/activity')
-const volunteerOrgRouter = require('./routes/volunteerOrg')
-const signupRouter = require('./routes/signup')
+const userRouter = require('./api/routes/users');
+const activityRouter = require('./api/routes/activity');
+const signupRouter = require('./api/routes/signup');
+const memberRouter = require('./api/routes/member');
 
 app.use(express.json())
 
 //routes
-app.use('/user', userRouter)
-app.use('/flight', activityRouter)
-app.use('/volunteerOrg', volunteerOrgRouter)
-app.use('/signup', signupRouter)
+app.use('/user', userRouter);
+app.use('/activity', activityRouter);
+app.use('/signup', signupRouter);
+app.use('/member', memberRouter);
 
 app.get('/', (req, res) => {
-    res.send("hihi")
-})
+    res.send("hihi");
+});
 
-mongoose.set('strictQuery', false)
+mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_URL)
     .then(() => {
-        console.log('connected to MongoDB')
-        app.listen(3000, () => {
-            console.log('app running on port 3000')
+        console.log('connected to MongoDB');
+        app.listen(4001, () => {
+            console.log('app running on port 3000');
         })
     }).catch((error) => {
-        console.log(error)
+        console.log(error);
     })
