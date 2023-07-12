@@ -3,7 +3,7 @@ const {
     GetActivity, GetActivitiesAfterToday, GetActivitiesByVo,
     UpdateActivity,
     RemoveActivity
-} = require('../controllers/activity.controller');
+} = require('../service/activity.service');
 
 const { CREATED } = require('../../utils/constants');
 const { RemoveMember } = require('../service/member.service');
@@ -52,6 +52,7 @@ exports.create = async (req, res, next) => {
         return next(error);
     }
 }
+
 // Update an activity
 exports.update = async (req, res, next) => {
     try {

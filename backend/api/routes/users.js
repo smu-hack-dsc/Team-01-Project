@@ -6,6 +6,11 @@ const controller = require('../controllers/user.controller');
 //for authorizing user later on
 const { Authorize } = require('../../middleware/auth');
 
+// const passport = require('passport');
+// app.use(passport.initialize());
+// require('../../config/passport.config');
+// passport.use(initialize())
+
 // const {
 //   listUsers, createUser, replaceUser, updateUser,
 // } = require('../validations/user');
@@ -20,15 +25,14 @@ app.route('/')
     .get(controller.load) // PENDING
 
 app.route('/register')
-    .post(controller.create); // PENDING
+    .post(controller.create); // WORKING
 
-app.route('/profile')
-    .get(Authorize(), controller.loggedIn); // PENDING
+app.route('/login')
+    .post(controller.login); // WORKING
 
 app.route('/:userId')
-    .get(Authorize(LOGGED_IN), controller.get) // PENDING
-    .put(Authorize(LOGGED_IN), controller.update) // PENDING
-    .delete(Authorize(LOGGED_IN), controller.remove); // PENDING
-
+    .get(Authorize, controller.get) // WORKING
+    .put(Authorize, controller.update) // WORKING
+    .delete(Authorize, controller.remove); // WORKING
 
 module.exports = app;

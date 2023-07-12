@@ -10,7 +10,7 @@ app.route('/')
     .get(controller.load) // PENDING
     .post(controller.create); // PENDING
 
-app.router('/:signupId')
+app.route('/:signupId')
     .get(controller.get) // PENDING
     .put(controller.update) // PENDING
     .delete(controller.remove); // PENDING

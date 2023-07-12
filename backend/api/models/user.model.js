@@ -1,13 +1,15 @@
 // UPDATED: YES
-// API TESTING:
+// API TESTING: YES
 // VALIDATIONS:
 // TODO: 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const moment = require('moment');
+const jwt = require('jsonwebtoken');
 
 const APIError = require('../../utils/APIError');
 const {
-  ROLES, 
+  ROLES, SKILLS, INTERESTS, BADGES,
   NO_RECORD_FOUND, NOT_FOUND,
   BAD_REQUEST, VALIDATION_ERROR,
   INVALID_CREDENTIALS,
@@ -47,17 +49,17 @@ const userSchema = mongoose.Schema(
         },
 
         // these are fields that will be present only for users
-        interest: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Interest'
+        interests: [{
+            type: String, 
+            enum: INTERESTS
         }],
         skills: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Skill'
+            type: String,
+            enum: SKILLS
         }],
-        badges: [{ //TODO: create a new collection KIV
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Badge'
+        badges: [{
+            type: String,
+            enum: BADGES
         }],
 
         //  to determine if the user is a volunteer org or not
@@ -125,12 +127,12 @@ userSchema.method({
 
     // Create the token for jwt authentication
     token() {
-        const playload = {
-            exp: moment().add(process.env.ACCESS_TOKEN_SECRET, 'minutes').unix(),
-            iat: moment().unix(),
-            sub: this._id,
+        const payload = {
+            exp: moment().add(process.env.JWT_EXPIRATION_MINUTES, 'minutes').unix(), //expiration
+            iat: moment().unix(), //issued at
+            sub: this._id, //subject
         };
-        return jwt.sign(playload, process.env.ACCESS_TOKEN_SECRET);
+        return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
     },
 
     // Check the password using bcrypt because it was encrypted during the pre.save method
@@ -148,8 +150,7 @@ userSchema.statics = {
                 errorCode: NOT_FOUND,
             });
         }
-
-        const user = await this.findById(id).exec();
+        const user = await this.findById(id);
         if (!user) throw new APIError({ message: NO_RECORD_FOUND, errorCode: NOT_FOUND });
         return user;
     },
@@ -157,8 +158,9 @@ userSchema.statics = {
     // Validate the user's email and password
     // And generate a JWT token
     async ValidateUserAndGenerateToken(options) {
-        const { email, password } = options;
-        const user = await this.findOne({ email }).exec();
+        const email = options.email;
+        const password = options.password;
+        const user = await this.findOne({ email: email });
         if (!user) {
             throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
         }

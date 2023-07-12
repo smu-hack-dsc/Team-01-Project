@@ -1,8 +1,14 @@
 const User = require('../models/user.model')
 
-// for getting the login user's info
-//TODO: figure out where this is from
-exports.LoginUserInfo = (req, res) => res.json(req.user.transform());
+// for getting the jwt token when the user logins
+exports.LoginUserInfo = async (options) => {
+    try {
+        const { user, accessToken } = await User.ValidateUserAndGenerateToken(options);
+        return { user, accessToken };
+    } catch (err) {
+        throw User.checkDuplication(err);
+    }
+}
 
 // Create user account
 exports.CreateUser = async (userData) => {
@@ -35,6 +41,6 @@ exports.UpdateUser = async (user, newData) => {
 
 // Remove user account
 exports.RemoveUser = async (user) => {
-    user.remove();
+    user.deleteOne();
 };
 

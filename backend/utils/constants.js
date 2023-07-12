@@ -15,6 +15,10 @@ module.exports = {
     LOGGED_IN: 'logged_in',
     ROLES: ['user', 'volunteerOrg'],
     SKILLS: ['english', 'chinese', 'malay', 'hindi', 'teaching', 'caregiving', 'cooking', 'driving'],
+    INTERESTS: ['elderly', ' environment', 'children', 'tutoring', 'animals', ''],
+    BADGES: ["Completed 10 Hours", "Completed 20 Hours", "Completed 30 Hours", "Completed 40 Hours", "Completed 50 Hours", 
+            "Completed 60 Hours", " Completed 70 Hours", "Completed 80 Hours", "Completed 90 Hours", "Completed 100 Hours", 
+            "Completed 150 Hours", "Completed 200 Hours"],
 
     //Messages
     NO_RECORD_FOUND: 'No record found for given details',

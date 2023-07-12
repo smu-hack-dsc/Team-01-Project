@@ -9,6 +9,7 @@ const signupRouter = require('./api/routes/signup');
 const memberRouter = require('./api/routes/member');
 
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 //routes
 app.use('/user', userRouter);
@@ -25,7 +26,7 @@ mongoose.connect(process.env.DB_URL)
     .then(() => {
         console.log('connected to MongoDB');
         app.listen(4001, () => {
-            console.log('app running on port 3000');
+            console.log('app running on port 4001');
         })
     }).catch((error) => {
         console.log(error);

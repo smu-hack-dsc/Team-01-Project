@@ -28,7 +28,7 @@ const memberSchema = mongoose.Schema(
     }
 );
 
-signupSchema.index({user: 1, volunteerOrg: 1}, {unique: true, name: 'member_pri_key'});
+memberSchema.index({user: 1, volunteerOrg: 1}, {unique: true, name: 'member_pri_key'});
 
 // Pre-save hook to ensure that the user is different from the VO
 //TODO: check if this should be parked under bizlogic or a presave hook

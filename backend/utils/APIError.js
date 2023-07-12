@@ -1,6 +1,7 @@
 class APIError extends Error {
-    constructor(message, errorCode) {
+    // TODO: FIX THE CONSTRUCTOR
+    constructor({message, errorCode}) {
         super(message);
         this.errorCode = error
-    }
+    };
 }

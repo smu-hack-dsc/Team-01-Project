@@ -1,6 +1,6 @@
 const {
   CreateUser,
-  GetUser,
+  GetUser, LoginUserInfo, 
   UpdateUser,
   RemoveUser
 } = require('../service/user.service');
@@ -19,7 +19,16 @@ exports.load = async (req, res, next, id) => {
 exports.get = (req, res) => res.json({ data: req.locals.user.transform(), success: 'SUCCESS' });
 
 // Get information of the logged in user 
-exports.loggedIn = (req, res) => res.json({ data: req.user.transform(), success: 'SUCCESS' });
+exports.login = async (req, res, next) => {
+  try {
+    const {user, accessToken} = await LoginUserInfo(req.body);
+    // console.log({user: user, accessToken: accessToken});
+    res.json({ data: user, token: accessToken, success: 'SUCCESS' });
+  } catch (error) {
+    return next(error);
+  }
+
+}
 
 // Create a user 
 exports.create = async (req, res, next) => {

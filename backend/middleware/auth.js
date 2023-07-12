@@ -1,34 +1,20 @@
-const passport = require('passport');
-
 const {
-    UNAUTHORIZED, LOGGED_IN, FORBIDDEN,
-  } = require('../utils/constants');
-  const APIError = require('../utils/APIError');
-  
-  const handleJWT = (req, res, next, roles) => async (err, user, info) => {
-    const error = err || info;
-  
-    const apiError = new APIError({
-      message: error ? error.message : 'Unauthorized',
-      errorCode: UNAUTHORIZED,
-    });
+  UNAUTHORIZED, LOGGED_IN, FORBIDDEN,
+} = require('../utils/constants');
+const APIError = require('../utils/APIError');
 
-    if (err || !user) {
-      return next(apiError);
-    } 
-  
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config()
+
+exports.Authorize = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(UNAUTHORIZED);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(FORBIDDEN);
     req.user = user;
-  
-    return next();
-  };
-
-
-// TODO: solve the bug 
-passport.initialize();    
-exports.Authorize = (roles) => (req, res, next) => {
-    passport.authenticate('jwt', { session: false }, handleJWT(req, res, next))(
-      req,
-      res,
-      next,
-      roles
-    );};
+    next();
+  });
+};
