@@ -24,6 +24,16 @@ exports.CreateUser = async (userData) => {
 // Get user by id
 exports.GetUser = async (id) => User.get(id);
 
+exports.LogoutUser = async(payload) => {
+    try {
+        User.unauthorize(payload);
+        next();
+    } catch (err) {
+        throw User.checkDuplication(err);
+    }
+
+}
+
 // Update user information
 exports.UpdateUser = async (user, newData) => {
     try {

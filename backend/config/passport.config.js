@@ -7,27 +7,18 @@ const passport = require('passport')
 
 require('dotenv').config()
 
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT');
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('Bearer');
 opts.secretOrKey = process.env.ACCESS_TOKEN_SECRET;
 
-// passport.use('jwt', new JwtStrategy(opts, (jwt_payload, done) => done(null, jwt_payload)));
 
 passport.use(new JwtStrategy(opts, async (jwtPayload, done) => {
-	console.log({jwtPayload: jwtPayload});
 	try {
-		const user = await models.user.findOne({
-			where: {
-				email: jwtPayload.email,
-			},
-		});
-
+		const user = await User.findById(jwtPayload.sub);
 		if (user) {
 			return done(null, user);
 		}
-
 		return done(null, false);
 	} catch (e) {
-		console.log({error: e});
 		done(e);
 	}
 }));

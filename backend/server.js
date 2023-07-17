@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const swagger = require('./utils/swagger');
 require("dotenv").config();
 
 const userRouter = require('./api/routes/users');
@@ -10,6 +11,7 @@ const memberRouter = require('./api/routes/member');
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(swagger);
 
 //routes
 app.use('/user', userRouter);
@@ -27,6 +29,7 @@ mongoose.connect(process.env.DB_URL)
         console.log('connected to MongoDB');
         app.listen(4001, () => {
             console.log('app running on port 4001');
+            console.log(`Docs available at http://localhost:4001/api-docs`);
         })
     }).catch((error) => {
         console.log(error);

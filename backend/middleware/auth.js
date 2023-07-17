@@ -1,20 +1,45 @@
 const {
-  UNAUTHORIZED, LOGGED_IN, FORBIDDEN,
+  UNAUTHORIZED, FORBIDDEN, ROLES, USER, VOLUNTEERORG, LOGGED_IN
 } = require('../utils/constants');
 const APIError = require('../utils/APIError');
 
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+const passport = require('passport');
+require('../config/passport.config')
 
 require('dotenv').config()
 
-exports.Authorize = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (token == null) return res.sendStatus(UNAUTHORIZED);
+const handleJWT = (req, res, next, roles) => async (err, user, info) => {
+  const error = err || info;
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(FORBIDDEN);
-    req.user = user;
-    next();
+  const apiError = new APIError({
+    message: error ? error.message : 'Unauthorized',
+    status: UNAUTHORIZED,
+    stack: error ? error.stack : undefined,
   });
+  if (err || !user) {
+    return next(apiError);
+  }
+
+  console.log({user: user});
+
+  if (roles === LOGGED_IN) {
+    if (user.role !== VOLUNTEERORG) {
+      apiError.status = FORBIDDEN;
+      apiError.message = 'Forbidden';
+      return next(apiError);
+    }
+  } else if (!roles.includes(user.role)) {
+    apiError.status = FORBIDDEN;
+    apiError.message = 'Forbidden by missing';
+    return next(apiError);
+  }
+
+  req.user = user;
+
+  return next();
 };
+
+exports.Authorize = (roles = ROLES) => (req, res, next) => passport.authenticate('jwt',
+  { session: false },
+  handleJWT(req, res, next, roles))(req, res, next);

@@ -2,24 +2,26 @@ const app = require('express').Router();
 
 const controller = require('../controllers/signup.controller');
 
+const { Authorize } = require('../../middleware/auth');
+
 // anytime that the parameter of the url has the signupId,
 // then it will have the controller.load method execute first
 app.param('signupId', controller.load); // PENDING
 
 app.route('/')
-    .get(controller.load) // PENDING
-    .post(controller.create); // PENDING
+    .get(Authorize, controller.load) // PENDING
+    .post(Authorize, controller.create); // PENDING
 
 app.route('/:signupId')
-    .get(controller.get) // PENDING
-    .put(controller.update) // PENDING
-    .delete(controller.remove); // PENDING
+    .get(Authorize, controller.get) // PENDING
+    .put(Authorize, controller.update) // PENDING
+    .delete(Authorize, controller.remove); // PENDING
 
 app.route('/user')
-    .get(controller.getUnderUser); // PENDING
+    .get(Authorize, controller.getUnderUser); // PENDING
 
 //TODO: check if we want to easily update all the user's acceptance/ volunteerhours/ completion
 app.route('/activity')
-    .get(controller.getUnderActivity); // PENDING
+    .get(Authorize, controller.getUnderActivity); // PENDING
 
 module.exports = app;

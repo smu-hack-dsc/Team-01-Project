@@ -17,10 +17,13 @@ exports.GetActivity = async (id) => Activity.get(id);
 exports.GetActivitiesAfterToday = async (req) => {
     try {
     const today = new Date();
-    const activities = await Activity.find({ beginDate: { $gte: today } });
-    return activities.transform();
+    const activities = await Activity.find({ endDate: { $gte: today } });
+    activities.forEach(activity => {
+        activity.transform();
+    });
+    return activities;
     } catch (err) {
-        throw Member.checkDuplication(err);
+        throw Activity.checkDuplication(err);
     }
 };
 
@@ -49,5 +52,5 @@ exports.UpdateActivity = async (activity, newData) => {
 
 // Delete
 exports.RemoveActivity = async (activity) => {
-    activity.remove();
+    activity.deleteOne();
 };

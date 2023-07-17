@@ -20,7 +20,7 @@ exports.load = async (req, res, next, id) => {
 exports.get = async (req, res) => res.json({ data: req.locals.activity.transform(), success: 'SUCCESS' });
 
 // Return information of all the activities after today
-exports.getAfterToday = async (req, res) => {
+exports.getAfterToday = async (req, res, next) => {
     try {
         const response = await GetActivitiesAfterToday(req);
         return res.json({ data: response, success: 'SUCCESS' });
@@ -30,7 +30,7 @@ exports.getAfterToday = async (req, res) => {
 }
 
 // Return informaiton of all the activities under the VO
-exports.getByVO = async (req, res) => {
+exports.getByVO = async (req, res, next) => {
     try {
         const voId = req.params;
         const response = await GetActivitiesByVo(voId);
@@ -46,7 +46,15 @@ exports.getByVO = async (req, res) => {
 // Create activity
 exports.create = async (req, res, next) => {
     try {
-        const response = await CreateActivity(req.body);
+        console.log({user: req.user});
+        const response = await CreateActivity({activityName: req.body.activityName, 
+                                                requiredSkills: req.body.requiredSkills,
+                                                categories: req.body.categories,
+                                                beginDate: req.body.beginDate,
+                                                endDate: req.body.endDate,
+                                                organiserId: req.user.id,
+                                                description: req.body.description
+                                                });
         return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);

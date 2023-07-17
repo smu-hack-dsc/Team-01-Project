@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 const APIError = require('../../utils/APIError');
 const {
+    SKILLS, INTERESTS,
     NO_RECORD_FOUND, NOT_FOUND,
     BAD_REQUEST, VALIDATION_ERROR,
     USER_REGISTERED, USER_VO_MEMBER
@@ -20,12 +21,12 @@ const activitySchema = mongoose.Schema(
             required: true
         },
         requiredSkills: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Skill'
+            type: String,
+            enum: SKILLS
         }],
-        category: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Interest'
+        categories: [{
+            type: String, 
+            enum: INTERESTS
         }],
         beginDate: {
             type: Date,
@@ -58,7 +59,7 @@ activitySchema.method({
         const transformed = {};
         const fields = ['activityName', 'requiredSkills', 'category', 'beginDate', 'endDate', 'organiserId', 'description'];
         fields.forEach((field) => {
-            transformed[field] = User.findOne({id: this[field]});
+            transformed[field] = this[field];
         });
 
         return transformed;

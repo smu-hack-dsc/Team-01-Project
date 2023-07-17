@@ -2,20 +2,31 @@ const app = require('express').Router();
 
 const controller = require('../controllers/member.controller');
 
+const { Authorize } = require('../../middleware/auth');
+
 //TODO: check if there is a need to load this 
 
+const checkRole = (req, res, next) => {
+    // const user = req.user;
+    const role = req.user.role;
+    if (role !== 'volunteerOrg') {
+        return next(err);
+    } else {
+        return next(user);
+    }
+}
+
 app.route('/')
-    .post(controller.create); // PENDING
+    .post(Authorize, controller.create); // PENDING
 
 app.route('/:memberId')
-    .get(controller.get) // PENDING
-    .delete(controller.remove); // PENDING
+    .get(Authorize, controller.get) // PENDING
+    .delete(Authorize, checkRole, controller.remove); // PENDING
 
 app.route('/user')
-    .get(controller.getUnderUser); // PENDING
+    .get(Authorize, controller.getUnderUser); // PENDING
 
-//TODO: check if we want to easily update all the user's acceptance/ volunteerhours/ completion
-app.route('/activity')
-    .get(controller.getUnderVO); // PENDING
+app.route('/vo')
+    .get(Authorize, controller.getUnderVO); // PENDING
 
 module.exports = app;
