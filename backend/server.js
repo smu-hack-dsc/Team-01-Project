@@ -7,7 +7,7 @@ require("dotenv").config();
 const userRouter = require('./api/routes/users');
 const activityRouter = require('./api/routes/activity');
 const signupRouter = require('./api/routes/signup');
-const memberRouter = require('./api/routes/member');
+// const memberRouter = require('./api/routes/member');
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -17,7 +17,7 @@ app.use(swagger);
 app.use('/user', userRouter);
 app.use('/activity', activityRouter);
 app.use('/signup', signupRouter);
-app.use('/member', memberRouter);
+// app.use('/member', memberRouter);
 
 app.get('/', (req, res) => {
     res.send("hihi");

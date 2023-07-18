@@ -3,7 +3,7 @@ const {
     GetSignup, GetByUser, GetByActivity,
     UpdateSignup,
     RemoveSignup
-} = require('../service/user.service');
+} = require('../service/signup.service');
 
 const { CREATED } = require('../../utils/constants');
 
@@ -18,9 +18,9 @@ exports.load = async (req, res, next, id) => {
 exports.get = (req, res) => res.json({ data: req.locals.signup.transform(), success: 'SUCCESS' });
 
 // Return information of signups under a user
-exports.getUnderUser = async (req, res) => {
+exports.getUnderUser = async (req, res, next) => {
     try {
-        const response = await GetByUser(req.body.userId);
+        const response = await GetByUser(req.user);
         return res.json({data: response, success: 'SUCCESS'});
     } catch (error) {
         return next(error);
@@ -28,7 +28,7 @@ exports.getUnderUser = async (req, res) => {
 };
 
 // Return information of signups under an activity
-exports.getUnderActivity = async (req, res) => {
+exports.getUnderActivity = async (req, res, next) => {
     try {
         const response = await GetByActivity(req.body.activityId);
         return res.json({data: response, success: 'SUCCESS'});
@@ -40,7 +40,7 @@ exports.getUnderActivity = async (req, res) => {
 // Create a signup 
 exports.create = async (req, res, next) => {
     try {
-        const response = await CreateSignup(req.body);
+        const response = await CreateSignup({userId: req.user.id, activityId: req.body.activityId});
         return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);
@@ -51,8 +51,8 @@ exports.create = async (req, res, next) => {
 // Update user info 
 exports.update = async (req, res, next) => {
     try {
-        const { user } = req.locals;
-        const response = await UpdateUser(user, req.body);
+        const { signup } = req.locals;
+        const response = await UpdateSignup(signup, req.body);
         return res.json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);

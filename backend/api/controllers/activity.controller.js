@@ -24,7 +24,6 @@ exports.get = async (req, res) => res.json({ data: req.locals.activity.transform
 exports.getAfterToday = async (req, res, next) => {
     try {
         const response = await GetActivitiesAfterToday(req);
-        console.log({response: response});
         return res.json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);

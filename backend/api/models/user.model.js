@@ -117,7 +117,7 @@ userSchema.method({
     // Format for all user returns: id, name, email and role
     transform() {
         const transformed = {};
-        const fields = ['id', 'name', 'email', 'role'];
+        const fields = ['id', 'name', 'email', 'role', 'skills', 'interests'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });
