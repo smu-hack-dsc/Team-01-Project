@@ -2,6 +2,7 @@ const {
     CreateActivity,
     GetActivity, GetActivitiesAfterToday, GetActivitiesByVo,
     UpdateActivity,
+    MatchByFilters,
     RemoveActivity
 } = require('../service/activity.service');
 
@@ -23,6 +24,7 @@ exports.get = async (req, res) => res.json({ data: req.locals.activity.transform
 exports.getAfterToday = async (req, res, next) => {
     try {
         const response = await GetActivitiesAfterToday(req);
+        console.log({response: response});
         return res.json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);
@@ -32,8 +34,8 @@ exports.getAfterToday = async (req, res, next) => {
 // Return informaiton of all the activities under the VO
 exports.getByVO = async (req, res, next) => {
     try {
-        const voId = req.params;
-        const response = await GetActivitiesByVo(voId);
+        const organiserId = req.params.organiserId;
+        const response = await GetActivitiesByVo(organiserId);
         return res.json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);
@@ -46,7 +48,6 @@ exports.getByVO = async (req, res, next) => {
 // Create activity
 exports.create = async (req, res, next) => {
     try {
-        console.log({user: req.user});
         const response = await CreateActivity({activityName: req.body.activityName, 
                                                 requiredSkills: req.body.requiredSkills,
                                                 categories: req.body.categories,
@@ -71,6 +72,39 @@ exports.update = async (req, res, next) => {
         return next(error);
     }
 };
+
+// Filter by skills required for the user
+exports.filterUserSkills = async (req, res, next) => {
+    try {
+        const user = req.user;
+
+        const response = await MatchActivitiesBySkills(user.skills);
+        return res.json({data: response, success: 'SUCCESS'});
+    } catch (error) {
+        return next(error);
+    }
+}
+
+// Filter the shown activities by the user's interests
+exports.filterUserInterests = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const response = await MatchActivitiesByInterests(user.interests);
+        return res.json({data: response, success: 'SUCCESS'});
+    } catch (error) {
+        return next(error);
+    }
+}
+
+exports.filterFunc = async (req, res, next) => {
+    try {
+        const filterOptions = req.body;
+        const response = await MatchByFilters(filterOptions);
+        return res.json({data: response, success: 'SUCCESS'});
+    } catch (error) {
+        return next(error);
+    }
+}
 
 // Delete an activity
 exports.remove = async (req, res, next) => {

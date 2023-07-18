@@ -1,7 +1,10 @@
+const APIError = require('../../utils/APIError');
 const Activity = require('../models/activity.model');
 
+const mongoose = require("mongoose");
+
 // Create
-exports.CreateActivity = async(activityData) => {
+exports.CreateActivity = async (activityData) => {
     try {
         const activity = new Activity(activityData);
         const saved = await activity.save();
@@ -16,27 +19,71 @@ exports.GetActivity = async (id) => Activity.get(id);
 
 exports.GetActivitiesAfterToday = async (req) => {
     try {
-    const today = new Date();
-    const activities = await Activity.find({ endDate: { $gte: today } });
-    activities.forEach(activity => {
-        activity.transform();
-    });
-    return activities;
+        const today = new Date();
+        const activities = await Activity.find({
+            endDate: { $gte: today },
+            $expr: {
+                $and: [
+                    { $setIsSubset: ["$requiredSkills", req.user.skills] },
+                    { $setIsSubset: ["$categories", req.user.interests] }
+                ]
+            }
+        });
+        activities.forEach(activity => {
+            activity.transform();
+        });
+        return activities;
     } catch (err) {
         throw Activity.checkDuplication(err);
     }
 };
 
-exports.GetActivitiesByVo = async (voId) => {
+exports.GetActivitiesByVo = async (organiserId) => {
     try {
-        const activities = await Activity.find({organiserId: voId});
-        return activities.transform();
+        const organiserIdString = new mongoose.Types.ObjectId(organiserId);
+        const activities = await Activity.find({ organiserId: organiserIdString });
+        activities.forEach(activity => {
+            activity.transform();
+        });
+        return activities;
     } catch (err) {
         throw Activity.checkDuplication(err);
     }
 };
 
-//TODO: include searching by skills and categories
+exports.MatchByFilters = async (options) => {
+    const { date, skills, categories } = options;
+    if (date == undefined) {
+        const activities = await Activity.find({
+            endDate: { $gte: new Date() },
+            $expr: {
+                $and: [
+                    { $setIsSubset: ["$requiredSkills", skills] },
+                    { $setIsSubset: ["$categories", categories] }
+                ]
+            }
+        });
+        activities.forEach(activity => {
+            activity.transform();
+        });
+        return activities;
+    } else {
+        const activities = await Activity.find({
+            endDate: { $gte: date },
+            $expr: {
+                $and: [
+                    { $setIsSubset: ["$requiredSkills", skills] },
+                    { $setIsSubset: ["$categories", categories] }
+                ]
+            }
+        });
+        activities.forEach(activity => {
+            activity.transform();
+        });
+        return activities;
+    }
+}
+
 
 
 // Update

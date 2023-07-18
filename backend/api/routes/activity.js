@@ -20,12 +20,14 @@ app.route('/')
 app.route('/:activityId')
     .get(Authorize(), controller.get) // WORKING
     .put(Authorize(LOGGED_IN), controller.update) // WORKING
-    .delete(Authorize(LOGGED_IN), controller.remove); // PENDING
+    .delete(Authorize(LOGGED_IN), controller.remove); // WORKING
 
-app.route('/vo/:voId')
-    .get(Authorize(), controller.getByVO) // PENDING
+// For filtering by the volunteerOrg in charge
+app.route('/vo/:organiserId')
+    .get(Authorize(), controller.getByVO) // WORKING
 
-//TODO: figure out how to properly filter the options
-// app.route('/filterDate')
+// For filtering by chosen filters
+app.route('/filter')
+    .post(Authorize(), controller.filterFunc); // WORKING
 
 module.exports = app;

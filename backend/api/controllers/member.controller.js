@@ -6,10 +6,6 @@ const {
 
 const { CREATED } = require('../../utils/constants');
 
-// TODO: check how to load information on level of authority to 
-//       change the signup information as a member instead of as 
-//       a volunteer user
-
 // Return information of the membership using the id
 exports.get = async (req, res) => {
     try {

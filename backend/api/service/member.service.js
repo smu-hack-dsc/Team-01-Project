@@ -3,7 +3,10 @@ const Member = require('../models/member.model');
 // Create a membership
 exports.CreateMember = async (memberData) => {
     try {
-        const member = new Member(memberData);
+        
+        const user = new mongoose.Types.ObjectId(memberData.user);        
+        const volunteerOrg = new mongoose.Types.ObjectId(memberData.volunteerOrg);
+        const member = new Member({user, volunteerOrg});
         const saved = await member.save();
         return saved.transform();
     } catch (err) {
@@ -11,17 +14,18 @@ exports.CreateMember = async (memberData) => {
     }
 }
 
-//TODO: discuss if this is redundant because no extra information is kept here
-//      there is a possibility that you will readjust the jwt token to give this 
-//      user certain new permissions that allows them to edit the signups
 // Get membership by membership id
 exports.GetMembership = async(id) => Member.get(id);
 
 // Get membership by user id
 exports.GetByUser = async(userId) => {
     try {
-        const userMembership = await Member.find({user: userId});
-        return userMembership.transform();
+        const userMemberships = await Member.find({user: userId});
+        
+        userMemberships.forEach(userMembership => {
+            userMembership.transform();
+        });
+        return userMemberships;
     } catch (err) {
         throw Member.checkDuplication(err);
     }
@@ -31,7 +35,10 @@ exports.GetByUser = async(userId) => {
 exports.GetByVO = async(voId) => {
     try {
         const voMembers = await Member.find({volunteerOrg: voId});
-        return voMembers.transform();
+        voMembers.forEach(voMember => {
+            voMember.transform();
+        });
+        return voMembers;
     } catch (err) {
         throw Member.checkDuplication(err);
     }
@@ -41,6 +48,3 @@ exports.GetByVO = async(voId) => {
 exports.RemoveMember = async(member) => {
     member.remove();
 };
-
-// Note: there is no Update here because no additional information about
-//      a user's membership with a VO is required to be recorded

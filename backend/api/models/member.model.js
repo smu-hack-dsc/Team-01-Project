@@ -1,5 +1,5 @@
 // UPDATED: YES
-// API TESTING:
+// API TESTING: CHECK IF WE STILL NEED TO GET THIS DONE
 // VALIDATIONS:
 // TODO: 
 const mongoose = require('mongoose');

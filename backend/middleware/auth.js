@@ -20,9 +20,7 @@ const handleJWT = (req, res, next, roles) => async (err, user, info) => {
   if (err || !user) {
     return next(apiError);
   }
-
-  console.log({user: user});
-
+  
   if (roles === LOGGED_IN) {
     if (user.role !== VOLUNTEERORG) {
       apiError.status = FORBIDDEN;
