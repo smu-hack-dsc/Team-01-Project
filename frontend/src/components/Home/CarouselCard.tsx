@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import { Button } from 'components/Button';
-import Project from 'resources/img/Project.png';
+import { Button } from 'components/shared/Button';
+// import Project from '/../resources/img/Project.png';
 
 const CarouselCard = () => (
   <div
@@ -14,7 +14,7 @@ const CarouselCard = () => (
       background: #F5F5F7;
     `}
   >
-    <img src={Project} alt="Project"
+    <img src={"/resources/img/Project.png"} alt="Project"
       className={css`
         width: 100%;
         height: 187px;
