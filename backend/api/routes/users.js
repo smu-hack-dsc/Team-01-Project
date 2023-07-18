@@ -13,7 +13,7 @@ require('../../config/passport.config');
 //   listUsers, createUser, replaceUser, updateUser,
 // } = require('../validations/user');
 
-const { LOGGED_IN, USER, VOLUNTEERORG } = require('../../utils/constants');
+const { USER, VOLUNTEERORG } = require('../../utils/constants');
 
 // anytime that the parameter of the url has the userId, 
 // then it will have the controller.load method execute first
@@ -30,8 +30,8 @@ app.route('/login')
     .post(controller.login); // WORKING
     
 app.route('/:userId')
-    .get(Authorize(), controller.get) // WORKING
-    .put(Authorize(), controller.update) // WORKING
-    .delete(Authorize(), controller.remove); // WORKING
+    .get(Authorize(USER), controller.get) // WORKING
+    .put(Authorize(USER), controller.update) // WORKING
+    .delete(Authorize(USER), controller.remove); // WORKING
 
 module.exports = app;

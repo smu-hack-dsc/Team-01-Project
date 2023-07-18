@@ -2,11 +2,7 @@ const app = require('express').Router();
 
 const controller = require('../controllers/activity.controller');
 
-const {
-    VALIDATION_ERROR,
-    FORBIDDEN,
-    LOGGED_IN
-} = require('../../utils/constants');
+const { VOLUNTEERORG, USER } = require('../../utils/constants');
 
 const { Authorize } = require('../../middleware/auth');
 
@@ -15,12 +11,12 @@ app.param('activityId', controller.load); // PENDING
 
 app.route('/')
     .get(Authorize(), controller.getAfterToday) // WORKING
-    .post(Authorize(LOGGED_IN), controller.create); // WORKING
+    .post(Authorize(VOLUNTEERORG), controller.create); // WORKING
 
 app.route('/:activityId')
     .get(Authorize(), controller.get) // WORKING
-    .put(Authorize(LOGGED_IN), controller.update) // WORKING
-    .delete(Authorize(LOGGED_IN), controller.remove); // WORKING
+    .put(Authorize(VOLUNTEERORG), controller.update) // WORKING
+    .delete(Authorize(VOLUNTEERORG), controller.remove); // WORKING
 
 // For filtering by the volunteerOrg in charge
 app.route('/vo/:organiserId')

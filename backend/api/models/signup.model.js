@@ -16,11 +16,13 @@ const signupSchema = mongoose.Schema(
     {
         activity: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Activity'
+            ref: 'Activity',
+            required: true,
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true,
         },
         userDetails:{
             acceptanceIndication: {
@@ -37,9 +39,6 @@ const signupSchema = mongoose.Schema(
             },
             rating: {
                 type: Number
-            },
-            review: {
-                type: String
             }
         }
     },

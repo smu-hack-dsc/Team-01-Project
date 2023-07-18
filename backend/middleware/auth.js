@@ -20,9 +20,15 @@ const handleJWT = (req, res, next, roles) => async (err, user, info) => {
   if (err || !user) {
     return next(apiError);
   }
-  
-  if (roles === LOGGED_IN) {
+
+  if (roles === VOLUNTEERORG) {
     if (user.role !== VOLUNTEERORG) {
+      apiError.status = FORBIDDEN;
+      apiError.message = 'Forbidden';
+      return next(apiError);
+    }
+  } else if (roles === USER) {
+    if (user.role !== USER) {
       apiError.status = FORBIDDEN;
       apiError.message = 'Forbidden';
       return next(apiError);

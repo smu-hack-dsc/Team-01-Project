@@ -1,9 +1,13 @@
+const APIError = require('../../utils/APIError');
+const { VALIDATION_ERROR, BAD_REQUEST } = require('../../utils/constants');
 const Signup = require('../models/signup.model');
 
 // Create a signup
 exports.CreateSignup = async (signupData) => {
     try {
-        const signup = new Signup(signupData);
+        const user = new mongoose.Types.ObjectId(signupData.userId);
+        const activity = new mongoose.Types.ObjectId(signupData.activityId);
+        const signup = new Signup({user, activity});
         const saved = await signup.save();
         return saved.transform();
 
@@ -18,8 +22,12 @@ exports.GetSignup = async(id) => Signup.get(id);
 // Get signup by the user id provided (giving back all the activities that user signed up for)
 exports.GetByUser = async(userId) => {
     try {
-    const userSignups = await Signup.find({user: userId});
-    return userSignups.transform();
+        const userIdString = new mongoose.Types.ObjectId(userId);
+    const userSignups = await Signup.find({user: userIdString});
+    userSignups.forEach(userSignup => {
+        userSignup.transform();
+    });
+    return userSignups;
     } catch (err) {
         throw Signup.checkDuplication(err);
     }
@@ -28,8 +36,12 @@ exports.GetByUser = async(userId) => {
 // Get signup by the activity id provided (giving back all the users that signedup for the activity)
 exports.GetByActivity = async(activityId) => {
     try {
-        const activitySignups = await Signup.find({activity: activityId});
-        return activitySignups.transform();
+        const activityIdString = new mongoose.Types.ObjectId(activityId);
+        const activitySignups = await Signup.find({activity: activityIdString});
+        activitySignups.forEach(activitySignup => {
+            activitySignup.transform();
+        });
+        return activitySignups;
     } catch (err) {
         throw Signup.checkDuplication(err);
     }
@@ -43,20 +55,10 @@ exports.UpdateSignup = async(signup, newData) => {
         // To ensure that only when the user is accepted then the rest of the information can be changed
         const {userDetails} = newData.userDetails;
         if (!userDetails.acceptanceIndication) {
-            userDetails.hoursCompleted = 0;
-            userDetails.completionIndication = false;
-            userDetails.rating = null;
-            userDetails.review = null;
-        } 
-        // Same for only when completed then the user can rate and review
-        if (!userDetails.completionIndication) {
-            userDetails.rating = null;
-            userDetails.review = null;
+            throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
+        } else if (!userDetails.completionIndication) {
+            throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
         }
-
-        const editedSignup = new Signup({activity: newData.activity, 
-            user: newData.user,
-            userDetails: userDetails});
         
         const updataData = Object.assign(signup, editedSignup);
 
