@@ -1,11 +1,80 @@
-import NavBar from 'components/NavBar.jsx';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from './components/Home/Home';
+import Projects from './components/NavBar/Projects';
+import Community from './components/NavBar/Community';
+import Profile from 'components/NavBar/Profile';
+import './components/NavBar/NavBar.css'; // Import a CSS file for styling
 
 function App() {
+
+  const [activeItem, setActiveItem] = useState<string>('home');
+
+  const handleItemClick = (item: string) => {
+    setActiveItem(item);
+  };
+
   return (
-    <div className="App">
-      <NavBar />
-    </div>
+    <Router>
+      <nav className="navbar">
+        <ul className="navbar-list">
+          <li className="navbar-item">
+            <Link
+              to="/"
+              className={`navbar-link ${activeItem === 'home' ? 'active' : ''}`}
+              onClick={() => handleItemClick('home')}
+            >
+              Home
+            </Link>
+          </li>
+          <li className="navbar-item">
+            <Link
+              to="/projects"
+              className={`navbar-link ${activeItem === 'projects' ? 'active' : ''}`}
+              onClick={() => handleItemClick('projects')}
+            >
+              Projects
+            </Link>
+          </li>
+          <li className="navbar-item">
+            <Link
+              to="/community"
+              className={`navbar-link ${activeItem === 'community' ? 'active' : ''}`}
+              onClick={() => handleItemClick('community')}
+            >
+              Community
+            </Link>
+          </li>
+          <li className="navbar-item" style={{ marginLeft: '100px', marginRight: '25px'}}>
+            <Link
+              to="/profile"
+              className={`navbar-link ${activeItem === 'profile' ? 'active' : ''}`}
+              onClick={() => handleItemClick('profile')}
+            >
+              Profile
+            </Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/projects" Component={Projects} />
+        <Route path="/community" Component={Community} />
+        <Route path="/profile" Component={Profile} />
+      </Routes>
+
+    </Router>
   );
 }
 
-export default App;
+// import NavBar from 'components/NavBar.jsx';
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <NavBar />
+//     </div>
+//   );
+// }
+
+// export default App;
