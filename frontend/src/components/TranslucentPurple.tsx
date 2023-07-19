@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
-import FooterImg from 'resources/img/FooterImg.png';
-import { Button } from 'components/shared/Button';
+// import FooterImg from 'resources/img/FooterImg.png';
+import { Button } from 'components/Button';
 const TranslucentPurple = () => (
   <div
     className={css`
@@ -28,7 +28,7 @@ const TranslucentPurple = () => (
         `}
       ></div>
       <img
-        src={FooterImg}
+        src={require("../resources/img/FooterImg.png")}
         alt="FooterImg"
         className={css`
           width: 1514px;

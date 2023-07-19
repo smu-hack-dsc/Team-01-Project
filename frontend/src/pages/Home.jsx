@@ -1,10 +1,9 @@
 import { css } from '@emotion/css';
-import { Button } from 'components/shared/Button';
-import { ClickableImage } from 'components/Home/ClickableImage';
-import Billboard from 'resources/img/Billboard.png';
-import { Carousel } from 'components/Home/Carousel';
-import { EclipseBckgrnd } from 'components/Home/EclipseBckgrnd';
-import { TranslucentPurple } from 'components/Home/TranslucentPurple';
+import { Button } from 'components/Button';
+import { ClickableImage } from 'components/ClickableImage';
+import { Carousel } from 'components/Carousel';
+import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
+import { TranslucentPurple } from 'components/TranslucentPurple';
 
 function Home() {
   return (
@@ -17,7 +16,7 @@ function Home() {
         flex-shrink: 0;
       `}>
         <img
-          src={Billboard}
+          src={require("../resources/img/Billboard.png")}
           alt="Billboard"
           className={css`
           width: 100%;

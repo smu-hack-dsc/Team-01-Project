@@ -1,10 +1,5 @@
 import { css } from '@emotion/css';
-import EclipseTopLeft from 'resources/img/EclipseTopLeft.png';
-import EclipseTopRight from 'resources/img/EclipseTopRight.png';
-import EclipseBottomLeft from 'resources/img/EclipseBottomLeft.png';
-import EclipseBottomRight from 'resources/img/EclipseBottomRight.png';
-import { Button } from 'components/shared/Button';
-import CurlyArrow from 'resources/img/CurlyArrow.png';
+import { Button } from 'components/Button';
 
 const EclipseBckgrnd = () => (
   <div
@@ -31,7 +26,7 @@ const EclipseBckgrnd = () => (
     >
       Explore these Causes
     </div>
-    <img src={CurlyArrow} alt="CurlyArrow"
+    <img src={require("../resources/img/CurlyArrow.png")} alt="CurlyArrow"
       className={css`
       position: absolute;
       margin-top: 386px;
@@ -39,7 +34,7 @@ const EclipseBckgrnd = () => (
       `}
     />
 
-    <img src={EclipseTopLeft} alt="EclipseTopLeft"
+    <img src={require("../resources/img/EclipseTopLeft.png")} alt="EclipseTopLeft"
       className={css`
       position: absolute;
       left: 606px;
@@ -69,7 +64,7 @@ const EclipseBckgrnd = () => (
         CAUSE 4
       </Button>
     </div>
-    <img src={EclipseTopRight} alt="EclipseTopRight"
+    <img src={require("../resources/img/EclipseTopRight.png")} alt="EclipseTopRight"
       className={css`
       position: absolute;
       margin-left: 1021px;
@@ -99,14 +94,14 @@ const EclipseBckgrnd = () => (
       </Button>
     </div>
 
-    <img src={EclipseBottomLeft} alt="EclipseBottomLeft"
+    <img src={require("../resources/img/EclipseBottomLeft.png")} alt="EclipseBottomLeft"
       className={css`
       position: absolute;
       margin-top: 802.37px;
       margin-left: 606px;
       `}
     />
-    <img src={EclipseBottomRight} alt="EclipseBottomRight"
+    <img src={require("../resources/img/EclipseBottomRight.png")} alt="EclipseBottomRight"
       className={css`
       position: absolute;
       margin-top: 698.37px;

@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { CarouselCard } from "components/Home/CarouselCard";
+import { CarouselCard } from "components/CarouselCard";
 import ArrowAngleLeft from "resources/img/ArrowAngleLeft";
 import ArrowAngleRight from "resources/img/ArrowAngleRight";
 import { css } from "@emotion/css";

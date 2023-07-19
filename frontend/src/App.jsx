@@ -8,9 +8,9 @@ import './components/NavBar.css'; // Import a CSS file for styling
 
 function App() {
 
-  const [activeItem, setActiveItem] = useState<string>('home');
+  const [activeItem, setActiveItem] = useState('home');
 
-  const handleItemClick = (item: string) => {
+  const handleItemClick = (item) => {
     setActiveItem(item);
   };
 
@@ -77,4 +77,4 @@ function App() {
 //   );
 // }
 
-// export default App;
+export default App;
