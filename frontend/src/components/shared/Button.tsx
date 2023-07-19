@@ -8,15 +8,15 @@ const Button = ({
   icon,
 }: {
   children: string;
-  variant?: "green" | "yellow";
+  variant?: "green" | "yellow" | "white";
   size?: "large" | "small";
   icon?: ReactElement;
 } & React.ButtonHTMLAttributes<{}>) => {
   const green = (
     <button
       className={css`
-        width: ${size === "large" ? "250px" : "150px"};
-        height: ${size === "large" ? "32px" : "32px"};
+        width: ${size === "large" ? "443px" : "150px"};
+        height: ${size === "large" ? "78px" : "32px"};
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
@@ -40,7 +40,7 @@ const Button = ({
           color: #000;
           text-align: center;
           font-family: DM Sans;
-          font-size: ${size === "large" ? "16px" : "14px"};
+          font-size: ${size === "large" ? "30px" : "14px"};
           font-style: normal;
           font-weight: 700;
           line-height: normal;
@@ -53,11 +53,45 @@ const Button = ({
       </div>
     </button>
   );
+  const white =(
+    <button
+      className={css`
+      width: 393px;
+      height: 131.917px;
+      flex-shrink: 0;
+      border-radius: 50px;
+      background: #FFF;
+      border: none;
+      &:hover {
+        background: #CCC;
+      }
+      `}
+    >
+      {icon}
+      <div
+        className={css`
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #000;
+        text-align: center;
+        font-family: DM Sans;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        `}
+      >
+        {children}
+      </div>
+    </button>
+  );
   const yellow = (
     <button
       className={css`
-        width: ${size === "large" ? "300px" : "150px"};
-        height: ${size === "large" ? "32px" : "32px"};
+        width: ${size === "large" ? "358px" : "275px"};
+        height: ${size === "large" ? "75px" : "60px"};
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
@@ -81,7 +115,7 @@ const Button = ({
           color: #000;
           text-align: center;
           font-family: DM Sans;
-          font-size: ${size === "large" ? "16px" : "14px"};
+          font-size: ${size === "large" ? "30px" : "20px"};
           font-style: normal;
           font-weight: 700;
           line-height: normal;
@@ -99,6 +133,8 @@ const Button = ({
       return green;
     case "yellow":
       return yellow;
+    case "white":
+      return white;
   }
 };
 
