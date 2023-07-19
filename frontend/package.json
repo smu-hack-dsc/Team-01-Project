@@ -41,7 +41,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build-css": "tailwindcss build src/styles.css -o public/styles.css"
   },
   "eslintConfig": {
     "extends": [
