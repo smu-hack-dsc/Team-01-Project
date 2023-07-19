@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Projects from './components/NavBar/Projects';
-import Community from './components/NavBar/Community';
-import Profile from 'components/NavBar/Profile';
-import './components/NavBar/NavBar.css'; // Import a CSS file for styling
+import Home from 'pages/Home';
+import Projects from 'pages/Projects';
+import Community from 'pages/Community';
+import Profile from 'pages/Profile';
+import './components/NavBar.css'; // Import a CSS file for styling
 
 function App() {
 
