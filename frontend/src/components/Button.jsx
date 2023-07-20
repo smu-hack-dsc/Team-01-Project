@@ -1,17 +1,12 @@
 import { css } from "@emotion/css";
-import React, { ReactElement } from "react";
+// import React, { ReactElement } from "react";
 
 const Button = ({
   children,
   variant = "green",
   size = "small",
   icon,
-}: {
-  children: string;
-  variant?: "green" | "yellow" | "white";
-  size?: "large" | "small";
-  icon?: ReactElement;
-} & React.ButtonHTMLAttributes<{}>) => {
+}) => {
   const green = (
     <button
       className={css`
@@ -134,6 +129,8 @@ const Button = ({
     case "yellow":
       return yellow;
     case "white":
+      return white;
+    default:
       return white;
   }
 };
