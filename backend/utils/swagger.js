@@ -8,7 +8,7 @@ app = express();
 
 const options = {
   definition: {
-    openapi: "3.1.0",
+    openapi: "3.0.3",
     info: {
       title: "GivingHands Project Express API with Swagger",
       version: "0.1.0",
@@ -17,9 +17,6 @@ const options = {
       license: {
         name: "MIT",
         url: "https://spdx.org/licenses/MIT.html",
-      },
-      contact: {
-        name: "LogRocket",
       },
     },
     servers: [
@@ -36,7 +33,7 @@ const options = {
       basicAuth: [],
     }
   },
-  apis: ["./swagger/*.js"],
+  apis: ["./swagger/*.yml"],
 };
 
 const specs = swaggerJsdoc(options);

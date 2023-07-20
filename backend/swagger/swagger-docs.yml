@@ -1,0 +1,1318 @@
+tags:
+  - name: user
+    description: Everything about the users, inclusive of volunteers and volunteer organisations.
+  - name: activity
+    description: Everything about the activities that volunteer organisations can hold and the volunteers can sign up for.
+  - name: signup
+    description: Details about the signups between the volunteers and the activity
+paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: Create an user account
+      description: Create a new user account for either the volunteer or the volunteer organisation
+      operationId: createUser
+      requestBody:
+          description: 'The user account.'
+          content:
+            application/json:
+              schema:
+                type: object
+                required: 
+                  - name
+                  - email
+                  - password
+                  - dateOfBirth
+                  - interests
+                  - skills
+                  - role
+                properties:
+                  name: 
+                    type: string
+                    example: Alice Tan
+                  password:
+                    type: string
+                    example: 12345678
+                  dateOfBirth:
+                    type: string
+                    format: date
+                    example: 2003-10-11
+                  email: 
+                    type: string
+                    example: alice.tan@test.com
+                  skills: 
+                    type: array
+                    items: 
+                      type: string
+                      enum: 
+                        - elderly
+                        - environment
+                        - children
+                        - tutoring
+                        - animals
+                    example: [english, tutoring]
+                  interests: 
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - english
+                        - chinese
+                        - malay
+                        - hindi
+                        - teaching
+                        - caregiving
+                    example: [environment, elderly]
+                  
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                    example: Alice Tan
+                  dateOfBirth:
+                    type: string
+                    format: date
+                    example: 2003-10-11
+                  email: 
+                    type: string
+                    example: alice.tan@test.com
+                  skills: 
+                    type: array
+                    items: 
+                      type: string
+                    example: [english, tutoring]
+                  interests: 
+                    type: array
+                    items:
+                      type: string
+                    example: [environment, elderly]
+                
+        '500':
+          description: Server error
+      security: []
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: Login to user account
+      description: Login to user account using email and password
+      operationId: loginUser
+      requestBody:
+        description: To use user's email and password
+        content:
+          application/json:
+              schema:
+                type: object
+                required: 
+                  - email
+                  - password
+                properties:
+                  email:
+                    type: string
+                    example: alice.tan@test.com
+                  password:
+                    type: string
+                    example: 12345678
+        required: true
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: 
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: mongoose.Types.ObjectId
+                        example: 64b656dd46463602c054c2d8
+                      name: 
+                        type: string
+                        example: Alice Tan
+                      dateOfBirth:
+                        type: string
+                        format: date
+                        example: 2003-10-11
+                      email: 
+                        type: string
+                        example: alice.tan@test.com
+                      skills: 
+                        type: array
+                        items: 
+                          type: string
+                        example: [english, tutoring]
+                      interests:
+                        type: array
+                        items:
+                          type: string
+                        example: [environment, elderly]
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODk2OTI3NzgsImlhdCI6MTY4OTY5MDk3OCwic3ViIjoiNjRiNjU2ZGQ0NjQ2MzYwMmMwNTRjMmQ4In0.Gv_cpcwCE5x4jLQdRWZtzYWq1MUJjI5wf6IXCetBcck
+        '400':
+          description: BAD_REQUEST
+        '404':
+          description: NOT_FOUND
+      security:
+        - bearerAuth: []
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Find user information by ID
+      description: Returns a single user
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                    example: Alice Tan
+                  dateOfBirth:
+                    type: string
+                    format: date
+                    example: 2003-10-11
+                  email: 
+                    type: string
+                    example: alice.tan@test.com
+                  skills: 
+                    type: array
+                    items: 
+                      type: string
+                    example: [english, tutoring]
+                  interests:
+                    type: array
+                    items:
+                      type: string
+                    example: [environment, elderly]
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+      security: 
+        - bearerAuth: []
+    put:
+      tags:
+        - user
+      summary: Update user information by ID
+      description: Returns a single user
+      operationId: updateUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      requestBody:
+        description: 'The edited user account information. '
+        content:
+          application/json:
+            schema:
+              type: object
+              required: 
+                - name
+                - email
+                - password
+                - dateOfBirth
+                - interests
+                - skills
+                - role
+              properties:
+                name: 
+                  type: string
+                  example: Alice Tan
+                password:
+                  type: string
+                  example: 12345678
+                dateOfBirth:
+                  type: string
+                  format: date
+                  example: 2003-10-11
+                email: 
+                  type: string
+                  example: alice.tan@test.com
+                skills: 
+                  type: array
+                  items: 
+                    type: string
+                    enum: 
+                      - elderly
+                      - environment
+                      - children
+                      - tutoring
+                      - animals
+                  example: [english, tutoring]
+                interests: 
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - english
+                      - chinese
+                      - malay
+                      - hindi
+                      - teaching
+                      - caregiving
+                  example: [environment, elderly]
+        
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                    example: Alice Tan
+                  dateOfBirth:
+                    type: string
+                    format: date
+                    example: 2003-10-11
+                  email: 
+                    type: string
+                    example: alice.tan@test.com
+                  skills: 
+                    type: array
+                    items: 
+                      type: string
+                    example: [english, tutoring]
+                  interests:
+                    type: array
+                    items:
+                      type: string
+                    example: [environment, elderly]
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+      security: 
+        - bearerAuth: []
+    delete:
+      tags:
+        - user
+      summary: Delete user information by ID
+      description: Deletes a single user
+      operationId: deleteUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to delete
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+        
+      responses:
+        '200':
+          description: SUCCESS
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+      security: 
+        - bearerAuth: []
+  /activity/:
+    get:
+      tags: 
+        - activity
+      summary: Give all the activities that will appear on the default page
+      description: The activities shown will have an end date of after today's date, and aligns with the user's interests and skillset
+      operationId: getAfterTodayActivities
+      responses:
+        '200':
+          description: a collection of all the activities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: mongoose.Types.ObjectId
+                          example: 64b68d8f22b054f828cb0055
+                        activityName:
+                          type: string
+                          example: Beach Cleaning Event at ECP
+                        requiredSkills:
+                          type: array
+                          items:
+                            type: string
+                        categories:
+                          type: array
+                          items:
+                            type: string
+                          example: [environment]
+                        beginDate:
+                          type: string
+                          format: date
+                          example: 2023-08-01
+                        endDate: 
+                          type: string
+                          format: date
+                          example: 2023-09-01
+                        organiserId:
+                          type: string
+                          format: mongoose.Types.ObjectId
+                          example: 64b656dd46463602c054c2d8
+                      
+        '400':
+          description: Invalid Id
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+      security: 
+        - bearerAuth: []
+    post:
+      tags:
+        - activity
+      summary: Create an activity 
+      description: To allow the volunteer organisation create an activity
+      operationId: createActivity
+      requestBody:
+        description: The activity details
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - activityName
+                - beginDate
+                - endDate
+              properties:
+                activityName:
+                  type: string
+                  example: Beach Cleaning at ECP
+                requiredSkills:
+                  type: array
+                  items: 
+                    type: string
+                    enum: 
+                      - elderly
+                      - environment
+                      - children
+                      - tutoring
+                      - animals
+                  example: [english, tutoring]
+                categories:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - english
+                      - chinese
+                      - malay
+                      - hindi
+                      - teaching
+                      - caregiving
+                  example: [environment, elderly]
+                beginDate:
+                  type: string
+                  format: date
+                  example: 2023-08-01
+                endDate: 
+                  type: string
+                  format: date
+                  example: 2023-09-01
+                organiserId: 
+                  type: string
+                  format: mongoose.Types.ObjectId
+                  example: 64b68d8f22b054f828cb0055
+                description: 
+                  type: string
+                  example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activityName:
+                    type: string
+                    example: Beach Cleaning at ECP
+                  requiredSkills:
+                    type: array
+                    items: 
+                      type: string
+                      enum: 
+                        - elderly
+                        - environment
+                        - children
+                        - tutoring
+                        - animals
+                    example: [english, tutoring]
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - english
+                        - chinese
+                        - malay
+                        - hindi
+                        - teaching
+                        - caregiving
+                    example: [environment, elderly]
+                  beginDate:
+                    type: string
+                    format: date
+                    example: 2023-08-01
+                  endDate: 
+                    type: string
+                    format: date
+                    example: 2023-09-01
+                  organiserId: 
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  description: 
+                    type: string
+                    example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+        '400':
+          description: Invalid
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+      security:
+        - bearerAuth: []
+  /activity/filter:
+    get:
+      tags:
+        - activity
+      summary: Get information of activities by a group of filters
+      description: Get the information of the activities held by the volunteer organisation with that organiser id
+      operationId: getActivitiesById
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - activityName
+                  - beginDate
+                  - endDate
+                  - organiserId
+                properties:
+                  activityName:
+                    type: string
+                    example: Beach Cleaning at ECP
+                  requiredSkills:
+                    type: array
+                    items: 
+                      type: string
+                      enum: 
+                        - elderly
+                        - environment
+                        - children
+                        - tutoring
+                        - animals
+                    example: [english, tutoring]
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - english
+                        - chinese
+                        - malay
+                        - hindi
+                        - teaching
+                        - caregiving
+                    example: [environment, elderly]
+                  beginDate:
+                    type: string
+                    format: date
+                    example: 2023-08-01
+                  endDate: 
+                    type: string
+                    format: date
+                    example: 2023-09-01
+                  organiserId: 
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  description: 
+                    type: string
+                    example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Activty not found
+      security:
+        - bearerAuth: []
+  /activity/{activityId}:
+    get:
+      tags:
+        - activity
+      summary: Get information of activity by ID
+      description: Get the information of the activity by its ID
+      operationId: getActivityById
+      parameters:
+        - name: activityId
+          in: path
+          description: ID of activity to delete
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - activityName
+                  - beginDate
+                  - endDate
+                  - organiserId
+                properties:
+                  activityName:
+                    type: string
+                    example: Beach Cleaning at ECP
+                  requiredSkills:
+                    type: array
+                    items: 
+                      type: string
+                      enum: 
+                        - elderly
+                        - environment
+                        - children
+                        - tutoring
+                        - animals
+                    example: [english, tutoring]
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - english
+                        - chinese
+                        - malay
+                        - hindi
+                        - teaching
+                        - caregiving
+                    example: [environment, elderly]
+                  beginDate:
+                    type: string
+                    format: date
+                    example: 2023-08-01
+                  endDate: 
+                    type: string
+                    format: date
+                    example: 2023-09-01
+                  organiserId: 
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  description: 
+                    type: string
+                    example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Activty not found
+      security:
+        - bearerAuth: []
+    put:
+      tags:
+        - activity
+      summary: Update information of activity by ID
+      description: Update information of one activity by its ID
+      operationId: updateActivityByID
+      parameters:
+        - name: activityId
+          in: path
+          description: ID of activity to delete
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      requestBody:
+        description: The updated information
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - activityName
+                - beginDate
+                - endDate
+              properties:
+                activityName:
+                  type: string
+                  example: Beach Cleaning at ECP
+                requiredSkills:
+                  type: array
+                  items: 
+                    type: string
+                    enum: 
+                      - elderly
+                      - environment
+                      - children
+                      - tutoring
+                      - animals
+                  example: [english, tutoring]
+                categories:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - english
+                      - chinese
+                      - malay
+                      - hindi
+                      - teaching
+                      - caregiving
+                  example: [environment, elderly]
+                beginDate:
+                  type: string
+                  format: date
+                  example: 2023-08-01
+                endDate: 
+                  type: string
+                  format: date
+                  example: 2023-09-01
+                description: 
+                  type: string
+                  example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activityName:
+                    type: string
+                    example: Beach Cleaning at ECP
+                  requiredSkills:
+                    type: array
+                    items: 
+                      type: string
+                      enum: 
+                        - elderly
+                        - environment
+                        - children
+                        - tutoring
+                        - animals
+                    example: [english, tutoring]
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - english
+                        - chinese
+                        - malay
+                        - hindi
+                        - teaching
+                        - caregiving
+                    example: [environment, elderly]
+                  beginDate:
+                    type: string
+                    format: date
+                    example: 2023-08-01
+                  endDate: 
+                    type: string
+                    format: date
+                    example: 2023-09-01
+                  organiserId: 
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  description: 
+                    type: string
+                    example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Activty not found
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - activity
+      summary: Delete activity information by ID
+      description: Deletes a single activity
+      operationId: deleteActivityById
+      parameters:
+        - name: activityId
+          in: path
+          description: ID of activity to delete
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: SUCCESS
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Activty not found
+      security: 
+        - bearerAuth: []
+  /activity/vo/{organiserId}:
+    get:
+      tags:
+        - activity
+      summary: Get information of activities by organiser ID
+      description: Get the information of the activities held by the volunteer organisation with that organiser id
+      operationId: getActivitiesById
+      parameters:
+        - name: organiserId
+          in: path
+          description: ID of organiser to filter by
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - activityName
+                  - beginDate
+                  - endDate
+                  - organiserId
+                properties:
+                  activityName:
+                    type: string
+                    example: Beach Cleaning at ECP
+                  requiredSkills:
+                    type: array
+                    items: 
+                      type: string
+                      enum: 
+                        - elderly
+                        - environment
+                        - children
+                        - tutoring
+                        - animals
+                    example: [english, tutoring]
+                  categories:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - english
+                        - chinese
+                        - malay
+                        - hindi
+                        - teaching
+                        - caregiving
+                    example: [environment, elderly]
+                  beginDate:
+                    type: string
+                    format: date
+                    example: 2023-08-01
+                  endDate: 
+                    type: string
+                    format: date
+                    example: 2023-09-01
+                  organiserId: 
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  description: 
+                    type: string
+                    example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Activty not found
+      security:
+        - bearerAuth: []
+  /signup/:
+    post:
+      tags:
+      - signup
+      summary: Signup for an acitivity
+      description: To signup for an activity with using the volunteer user account
+      operationId: createSignup
+      requestBody:
+        description: The id of the activity that the user wants to sign up for
+        content:
+          application/json:
+              schema:
+                type: object
+                required: 
+                  - activityId
+                properties:
+                  activityId:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+        required: true
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  user:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b656dd46463602c054c2d8
+                  userDetails:
+                    type: object
+                    properties:
+                      acceptanceIndication:
+                        type: boolean
+                        default: false
+                      hoursCompleted:
+                        type: integer
+                        format: int64
+                        default: 0
+                      rating:
+                        type: integer
+                        format: int64
+        '400':
+          description: BAD_REQUEST
+        '404':
+          description: NOT_FOUND
+      security:
+        - bearerAuth: []
+  /signup/user:
+    get:
+      tags:
+        - signup
+      summary: Signups that the user logged in has
+      description: All the activity sign up details that belong to the user
+      operationId: getUserSignups
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  user:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b656dd46463602c054c2d8
+                  userDetails:
+                    type: object
+                    properties:
+                      acceptanceIndication:
+                        type: boolean
+                        default: false
+                      hoursCompleted:
+                        type: integer
+                        format: int64
+                        default: 0
+                      rating:
+                        type: integer
+                        format: int64
+        '400':
+          description: BAD_REQUEST
+        '404':
+          description: NOT_FOUND
+      security:
+        - bearerAuth: []
+  /signup/activity:
+    post:
+      tags:
+        - signup
+      summary: Signups that the activity has received
+      description: All the activity sign up details that belong under that activity which can only be accessed by the volunteer organisation that is in charge of it
+      operationId: getActivitySignups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activity:
+                  type: string
+                  format: mongoose.Types.ObjectId
+                  example: 64b68d8f22b054f828cb0055
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  user:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b656dd46463602c054c2d8
+                  userDetails:
+                    type: object
+                    properties:
+                      acceptanceIndication:
+                        type: boolean
+                        default: false
+                      hoursCompleted:
+                        type: integer
+                        format: int64
+                        default: 0
+                      rating:
+                        type: integer
+                        format: int64
+        '400':
+          description: BAD_REQUEST
+        '404':
+          description: NOT_FOUND
+      security:
+        - bearerAuth: []
+  /signup/{signupId}:
+    get:
+      tags:
+        - signup
+      summary: Find signup information by ID
+      description: Returns a single signup
+      operationId: getSignupById
+      parameters:
+        - name: signupId
+          in: path
+          description: ID of signup to return
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  user:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b656dd46463602c054c2d8
+                  userDetails:
+                    type: object
+                    properties:
+                      acceptanceIndication:
+                        type: boolean
+                        default: false
+                      hoursCompleted:
+                        type: integer
+                        format: int64
+                        default: 0
+                      rating:
+                        type: integer
+                        format: int64
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Signup not found
+      security:
+        - bearerAuth: []
+    put:
+      tags:
+        - signup
+      summary: Update signup information by ID
+      description: Updates a single signup
+      operationId: updateSignupById
+      parameters:
+        - name: signupId
+          in: path
+          description: ID of signup to update
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activity:
+                  type: string
+                  format: mongoose.Types.ObjectId
+                  example: 64b68d8f22b054f828cb0055
+                user:
+                  type: string
+                  format: mongoose.Types.ObjectId
+                  example: 64b656dd46463602c054c2d8
+                userDetails:
+                  type: object
+                  properties:
+                    acceptanceIndication:
+                      type: boolean
+                      default: false
+                    hoursCompleted:
+                      type: integer
+                      format: int64
+                      default: 0
+                    rating:
+                      type: integer
+                      format: int64
+            
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  activity:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b68d8f22b054f828cb0055
+                  user:
+                    type: string
+                    format: mongoose.Types.ObjectId
+                    example: 64b656dd46463602c054c2d8
+                  userDetails:
+                    type: object
+                    properties:
+                      acceptanceIndication:
+                        type: boolean
+                        default: false
+                      hoursCompleted:
+                        type: integer
+                        format: int64
+                        default: 0
+                      rating:
+                        type: integer
+                        format: int64
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Signup not found
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - signup
+      summary: Delete signup information by ID
+      description: Deletes a single signup
+      operationId: deleteSignupById
+      parameters:
+        - name: signupId
+          in: path
+          description: ID of signup to delete
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: SUCCESS
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+        '404':
+          description: Signup not found
+      security:
+        - bearerAuth: []
+    
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - password
+        - email
+      properties:
+        name: 
+          type: string
+          example: Alice Tan
+        password:
+          type: string
+          example: 12345678
+        dateOfBirth:
+          type: string
+          format: date
+          example: 2003-10-11
+        email: 
+          type: string
+          example: alice.tan@test.com
+        skills: 
+          type: array
+          items: 
+            type: string
+            enum: 
+              - elderly
+              - environment
+              - children
+              - tutoring
+              - animals
+          example: [english, tutoring]
+        interests: 
+          type: array
+          items:
+            type: string
+            enum:
+              - english
+              - chinese
+              - malay
+              - hindi
+              - teaching
+              - caregiving
+          example: [environment, elderly]
+    Activity:
+      type: object
+      required:
+        - activityName
+        - beginDate
+        - endDate
+        - organiserId
+      properties:
+        activityName:
+          type: string
+          example: Beach Cleaning at ECP
+        requiredSkills:
+          type: array
+          items: 
+            type: string
+            enum: 
+              - elderly
+              - environment
+              - children
+              - tutoring
+              - animals
+          example: [english, tutoring]
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+              - english
+              - chinese
+              - malay
+              - hindi
+              - teaching
+              - caregiving
+          example: [environment, elderly]
+        beginDate:
+          type: string
+          format: date
+          example: 2023-08-01
+        endDate: 
+          type: string
+          format: date
+          example: 2023-09-01
+        organiserId: 
+          type: string
+          format: mongoose.Types.ObjectId
+          example: 64b68d8f22b054f828cb0055
+        description: 
+          type: string
+          example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+    Signup:
+      type: object
+      required:
+        - activity
+        - user
+      properties:
+        activity:
+          type: string
+          format: mongoose.Types.ObjectId
+          example: 64b68d8f22b054f828cb0055
+        user:
+          type: string
+          format: mongoose.Types.ObjectId
+          example: 64b656dd46463602c054c2d8
+        userDetails:
+          type: object
+          properties:
+            acceptanceIndication:
+              type: boolean
+              default: false
+            hoursCompleted:
+              type: integer
+              format: int64
+              default: 0
+            rating:
+              type: integer
+              format: int64
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
