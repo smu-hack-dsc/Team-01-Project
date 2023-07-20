@@ -4,6 +4,8 @@ import { ClickableImage } from 'components/ClickableImage';
 import { Carousel } from 'components/Carousel';
 import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
 import { TranslucentPurple } from 'components/TranslucentPurple';
+import React from "react";
+// import { useLocation } from "react-router-dom";
 
 function Home() {
   return (
