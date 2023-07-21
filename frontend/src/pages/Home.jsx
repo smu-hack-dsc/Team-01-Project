@@ -151,6 +151,7 @@ import React from "react";
 
 const Home = () => {
   return (
+    // first section
     <div>
       <div className="relative flex flex-col items-center justify-center w-1514 h-909 flex-shrink-0">
         <img
@@ -167,24 +168,21 @@ const Home = () => {
               </Button>
             </div>
           </div>
-          {/* <div className="top-0 left-0">
-            <Button variant="green" size="large">
-              BROWSE OPPORTUNITIES
-            </Button>
-          </div> */}
         </div>
       </div>
-      {/* <div className="w-1514 h-427 flex-shrink-0 bg-purple-600"></div>
+
+      {/* second section */}
+      <div className="w-1514 h-427 flex-shrink-0 bg-purple-600"></div>
       <div className="absolute top-745 left-106 w-1300 h-486 flex-shrink-0 rounded-lg bg-white">
-        <div className="flex absolute top-40 left-281 w-738 h-68 flex-col justify-center text-black text-center font-RecoletaAlt font-semibold text-4xl">
+        <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
           All-in-one Volunteering
         </div>
         <ClickableImage />
       </div>
-      <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple-600 text-center font-RecoletaAlt font-semibold text-7xl">
+      {/* <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple-600 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
         Trending Projects
-      </div>
-      <div className="mt-67">
+      </div> */}
+      {/* <div className="mt-67">
         <Carousel />
       </div>
       <div className="mt-85 h-850 flex-shrink-0 bg-yellow-300">

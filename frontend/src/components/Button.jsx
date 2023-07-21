@@ -34,7 +34,7 @@ const Button = ({
           flex-shrink: 0;
           color: #000;
           text-align: center;
-          font-family: DM Sans;
+          font-family: DMSans;
           font-size: ${size === "large" ? "30px" : "14px"};
           font-style: normal;
           font-weight: 700;
@@ -71,7 +71,7 @@ const Button = ({
         flex-shrink: 0;
         color: #000;
         text-align: center;
-        font-family: DM Sans;
+        font-family: DMSans;
         font-size: 30px;
         font-style: normal;
         font-weight: 700;
@@ -109,7 +109,7 @@ const Button = ({
           flex-shrink: 0;
           color: #000;
           text-align: center;
-          font-family: DM Sans;
+          font-family: DMSans;
           font-size: ${size === "large" ? "30px" : "20px"};
           font-style: normal;
           font-weight: 700;
