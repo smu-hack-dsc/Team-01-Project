@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/css';
 
 class ClickableImage extends React.Component {
   handleClick = () => {
@@ -9,32 +8,26 @@ class ClickableImage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="flex">
         <a href="TeamWebsite" onClick={this.handleClick}>
-          <img src={require("../resources/img/Team.png")} alt="Clickable"
-            className={css`
-            &:hover {
-              background-color: #F5F5F7;
-            }
-          `}
+          <img
+            src={require("../resources/img/Team.png")}
+            alt="Clickable"
+            className="hover:bg-gray-200"
           />
         </a>
         <a href="BriefingWebsite" onClick={this.handleClick}>
-          <img src={require("../resources/img/Briefing.png")} alt="Clickable"
-            className={css`
-            &:hover {
-              background-color: #F5F5F7;
-            }
-          `}
+          <img
+            src={require("../resources/img/Briefing.png")}
+            alt="Clickable"
+            className="hover:bg-gray-200"
           />
         </a>
         <a href="PostWebsite" onClick={this.handleClick}>
-          <img src={require("../resources/img/Post.png")} alt="Clickable"
-            className={css`
-              &:hover {
-                background-color: #F5F5F7;
-              }
-            `}
+          <img
+            src={require("../resources/img/Post.png")}
+            alt="Clickable"
+            className="hover:bg-gray-200"
           />
         </a>
       </div>

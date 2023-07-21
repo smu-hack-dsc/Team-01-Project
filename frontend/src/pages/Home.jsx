@@ -4,6 +4,7 @@ import { ClickableImage } from 'components/ClickableImage';
 import { Carousel } from 'components/Carousel';
 import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
 import { TranslucentPurple } from 'components/TranslucentPurple';
+import { useMedia } from 'react-use';
 import React from "react";
 // import { useLocation } from "react-router-dom";
 
@@ -150,10 +151,15 @@ import React from "react";
 // }
 
 const Home = () => {
+
+  const isLargeScreen = useMedia('(min-width: 1024px)');
+  
+  const size = isLargeScreen ? 'large' : 'medium';
+
   return (
     // first section
     <div>
-      <div className="relative flex flex-col items-center justify-center w-1514 h-909 flex-shrink-0">
+      <div className="relative flex flex-col items-center justify-center w-full sm:h-full lg:h-1/2">
         <img
           src={require("../resources/img/Billboard.png")}
           alt="Billboard"
@@ -163,7 +169,7 @@ const Home = () => {
           <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold text-6xl">
             Giving hope through service.
             <div className="pt-10">
-              <Button variant="green" size="large">
+              <Button variant="green" size={size}>
                 BROWSE OPPORTUNITIES
               </Button>
             </div>
@@ -172,12 +178,15 @@ const Home = () => {
       </div>
 
       {/* second section */}
-      <div className="w-1514 h-427 flex-shrink-0 bg-purple-600"></div>
-      <div className="absolute top-745 left-106 w-1300 h-486 flex-shrink-0 rounded-lg bg-white">
-        <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
-          All-in-one Volunteering
+      <div className="w-full h-500 flex justify-center bg-purple-600">
+        <div className="top-1/2 left-1/2 sm:w-3/4 lg:w-2/3 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 -mt-8 z-10">
+          <div className="flex flex-col justify-center items-center mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
+            All-in-one Volunteering
+          </div>
+          <div className="flex justify-center items-center">
+            <ClickableImage />
+          </div>
         </div>
-        <ClickableImage />
       </div>
       {/* <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple-600 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
         Trending Projects

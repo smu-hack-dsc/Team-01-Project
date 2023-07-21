@@ -1,5 +1,4 @@
-import { css } from "@emotion/css";
-// import React, { ReactElement } from "react";
+import React from 'react';
 
 const Button = ({
   children,
@@ -7,132 +6,42 @@ const Button = ({
   size = "small",
   icon,
 }) => {
-  const green = (
-    <button
-      className={css`
-        width: ${size === "large" ? "443px" : "150px"};
-        height: ${size === "large" ? "78px" : "32px"};
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: #C8F3D9;
-        padding: 0;
-        border-radius: 40px;
-        border: none;
-        font-family: inherit;
-        white-space: nowrap;
-      `}
-    >
-      {icon}
-      <div
-        className={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          flex-shrink: 0;
-          color: #000;
-          text-align: center;
-          font-family: DMSans;
-          font-size: ${size === "large" ? "30px" : "14px"};
-          font-style: normal;
-          font-weight: 700;
-          line-height: normal;
-          &:hover {
-            color: #FFF;
-          }
-        `}
-      >
-        {children}
-      </div>
-    </button>
-  );
-  const white =(
-    <button
-      className={css`
-      width: 393px;
-      height: 131.917px;
-      flex-shrink: 0;
-      border-radius: 50px;
-      background: #FFF;
-      border: none;
-      &:hover {
-        background: #CCC;
-      }
-      `}
-    >
-      {icon}
-      <div
-        className={css`
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex-shrink: 0;
-        color: #000;
-        text-align: center;
-        font-family: DMSans;
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        `}
-      >
-        {children}
-      </div>
-    </button>
-  );
-  const yellow = (
-    <button
-      className={css`
-        width: ${size === "large" ? "358px" : "275px"};
-        height: ${size === "large" ? "75px" : "60px"};
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: #FFDA7A;
-        padding: 0;
-        border-radius: 40px;
-        border: none;
-        font-family: inherit;
-        white-space: nowrap;
-      `}
-    >
-      {icon}
-      <div
-        className={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          flex-shrink: 0;
-          color: #000;
-          text-align: center;
-          font-family: DMSans;
-          font-size: ${size === "large" ? "30px" : "20px"};
-          font-style: normal;
-          font-weight: 700;
-          line-height: normal;
-          &:hover {
-            color: #FFF;
-          }
-        `}
-      >
-        {children}
-      </div>
-    </button>
-  );
+  let buttonClasses = "flex flex-col justify-center items-center flex-shrink-0 ";
+  let textClasses = "flex flex-col justify-center flex-shrink-0 text-center font-DMSans p-3 ";
+
   switch (variant) {
     case "green":
-      return green;
+      buttonClasses += "bg-green-300 ";
+      textClasses += "text-";
+      textClasses += size === "large" ? "lg" : "sm";
+      textClasses += size === "medium" ? "base" : "sm";
+      textClasses += " ";
+      break;
     case "yellow":
-      return yellow;
+      buttonClasses += "bg-yellow-300 ";
+      textClasses += "text-";
+      textClasses += size === "large" ? "lg" : "sm";
+      textClasses += size === "medium" ? "base" : "sm";
+      textClasses += " ";
+      break;
     case "white":
-      return white;
     default:
-      return white;
+      buttonClasses += "bg-white ";
+      textClasses += "text-";
+      textClasses += size === "large" ? "lg" : "sm";
+      textClasses += size === "medium" ? "base" : "sm";
+      textClasses += " ";
+      break;
   }
+
+  return (
+    <button className={`${buttonClasses} w-443 h-78 rounded-full border-none hover:bg-gray-300 font-inherit whitespace-nowrap`}>
+      {icon}
+      <div className={`${textClasses} ${size === "large" ? "text-2xl" : "text-xl"} font-semibold text-black`}>
+        {children}
+      </div>
+    </button>
+  );
 };
 
 export {Button};
