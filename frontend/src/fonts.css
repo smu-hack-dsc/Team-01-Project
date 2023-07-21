@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'RecoletaAlt';
+  src: url('resources/fonts/RecoletaAlt-SemiBold.ttf') format('truetype');
+  font-weight: semibold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DMSans';
+  src: url('resources/fonts/DMSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DMSans';
+  src: url('resources/fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: Normal;
+  font-style: normal;
+}

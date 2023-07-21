@@ -24,12 +24,12 @@ const Navbar = () => {
 
   return (
     <Router>
-      <nav className="bg-white shadow-lg sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="font-DMSans bg-white shadow-lg sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px- lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-black font-semibold text-xl">Logo</span>
+                <span className="text-black font-bold text-2xl">Logo</span>
               </div>
             </div>
             <div className="hidden md:block ml-auto">
@@ -37,28 +37,28 @@ const Navbar = () => {
                 <NavLink
                   exact
                   to="/"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-lg"
                   activeClassName="bg-gray-200"
                 >
                   Home
                 </NavLink>
                 <NavLink
                   to="/projects"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-lg"
                   activeClassName="bg-gray-200"
                 >
                   Projects
                 </NavLink>
                 <NavLink
                   to="/community"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-lg"
                   activeClassName="bg-gray-200"
                 >
                   Community
                 </NavLink>
                 <NavLink
                   to="/profile"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-lg"
                   activeClassName="bg-gray-200"
                 >
                   Profile

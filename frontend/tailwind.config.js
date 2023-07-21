@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        RecoletaAlt: ['RecoletaAlt', 'sans-serif'],
+        DMSans: ['DMSans', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

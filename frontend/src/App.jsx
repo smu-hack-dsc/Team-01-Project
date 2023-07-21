@@ -1,4 +1,5 @@
 import './styles.css';
+import './fonts.css';
 // import React, { useState } from 'react';
 // import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import NavBar from 'components/NavBar.jsx';
