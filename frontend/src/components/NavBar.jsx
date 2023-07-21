@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from 'pages/Home';
@@ -13,6 +13,15 @@ const Navbar = () => {
     setMenuOpen(!isMenuOpen);
   };
   
+  // useEffect(() => {
+  //   document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
+
+  //   // Clean up the effect on component unmount
+  //   return () => {
+  //     document.body.style.overflow = 'unset';
+  //   };
+  // }, [isMenuOpen]);
+
   return (
     <Router>
       <nav className="bg-white shadow-lg sticky top-0 z-10">
@@ -87,7 +96,7 @@ const Navbar = () => {
           </div>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden bg-white">
+          <div className="absolute right-0 md:hidden bg-white shadow-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <NavLink
                 exact
