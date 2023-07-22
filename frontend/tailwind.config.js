@@ -6,7 +6,11 @@ module.exports = {
       fontFamily: {
         RecoletaAlt: ['RecoletaAlt', 'sans-serif'],
         DMSans: ['DMSans', 'sans-serif'],
+        default: ['DMSans', 'sans-serif'],
       },
+      colors: {
+        purple_4000C1: '#4000C1',
+      }
     },
   },
   plugins: [],
