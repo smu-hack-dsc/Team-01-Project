@@ -7,7 +7,7 @@ const Button = ({
   icon,
 }) => {
   let buttonClasses = "flex flex-col justify-center items-center flex-shrink-0 ";
-  let textClasses = "flex flex-col justify-center flex-shrink-0 text-center font-DMSans p-3 ";
+  let textClasses = "flex flex-col justify-center flex-shrink-0 text-center font-DMSans ";
 
   switch (variant) {
     case "green":
@@ -76,7 +76,7 @@ const Button = ({
   return (
     <button className={`${buttonClasses} w-443 h-78 rounded-full border-none hover:bg-gray-300 font-inherit whitespace-nowrap`}>
       {icon}
-      <div className={`${textClasses} ${size === "large" ? "text-2xl" : "text-xl"} font-semibold text-black`}>
+      <div className={`${textClasses} ${size === "large" ? "text-2xl p-3" : "text-lg px-3 py-1"} font-semibold text-black`}>
         {children}
       </div>
     </button>

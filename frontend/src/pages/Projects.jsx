@@ -18,7 +18,7 @@ function Projects() {
             Projects
           </div>
           <SearchBar />
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center sm:w-4/5 lg:w-2/3">
             <CarouselCard />
             <CarouselCard />
             <CarouselCard />

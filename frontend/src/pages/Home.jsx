@@ -152,9 +152,9 @@ import React from "react";
 
 const Home = () => {
 
-  const isLargeScreen = useMedia('(min-width: 1024px)');
+  // const isLargeScreen = useMedia('(min-width: 1024px)');
   
-  const size = isLargeScreen ? 'large' : 'medium';
+  // const size = isLargeScreen ? 'large' : 'medium';
 
   return (
     // first section
@@ -168,8 +168,8 @@ const Home = () => {
         <div className="absolute top-0 left-20 w-full h-full flex flex-col justify-center items-start p-4">
           <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold text-6xl">
             Giving hope through service.
-            <div className="pt-10">
-              <Button variant="green" size={size}>
+            <div className="sm:pt-5 lg:pt-8">
+              <Button variant="green" size="large">
                 BROWSE OPPORTUNITIES
               </Button>
             </div>
