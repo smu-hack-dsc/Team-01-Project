@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from 'components/Button';
 import SearchBar from 'components/SearchBar';
 import { useMedia } from 'react-use';
+import { CarouselCard } from "components/CarouselCard";
 // import { useLocation } from "react-router-dom";
 
 function Projects() {
@@ -18,6 +18,14 @@ function Projects() {
             Projects
           </div>
           <SearchBar />
+          <div className="flex flex-wrap justify-center">
+            <CarouselCard />
+            <CarouselCard />
+            <CarouselCard />
+            <CarouselCard />
+            <CarouselCard />
+            <CarouselCard />
+          </div>
         </div>
     </div>);
 }

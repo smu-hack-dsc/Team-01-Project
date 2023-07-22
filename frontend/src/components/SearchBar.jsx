@@ -16,7 +16,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="sm:w-4/5 lg:w-2/3 px-4 py-1 outline outline-gray-400 flex items-center rounded-lg">
+    <div className="sm:w-4/5 lg:w-2/3 px-4 py-1 outline outline-gray-400 flex items-center rounded-lg mb-2">
       <input
         type="text"
         value={searchText}
@@ -26,7 +26,7 @@ const SearchBar = () => {
       />
       <button
         onClick={handleSearch}
-        className="flex items-center justify-center ml-2 px-4 py-2 bg-purple-600 text-white rounded-lg"
+        className="flex items-center justify-center ml-2 px-4 py-2 bg-purple_9663FC text-white rounded-lg"
       >
         <IonIcon icon={ search } size="small"/>
       </button>
