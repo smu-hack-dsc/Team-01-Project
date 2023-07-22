@@ -24,6 +24,45 @@ const Button = ({
       textClasses += size === "medium" ? "base" : "sm";
       textClasses += " ";
       break;
+    // case "purple":
+      // const purple = (
+      //   <button
+      //     className={css`
+      //     width: ${size === "large" ? "230px" : "130px"};
+      //     height: 60px;
+      //     flex-shrink: 0;
+      //     background-color: #9663FC;
+      //     display: flex;
+      //     flex-direction: column;
+      //     justify-content: center;
+      //     align-items: center;
+      //     padding: 0;
+      //     border-radius: 20px;
+      //     border: none;
+      //     font-family: inherit;
+      //     white-space: nowrap;
+      //     &:hover{
+      //       background-color: #732ffb;
+      //       color: #D9D9D9;
+      //     }
+      //     display: flex;
+      //     flex-direction: column;
+      //     justify-content: center;
+      //     flex-shrink: 0;
+      //     color: #FFF;
+      //     text-align: center;
+      //     font-family: Uncut Sans;
+      //     font-size: 24px;
+      //     font-style: normal;
+      //     font-weight: 600;
+      //     line-height: 16px; /* 66.668% */
+      //     letter-spacing: -0.12px;
+      //     `}
+      //   >
+      //     {children}
+      //   </button>
+      // )
+
     case "white":
     default:
       buttonClasses += "bg-white ";
