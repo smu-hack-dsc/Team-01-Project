@@ -55,7 +55,7 @@ signupSchema.method({
     // Format for all singup returns: activityId, userId, userdetails
     transform() {
         const transformed = {};
-        const fields = ['activity', 'user', 'userDetails'];
+        const fields = ['id', 'activity', 'user', 'userDetails'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });

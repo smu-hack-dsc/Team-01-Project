@@ -1,63 +1,51 @@
-// UPDATED: YES
-// API TESTING: YES
-// VALIDATIONS:
-// TODO: 
-
 const mongoose = require('mongoose');
 
 const APIError = require('../../utils/APIError');
 const {
     SKILLS, INTERESTS,
-    NO_RECORD_FOUND, NOT_FOUND,
+    NO_RECORD_FOUND, NOT_FOUND, POST_MADE_BEFORE,
     BAD_REQUEST, VALIDATION_ERROR,
     USER_REGISTERED, USER_VO_MEMBER
 } = require('../../utils/constants');
 
-const activitySchema = mongoose.Schema(
-    //the following is the field
+const postSchema = new mongoose.Schema(
     {
-        activityName: {
-            type: String,
-            required: true
-        },
-        requiredSkills: [{
-            type: String,
-            enum: SKILLS
-        }],
-        categories: [{
-            type: String, 
-            enum: INTERESTS
-        }],
-        beginDate: {
-            type: Date,
-            required: true
-        },
-        endDate: {
-            type: Date,
-            required: true
-        },
-        organiserId: {
+        user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
             required: true
         },
-        description: {
-            type: String
+        activity: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        },
+        location: {
+            type: String,
+        },
+        postContent: {
+            type: String,
+            required: true
+        },
+        imageInfo: {
+            imageName: {
+                type: String,
+            },
+            imagePath: {
+                type: String,
+            },
         }
     },
     {
         timestamps: true
-    }
-);
+    });
 
-activitySchema.index({ organiser: 1, activityName: 1, beginDate: 1 }, { unique: true, name: 'activity_pri_key' });
+postSchema.index({ user: 1, activity: 1, postContent: 1 }, { unique: true, name: 'post_pri_key' });
 
-activitySchema.method({
+postSchema.method({
 
     // Format for all membership returns: name of User, name of VolunteerOrg
     transform() {
         const transformed = {};
-        const fields = ['id', 'activityName', 'requiredSkills', 'category', 'beginDate', 'endDate', 'organiserId', 'description'];
+        const fields = ['id', 'user', 'activity', 'postContent', 'location', 'imageInfo'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });
@@ -66,7 +54,7 @@ activitySchema.method({
     },
 });
 
-activitySchema.static({
+postSchema.static({
     // Get member
     async get(id) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -76,9 +64,9 @@ activitySchema.static({
             });
         }
 
-        const activity = await this.findById(id).exec();
-        if (!activity) throw new APIError({ message: NO_RECORD_FOUND, errorCode: NOT_FOUND });
-        return activity;
+        const post = await this.findById(id).exec();
+        if (!post) throw new APIError({ message: NO_RECORD_FOUND, errorCode: NOT_FOUND });
+        return post;
     },
 
     // Return Validation Error
@@ -86,9 +74,9 @@ activitySchema.static({
     checkDuplication(error) {
         if (error.code === 11000 && (error.name === 'BulkWriteError' || error.name === 'MongoError')) {
             const keys = Object.keys(error.keyPattern);
-            if (keys.includes('activity_pri_key')) {
+            if (keys.includes('post_pri_key')) {
                 return new APIError({
-                    message: USER_REGISTERED,
+                    message: POST_MADE_BEFORE,
                     errorCode: BAD_REQUEST,
                 });
             }
@@ -99,6 +87,6 @@ activitySchema.static({
 });
 
 
-const Activity = mongoose.model('Activity', activitySchema);
+const Post = mongoose.model('Post', postSchema);
 
-module.exports = Activity;
+module.exports = Post;

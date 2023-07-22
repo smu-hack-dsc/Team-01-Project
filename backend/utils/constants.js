@@ -28,6 +28,7 @@ module.exports = {
     INVALID_CREDENTIALS: 'Invalid email or password, Please check and try again',
     EMAIL_EXIST: 'Email is already in use by another account',
     USER_REGISTERED: 'User has registered already',
-    USER_VO_MEMBER: 'Volunteer and Volunteer Organisation cannot be the same'
+    USER_VO_MEMBER: 'Volunteer and Volunteer Organisation cannot be the same',
+    POST_MADE_BEFORE: 'A post for this activity has been made by the user before!'
 
 }

@@ -7,7 +7,6 @@ const {
 } = require('../service/activity.service');
 
 const { CREATED } = require('../../utils/constants');
-const { RemoveMember } = require('../service/member.service');
 
 // Load the activity information into req.locals
 exports.load = async (req, res, next, id) => {

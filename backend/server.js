@@ -7,16 +7,18 @@ require("dotenv").config();
 const userRouter = require('./api/routes/users');
 const activityRouter = require('./api/routes/activity');
 const signupRouter = require('./api/routes/signup');
+const postRouter = require('./api/routes/posts');
 // const memberRouter = require('./api/routes/member');
 
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true})) // true because we have nested data structures
 app.use(swagger);
 
 //routes
 app.use('/user', userRouter);
 app.use('/activity', activityRouter);
 app.use('/signup', signupRouter);
+app.use('/post', postRouter);
 // app.use('/member', memberRouter);
 
 app.get('/', (req, res) => {
