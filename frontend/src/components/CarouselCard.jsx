@@ -106,7 +106,7 @@ import { IonIcon } from '@ionic/react';
 import { image } from 'ionicons/icons';
 
 const CarouselCard = () => (
-  <div className="flex flex-col sm:w-1/3 lg:w-1/4 sm:h-1/4 lg:h-2/5 bg-gray-100 rounded-lg mt-2 sm:mb-9 lg:mb-2 mx-2 grow">
+  <div className="flex flex-col sm:w-1/3 lg:w-1/4 sm:h-1/4 lg:h-2/5 bg-gray-100 rounded-lg mt-4 sm:mb-6 lg:mb-2 mx-2 grow pb-24">
     <img
       src={require("../resources/img/Project.png")}
       alt="Project"
@@ -125,12 +125,13 @@ const CarouselCard = () => (
         Join us in our tree planting volunteer opportunity and make a positive impact on the environment by planting trees, promoting sustainability, and creating a greener future for our community.
       </p>
     </div>
-    <div className="ml-3 mt-2 mb-20">
+    <div className="pl-3 pt-2">
       <Button variant="green" size="small">
         LEARN MORE
       </Button>
     </div>
   </div>
 );
+
 
 export { CarouselCard };
