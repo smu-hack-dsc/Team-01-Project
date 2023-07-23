@@ -11,7 +11,7 @@ const Button = ({
 
   switch (variant) {
     case "green":
-      buttonClasses += "bg-green-300 ";
+      buttonClasses += "bg-green_C8F3D9 ";
       textClasses += "text-";
       textClasses += size === "large" ? "lg" : "sm";
       textClasses += size === "medium" ? "base" : "sm";

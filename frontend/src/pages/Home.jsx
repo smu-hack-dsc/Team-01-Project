@@ -1,7 +1,7 @@
 // import { css } from '@emotion/css';
 import { Button } from 'components/Button';
 import { ClickableImage } from 'components/ClickableImage';
-import { Carousel } from 'components/Carousel';
+import Carousel from 'components/Carousel';
 import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
 import { TranslucentPurple } from 'components/TranslucentPurple';
 import { useMedia } from 'react-use';
@@ -165,8 +165,8 @@ const Home = () => {
           alt="Billboard"
           className="w-full h-full"
         />
-        <div className="absolute top-0 left-20 w-full h-full flex flex-col justify-center items-start p-4">
-          <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold text-6xl">
+        <div className="absolute top-7 left-20 w-full h-full flex flex-col justify-center items-start p-4">
+          <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold sm:text-6xl lg:text-7xl">
             Giving hope through service.
             <div className="sm:pt-5 lg:pt-8">
               <Button variant="green" size="large">
@@ -178,7 +178,7 @@ const Home = () => {
       </div>
 
       {/* second section */}
-      <div className="w-full h-500 flex justify-center bg-purple-600">
+      <div className="w-full h-500 flex justify-center bg-purple_9663FC">
         <div className="top-1/2 left-1/2 sm:w-3/4 lg:w-2/3 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 -mt-8 z-10">
           <div className="flex flex-col justify-center items-center mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
             All-in-one Volunteering
@@ -188,13 +188,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple-600 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
+      <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
         Trending Projects
-      </div> */}
-      {/* <div className="mt-67">
+      </div>
+      <div className="mt-67">
         <Carousel />
       </div>
-      <div className="mt-85 h-850 flex-shrink-0 bg-yellow-300">
+      {/* <div className="mt-85 h-850 flex-shrink-0 bg-yellow-300">
         <EclipseBckgrnd />
       </div>
       <TranslucentPurple /> */}

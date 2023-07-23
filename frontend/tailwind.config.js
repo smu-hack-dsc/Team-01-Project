@@ -12,6 +12,7 @@ module.exports = {
         purple_4000C1: '#4000C1',
         purple_9663FC: '#9663FC',
         purple_800CDB: '#800CDB',
+        green_C8F3D9: '#C8F3D9',
       }
     },
   },
