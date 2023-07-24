@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from 'pages/Home';
 import Projects from 'pages/Projects';
 import Community from 'pages/Community';
 import Profile from 'pages/Profile';
+import { IonIcon } from '@ionic/react';
+import { menuOutline } from 'ionicons/icons';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -12,15 +14,26 @@ const Navbar = () => {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-  
-  // useEffect(() => {
-  //   document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
 
-  //   // Clean up the effect on component unmount
-  //   return () => {
-  //     document.body.style.overflow = 'unset';
-  //   };
-  // }, [isMenuOpen]);
+  const menuRef = useRef();
+
+  const handleClickOutsideMenu = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMenuOpen(false);
+    }
+  };
+  
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutsideMenu);
+    } else {
+      document.removeEventListener('click', handleClickOutsideMenu);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutsideMenu);
+    };
+  }, [isMenuOpen]);
 
   return (
     <Router>
@@ -65,18 +78,15 @@ const Navbar = () => {
                 </NavLink>
               </div>
             </div>
-            <div className="md:hidden">
+            <div className="mt-1 md:hidden">
               <button
                 onClick={toggleMenu}
                 type="button"
                 className="block text-gray-600 hover:text-black focus:text-black focus:outline-none"
                 aria-label="Menu"
+                ref={menuRef}
               >
-                <svg
-                  className="h-6 w-6 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
+                <IonIcon icon={ menuOutline } size="large"/>
                   {isMenuOpen ? (
                     <path
                       fillRule="evenodd"
@@ -90,7 +100,6 @@ const Navbar = () => {
                       d="M3 5h18v2H3V5zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"
                     />
                   )}
-                </svg>
               </button>
             </div>
           </div>
@@ -99,6 +108,7 @@ const Navbar = () => {
           <div className="absolute right-0 md:hidden bg-white shadow-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <NavLink
+                onClick={toggleMenu}
                 exact
                 to="/"
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
@@ -107,6 +117,7 @@ const Navbar = () => {
                 Home
               </NavLink>
               <NavLink
+                onClick={toggleMenu}
                 to="/projects"
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-gray-200"
@@ -114,6 +125,7 @@ const Navbar = () => {
                 Projects
               </NavLink>
               <NavLink
+                onClick={toggleMenu}
                 to="/community"
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-gray-200"
@@ -121,6 +133,7 @@ const Navbar = () => {
                 Community
               </NavLink>
               <NavLink
+                onClick={toggleMenu}
                 to="/profile"
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-gray-200"
