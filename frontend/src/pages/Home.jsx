@@ -160,6 +160,7 @@ const Home = () => {
     // first section
     <div>
       <div className="relative flex flex-col items-center justify-center w-full sm:h-full lg:h-1/2">
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
         <img
           src={require("../resources/img/Billboard.png")}
           alt="Billboard"
@@ -191,13 +192,19 @@ const Home = () => {
       <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
         Trending Projects
       </div>
-      <div className="mt-67">
+      <div className="mt-67 mb-10">
         <Carousel />
       </div>
-      {/* <div className="mt-85 h-850 flex-shrink-0 bg-yellow-300">
-        <EclipseBckgrnd />
+
+      {/* third section -- not done */}
+      <div className="mt-85 h-850 flex-shrink-0 bg-yellow-300">
+        {/* <EclipseBckgrnd /> */}
       </div>
-      <TranslucentPurple /> */}
+
+      {/* last section */}
+      <div>
+        <TranslucentPurple />
+      </div>
     </div>
   );
 };

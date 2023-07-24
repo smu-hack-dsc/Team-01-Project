@@ -1,95 +1,30 @@
-import { css } from '@emotion/css';
-// import FooterImg from 'resources/img/FooterImg.png';
+import React from 'react';
 import { Button } from 'components/Button';
+
 const TranslucentPurple = () => (
-  <div
-    className={css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    `}>
-    <div
-      className={css`
-        position: relative;
-        width: 1514px
-        height: 730px;
-        flex-shrink: 0;
-      `}
-    >
-      <div
-        className={css`
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(150, 99, 252, 0.55);
-          z-index: 2;
-        `}
-      ></div>
+  <div className="flex justify-center items-center">
+    {/* edit max height and image overflow */}
+    <div className="relative w-full h-full flex-shrink-1">
+      <div className="absolute top-0 left-0 w-full h-full bg-purple_9663FC opacity-50 z-10"></div>
       <img
         src={require("../resources/img/FooterImg.png")}
         alt="FooterImg"
-        className={css`
-          width: 1514px;
-          position: relative;
-          z-index: 1;
-        `}
+        className="relative z-1"
       />
-
     </div>
-    <div
-      className={css`
-      position: absolute;
-      align-items: center;
-      display: flex;
-      width: 1020px;
-      height: 62.434px;
-      flex-direction: column;
-      justify-content: center;
-      flex-shrink: 0;
-      color: #FFF;
-      text-align: center;
-      `}
-    >
-      <div
-        className={css`
-      font-family: Recoleta Alt;
-      font-size: 64px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      z-index: 3;
-      `}
-      >
+    <div className="absolute flex items-center w-1020 h-62.434 flex-col justify-center text-white text-center z-10">
+      <div className="font-RecoletaAlt text-4xl lg:text-5xl z-3">
         You can make a difference today!
       </div>
-      <div
-        className={css`
-      color: #FFF;
-      text-align: center;
-      font-family: DM Sans;
-      font-size: 36px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      z-index: 3;
-      `}
-      >
+      <div className="font-DMSans text-xl lg:text-2xl z-3">
         There’s a lot more we can do, together.
       </div>
-      <div
-        className={css`
-        z-index: 3;
-        margin-top: 49px;
-        `}
-      >
+      <div className="z-3 mt-4">
         <Button variant="yellow" size="large">
           SIGN UP NOW
         </Button>
       </div>
     </div>
-
   </div>
 );
 

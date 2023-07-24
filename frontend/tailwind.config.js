@@ -13,6 +13,7 @@ module.exports = {
         purple_9663FC: '#9663FC',
         purple_800CDB: '#800CDB',
         green_C8F3D9: '#C8F3D9',
+        yellow_FFDA7A: '#FFDA7A',
       }
     },
   },

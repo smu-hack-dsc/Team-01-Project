@@ -18,7 +18,7 @@ const Button = ({
       textClasses += " ";
       break;
     case "yellow":
-      buttonClasses += "bg-yellow-300 ";
+      buttonClasses += "bg-yellow_FFDA7A ";
       textClasses += "text-";
       textClasses += size === "large" ? "lg" : "sm";
       textClasses += size === "medium" ? "base" : "sm";
