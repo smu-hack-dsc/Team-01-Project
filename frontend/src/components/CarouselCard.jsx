@@ -20,7 +20,7 @@ const CarouselCard = () => (
     </div>
     <div className="flex flex-col justify-start h-20 text-black font-DMSans text-sm font-normal p-2">
       <p>
-        Join us in our tree planting volunteer opportunity and make a positive impact on the environment by planting trees, promoting sustainability, and creating a greener future for our community.
+        short description
       </p>
     </div>
     <div className="pl-2 pt-1">

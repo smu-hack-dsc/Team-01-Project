@@ -119,7 +119,7 @@ const Carousel = () => {
 
   const isLargeScreen = useMedia('(min-width: 1024px)');
 
-  const slidesToShow = isLargeScreen ? 3 : 5;
+  const slidesToShow = isLargeScreen ? 5 : 3;
 
   const carouselSettings = {
     dots: true, 
@@ -132,7 +132,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="flex-col w-full sm:-mx-1 lg:mx-5 justify-center items-center">
       <Slider {...carouselSettings}>
         <CarouselCard />
         <CarouselCard />
