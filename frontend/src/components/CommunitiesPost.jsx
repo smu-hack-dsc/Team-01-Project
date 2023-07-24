@@ -7,10 +7,10 @@ const CommunitiesPost = () => {
     // Logic to handle the post submission and add it to the posts state
     const newPost = {
       postText,
-      tags,
+      tags: tags.map((tag) => tag.toLowerCase()),
       image,
-      username: "JohnDoe", // Replace this with the actual username of the current user
-      timestamp: new Date().toISOString(), // Add a timestamp to the post
+      username: "sample person", // replace w username
+      timestamp: new Date().toISOString(), // timestamp
     };
     setPosts([...posts, newPost]);
   };
@@ -29,7 +29,7 @@ const CommunitiesPost = () => {
           />
           {/* Add input fields for tags and image upload */}
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="px-4 py-2 bg-purple_9663FC text-white rounded-md hover:bg-purple-500"
             onClick={() => handlePostSubmit("Sample post", ["#sampleTag"], null)}
           >
             Post
@@ -58,7 +58,7 @@ const CommunitiesPost = () => {
             {post.tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="inline-block px-2 py-1 bg-blue-500 text-white rounded-md mr-2"
+                className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
               >
                 {tag}
               </span>
@@ -74,8 +74,8 @@ const CommunitiesPost = () => {
           )}
           {/* Add like and comment buttons */}
           <div className="flex justify-between">
-            <button className="text-blue-500">Like</button>
-            <button className="text-blue-500">Comment</button>
+            <button className="text-purple_9663FC">Like</button>
+            <button className="text-purple_9663FC">Comment</button>
             {/* add logic how to handle likes and comments later */}
           </div>
         </div>
