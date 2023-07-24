@@ -2,6 +2,7 @@ import React from "react";
 import SearchBar from 'components/SearchBar';
 import { useMedia } from 'react-use';
 import { ProjectCard } from "components/ProjectCard";
+import Filter from "components/Filter";
 // import { useLocation } from "react-router-dom";
 
 function Projects() {
@@ -18,6 +19,7 @@ function Projects() {
             Projects
           </div>
           <SearchBar />
+          <Filter />
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
             <ProjectCard />
             <ProjectCard />

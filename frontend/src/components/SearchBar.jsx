@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { IonIcon } from '@ionic/react';
 import { search } from 'ionicons/icons';
 
-
 const SearchBar = () => {
   const [searchText, setSearchText] = useState('');
 
