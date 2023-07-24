@@ -19,7 +19,9 @@ function Projects() {
             Projects
           </div>
           <SearchBar />
-          <Filter />
+          <div className="lg:mt-2 -mb-2">
+            <Filter />
+          </div>
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
             <ProjectCard />
             <ProjectCard />
