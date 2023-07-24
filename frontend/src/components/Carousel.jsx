@@ -8,7 +8,7 @@
 // import { css } from "@emotion/css";
 
 // const Carousel = () => {
-//   const sliderRef = React.useRef<Slider>(null);
+//   const sliderRef = React.useRef(null);
 
 //   const handlePrevious = () => {
 //     sliderRef.current?.slickPrev();
@@ -104,22 +104,30 @@
 //   );
 // };
 
-// export { Carousel };
-
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CarouselCard } from "components/CarouselCard";
-import ArrowAngleLeft from "resources/img/ArrowAngleLeft";
-import ArrowAngleRight from "resources/img/ArrowAngleRight";
+import PrevButton from "components/PrevButton";
+import NextButton from "components/NextButton";
 import { useMedia } from 'react-use';
 
 const Carousel = () => {
 
-  const isLargeScreen = useMedia('(min-width: 1024px)');
+  const isLargeScreen = useMedia('(min-width: 1224px)');
 
   const slidesToShow = isLargeScreen ? 5 : 3;
+
+  const sliderRef = React.useRef(null);
+
+  const handlePrevious = () => {
+    sliderRef.current?.slickPrev();
+  };
+
+  const handleNext = () => {
+    sliderRef.current?.slickNext();
+  }
 
   const carouselSettings = {
     dots: true, 
@@ -132,8 +140,9 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex-col w-full sm:-mx-1 lg:mx-5 justify-center items-center">
-      <Slider {...carouselSettings}>
+    <div className="flex flex-col justify-center">
+      {/* <PrevButton />       */}
+      <Slider {...carouselSettings} ref={sliderRef}>
         <CarouselCard />
         <CarouselCard />
         <CarouselCard />
@@ -141,6 +150,7 @@ const Carousel = () => {
         <CarouselCard />
         <CarouselCard />
       </Slider>
+      {/* <NextButton />       */}
     </div>
   );
 };

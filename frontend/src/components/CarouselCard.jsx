@@ -4,7 +4,7 @@ import { IonIcon } from '@ionic/react';
 import { image } from 'ionicons/icons';
 
 const CarouselCard = () => (
-  <div className="flex flex-col w-48 sm:w-60 bg-gray-100 rounded-lg mt-4 sm:mb-5 lg:mb-0 mx-2 grow pb-4">
+  <div className="flex flex-col w-48 sm:w-60 bg-gray-100 rounded-lg mt-4 sm:mb-5 lg:mb-0 mx-2 flex-shrink-0 pb-4">
     <img
       src={require("../resources/img/Project.png")}
       alt="Project"

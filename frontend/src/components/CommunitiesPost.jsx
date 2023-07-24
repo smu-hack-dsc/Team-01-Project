@@ -4,7 +4,7 @@ const CommunitiesPost = () => {
   const [posts, setPosts] = useState([]);
 
   const handlePostSubmit = (postText, tags, image) => {
-    // Logic to handle the post submission and add it to the posts state
+    // logic to handle the post submission and add it to the posts state
     const newPost = {
       postText,
       tags: tags.map((tag) => tag.toLowerCase()),
@@ -17,17 +17,17 @@ const CommunitiesPost = () => {
 
   return (
     <div className="container mx-auto sm:w-4/5 lg:w-2/3">
-      {/* Post Input Section */}
+      {/* post input/creation */}
       <div className="p-4 border border-gray-300 rounded-md mb-4">
-        {/* Replace the form with your own form handling logic */}
+        {/* replace with proper logic later */}
         <form onSubmit={(e) => e.preventDefault()}>
           <textarea
             className="w-full px-3 py-2 mb-2 resize-none border border-gray-300 rounded-md focus:outline-none"
             placeholder="What's on your mind?"
             onChange={(e) => console.log(e.target.value)}
-            // You can store the post text in state using useState and onChange
+            // figure out how to store the post text in state using useState and onChange
           />
-          {/* Add input fields for tags and image upload */}
+          {/* input fields for tags and image upload */}
           <button
             className="px-4 py-2 bg-purple_9663FC text-white rounded-md hover:bg-purple-500"
             onClick={() => handlePostSubmit("Sample post", ["#sampleTag"], null)}
@@ -37,7 +37,7 @@ const CommunitiesPost = () => {
         </form>
       </div>
 
-      {/* Render each post */}
+      {/* post */}
       {posts.map((post, index) => (
         <div
           key={index}
@@ -53,7 +53,8 @@ const CommunitiesPost = () => {
             <span className="text-gray-500 ml-2">{post.timestamp}</span>
           </div>
           <p className="mb-2">{post.postText}</p>
-          {/* Render tags */}
+
+          {/* tags */}
           <div className="mb-2">
             {post.tags.map((tag, idx) => (
               <span
@@ -64,7 +65,6 @@ const CommunitiesPost = () => {
               </span>
             ))}
           </div>
-          {/* Render image */}
           {post.image && (
             <img
               className="w-full rounded-md mb-2"
@@ -72,7 +72,6 @@ const CommunitiesPost = () => {
               alt="Post"
             />
           )}
-          {/* Add like and comment buttons */}
           <div className="flex justify-between">
             <button className="text-purple_9663FC">Like</button>
             <button className="text-purple_9663FC">Comment</button>
