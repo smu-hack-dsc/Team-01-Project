@@ -44,7 +44,7 @@ const Filter = () => {
   const subcategories = selectedCategory ? categorySubcategories[selectedCategory] : [];
 
   return (
-    <div>
+    <div className="font-DMSans">
       <div className="flex justify-center items-center">
         <IonIcon icon={ filter } size="small"/>
           <select
