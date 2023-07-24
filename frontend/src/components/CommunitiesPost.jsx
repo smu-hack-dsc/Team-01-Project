@@ -22,14 +22,14 @@ const CommunitiesPost = () => {
         {/* replace with proper logic later */}
         <form onSubmit={(e) => e.preventDefault()}>
           <textarea
-            className="w-full px-3 py-2 mb-2 resize-none border border-gray-300 rounded-md focus:outline-none"
+            className="w-full px-3 py-2 mb-2 resize-none border border-gray-300 rounded-md focus:outline-none font-DMSans"
             placeholder="What's on your mind?"
             onChange={(e) => console.log(e.target.value)}
             // figure out how to store the post text in state using useState and onChange
           />
           {/* input fields for tags and image upload */}
           <button
-            className="px-4 py-2 bg-purple_9663FC text-white rounded-md hover:bg-purple-500"
+            className="px-4 py-2 bg-purple_9663FC text-white rounded-md hover:bg-purple-500 font-DMSans"
             onClick={() => handlePostSubmit("Sample post", ["#sampleTag"], null)}
           >
             Post
@@ -41,7 +41,7 @@ const CommunitiesPost = () => {
       {posts.map((post, index) => (
         <div
           key={index}
-          className="p-4 border border-gray-300 rounded-md mb-4"
+          className="p-4 border border-gray-300 rounded-md mb-4 font-DMSans"
         >
           <div className="flex items-center mb-2">
             <img
