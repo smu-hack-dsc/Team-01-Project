@@ -20,7 +20,7 @@ const TranslucentPurple = () => (
         There’s a lot more we can do, together.
       </div>
       <div className="z-3 mt-4">
-        <Button variant="yellow" size="large">
+        <Button variant="yellow" size="medium">
           SIGN UP NOW
         </Button>
       </div>

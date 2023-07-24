@@ -1,30 +1,8 @@
 import React from 'react';
 
-const Button = ({
-  children,
-  variant = "green",
-  size = "small",
-  icon,
-}) => {
-  let buttonClasses = "flex flex-col justify-center items-center flex-shrink-0 ";
-  let textClasses = "flex flex-col justify-center flex-shrink-0 text-center font-DMSans ";
+// fix medium size buttons
 
-  switch (variant) {
-    case "green":
-      buttonClasses += "bg-green_C8F3D9 ";
-      textClasses += "text-";
-      textClasses += size === "large" ? "lg" : "sm";
-      textClasses += size === "medium" ? "base" : "sm";
-      textClasses += " ";
-      break;
-    case "yellow":
-      buttonClasses += "bg-yellow_FFDA7A ";
-      textClasses += "text-";
-      textClasses += size === "large" ? "lg" : "sm";
-      textClasses += size === "medium" ? "base" : "sm";
-      textClasses += " ";
-      break;
-    // case "purple":
+// case "purple":
       // const purple = (
       //   <button
       //     className={css`
@@ -63,6 +41,37 @@ const Button = ({
       //   </button>
       // )
 
+const Button = ({
+  children,
+  variant = "green",
+  size = "small",
+  icon,
+}) => {
+  let buttonClasses = "flex flex-col justify-center items-center flex-shrink-0 ";
+  let textClasses = "flex flex-col justify-center flex-shrink-0 text-center font-DMSans ";
+
+  switch (variant) {
+    case "green":
+      buttonClasses += "bg-green_C8F3D9 ";
+      textClasses += "text-";
+      textClasses += size === "large" ? "lg" : "sm";
+      textClasses += size === "medium" ? "base" : "sm";
+      textClasses += " ";
+      break;
+    case "yellow":
+      buttonClasses += "bg-yellow_FFDA7A ";
+      textClasses += "text-";
+      textClasses += size === "large" ? "lg" : "sm";
+      textClasses += size === "medium" ? "base" : "sm";
+      textClasses += " ";
+      break;
+    case "purple":
+      buttonClasses += "bg-purple_9663FC ";
+      textClasses += "text-";
+      textClasses += size === "large" ? "lg" : "sm";
+      textClasses += size === "medium" ? "base" : "sm";
+      textClasses += " ";
+      break;
     case "white":
     default:
       buttonClasses += "bg-white ";
