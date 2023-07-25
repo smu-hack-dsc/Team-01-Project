@@ -14,7 +14,7 @@ app.route('/')
     .post(Authorize(USER), controller.create); // WORKING
 
 app.route('/user')
-    .get(Authorize(), controller.getUnderUser); // WORKING
+    .get(Authorize(USER), controller.getUnderUser); // WORKING
     
 app.route('/activity')
     .post(Authorize(VOLUNTEERORG), controller.getUnderActivity); // WORKING

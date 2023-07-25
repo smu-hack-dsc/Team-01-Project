@@ -1,10 +1,8 @@
 const app = require('express').Router();
-// const multer = require('multer');
 const controller = require('../controllers/post.controller');
-// const { GridFsStorage } = require('multer-gridfs-storage');
-// const Grid = require('gridfs-stream');
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
+
 const { Authorize } = require('../../middleware/auth');
 
 

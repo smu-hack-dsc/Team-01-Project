@@ -32,7 +32,7 @@ exports.login = async (req, res, next) => {
 // Create a user 
 exports.create = async (req, res, next) => {
   try {
-    const response = await CreateUser(req.body);
+    const response = await CreateUser(req.body, req.files.image);
     return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
   } catch (error) {
     return next(error);

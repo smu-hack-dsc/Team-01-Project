@@ -46,14 +46,7 @@ exports.getByVO = async (req, res, next) => {
 // Create activity
 exports.create = async (req, res, next) => {
     try {
-        const response = await CreateActivity({activityName: req.body.activityName, 
-                                                requiredSkills: req.body.requiredSkills,
-                                                categories: req.body.categories,
-                                                beginDate: req.body.beginDate,
-                                                endDate: req.body.endDate,
-                                                organiserId: req.user.id,
-                                                description: req.body.description
-                                                });
+        const response = await CreateActivity(req.user, req.body, req.files.image);
         return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
     } catch (error) {
         return next(error);

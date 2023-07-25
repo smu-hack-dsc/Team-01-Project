@@ -1,3 +1,4 @@
+const APIError = require('../../utils/APIError');
 const User = require('../models/user.model')
 
 // for getting the jwt token when the user logins
@@ -11,9 +12,26 @@ exports.LoginUserInfo = async (options) => {
 }
 
 // Create user account
-exports.CreateUser = async (userData) => {
+exports.CreateUser = async (userData, imageData) => {
     try {
-        const user = new User(userData);
+        const postPicture = imageData;
+        const pictureName = moment().format().toString() + imageData.name;
+        const uploadPath = __dirname + '../../../src/profileUploads/' + pictureName ;
+        postPicture.mv(uploadPath, (err) => {
+            throw new APIError({
+                message: "file cannot mv",
+                status: 404,
+            })
+        });
+
+        const user = new User({
+            userData, 
+            imageInfo: {
+                imageName: pictureName,
+                imagePath: uploadPath,
+            }
+        });
+        
         const su = await user.save();
         return su.transform();
     } catch (err) {
@@ -31,7 +49,6 @@ exports.LogoutUser = async(payload) => {
     } catch (err) {
         throw User.checkDuplication(err);
     }
-
 }
 
 // Update user information
@@ -40,7 +57,6 @@ exports.UpdateUser = async (user, newData) => {
 
         // Compare data between the orig user and with the new Info in newData
         const updateData = Object.assign(user, newData);
-
         const savedUser = await updateData.save();
         return savedUser.transform();
 

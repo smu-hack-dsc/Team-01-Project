@@ -4,9 +4,19 @@ const Activity = require('../models/activity.model');
 const mongoose = require("mongoose");
 
 // Create
-exports.CreateActivity = async (activityData) => {
+exports.CreateActivity = async (userData, activityData, imageData) => {
     try {
-        const activity = new Activity(activityData);
+        const postPicture = imageData;
+        const pictureName = moment().format().toString() + imageData.name;
+        const uploadPath = __dirname + '../../../src/activityUploads/' + pictureName ;
+        postPicture.mv(uploadPath);
+
+        const activity = new Activity({userData, activityData, 
+            imageInfo: {
+                imageName: pictureName,
+                imagePath: uploadPath,
+            }
+        });
         const saved = await activity.save();
         return saved.transform();
     } catch (err) {

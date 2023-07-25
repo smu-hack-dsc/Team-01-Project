@@ -1,4 +1,5 @@
 const app = require('express').Router();
+const path = require('path');
 //for validating data later on
 // const Validate = require('express-validation');
 const controller = require('../controllers/user.controller');

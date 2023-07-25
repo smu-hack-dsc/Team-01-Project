@@ -1,7 +1,3 @@
-// UPDATED: YES
-// API TESTING: YES
-// VALIDATIONS:
-// TODO: 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
@@ -23,8 +19,6 @@ const userSchema = mongoose.Schema(
     //the following is the field
     {
         name: {
-            // normal users will just have to write their first name and last name together :D
-            // volunteer orgs will write their organisation name there
             type: String,
             required: true,
             trim: true
@@ -35,8 +29,6 @@ const userSchema = mongoose.Schema(
             minlength: 8
         },
         dateOfBirth: {
-            // TODO: make the business logic such that a normal user MUST place their date-of-birth 
-            //       on the other hand, volunteer orgs dont have to 
             type: Date, //YYYY-MM-DD
         },
         email: {
@@ -47,7 +39,6 @@ const userSchema = mongoose.Schema(
             match: /.+\@.+\..+/,
             trim: true
         },
-
         // these are fields that will be present only for users
         interests: [{
             type: String, 
@@ -57,17 +48,25 @@ const userSchema = mongoose.Schema(
             type: String,
             enum: SKILLS
         }],
-        badges: [{
-            type: String,
-            enum: BADGES
-        }],
 
-        //  to determine if the user is a volunteer org or not
-        // --> for authorization later on
+        // badges: [{
+        //     type: String,
+        //     enum: BADGES
+        // }],
         role: {
+            //  to determine if the user is a volunteer org or not
+            // --> for authorization later on
             type: String,
             enum: ROLES,
             default: 'user',
+        },
+        imageInfo: {
+            imageName: {
+                type: String,
+            },
+            imagePath: {
+                type: String,
+            },
         }
     },
     {
@@ -80,6 +79,14 @@ userSchema.pre('save', async function save(next) {
     try {
         if (!this.isModified('password')) return next();
 
+        // to ensure dateOfBirth recorded for user only
+        if (this.role == 'user' && (!this.dateOfBirth)) {
+            throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
+        } else if (this.role == 'volunteerOrg' && (this.dateOfBirth || this.interests || this.skills)) {
+            throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
+        }
+
+        // hash password
         const hash = await bcrypt.hash(this.password, 10);
         this.password = hash;
         return next();
@@ -97,7 +104,6 @@ userSchema.pre('remove', async function (next) {
         // Deleting activity documents that reference the user
         await Activity.deleteMany({ organiser: userId });
 
-        // TODO: determine if this should be deleted because it could be ex-data
         // Deleting signup documents that reference the user
         await Signup.deleteMany({ user: userId });
 
@@ -117,10 +123,19 @@ userSchema.method({
     // Format for all user returns: id, name, email and role
     transform() {
         const transformed = {};
-        const fields = ['id', 'name', 'email', 'role', 'skills', 'interests'];
-        fields.forEach((field) => {
-            transformed[field] = this[field];
-        });
+
+        // to ensure dateOfBirth recorded for user only
+        if (this.role == 'user') {
+            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'imageInfo'];
+            fields.forEach((field) => {
+                transformed[field] = this[field];
+            });
+        } else if (this.role == 'volunteerOrg' && (dateOfBirth)) {
+            const fields = ['id', 'name', 'email', 'role', 'imageInfo'];
+            fields.forEach((field) => {
+                transformed[field] = this[field];
+            });
+        }
 
         return transformed;
     },

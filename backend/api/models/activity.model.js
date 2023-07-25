@@ -1,8 +1,3 @@
-// UPDATED: YES
-// API TESTING: YES
-// VALIDATIONS:
-// TODO: 
-
 const mongoose = require('mongoose');
 
 const APIError = require('../../utils/APIError');
@@ -43,6 +38,14 @@ const activitySchema = mongoose.Schema(
         },
         description: {
             type: String
+        },
+        imageInfo: {
+            imageName: {
+                type: String,
+            },
+            imagePath: {
+                type: String,
+            },
         }
     },
     {
@@ -57,7 +60,7 @@ activitySchema.method({
     // Format for all membership returns: name of User, name of VolunteerOrg
     transform() {
         const transformed = {};
-        const fields = ['id', 'activityName', 'requiredSkills', 'category', 'beginDate', 'endDate', 'organiserId', 'description'];
+        const fields = ['id', 'activityName', 'requiredSkills', 'category', 'beginDate', 'endDate', 'organiserId', 'description', 'imageInfo'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });

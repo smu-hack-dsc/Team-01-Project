@@ -1,7 +1,3 @@
-// UPDATED: YES
-// API TESTING: YES
-// VALIDATIONS:
-// TODO: 
 const mongoose = require('mongoose');
 
 const APIError = require('../../utils/APIError');

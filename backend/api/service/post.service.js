@@ -6,15 +6,11 @@ const mongoose = require('mongoose');
 exports.CreatePost = async (userData, postData, imageData) => {
     try {
         const postPicture = imageData;
-        const pictureName = /* moment().format().toString() + */ imageData.name;
-        const uploadPath = __dirname + '../../../src/postUploads/' + pictureName /* + dateString */;
+        const pictureName = moment().format().toString() + imageData.name;
+        const uploadPath = __dirname + '../../../src/postUploads/' + pictureName ;
         postPicture.mv(uploadPath);
         
-        const post = new Post({
-            user : userData.id,
-            activity: postData.activity,
-            location: postData.location,
-            postContent: postData.postContent,
+        const post = new Post({userData, postData,
             imageInfo: {
                 imageName: pictureName,
                 imagePath: uploadPath,

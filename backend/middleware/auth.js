@@ -3,7 +3,6 @@ const {
 } = require('../utils/constants');
 const APIError = require('../utils/APIError');
 
-// const jwt = require('jsonwebtoken');
 const passport = require('passport');
 require('../config/passport.config')
 
