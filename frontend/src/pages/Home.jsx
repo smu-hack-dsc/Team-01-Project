@@ -42,8 +42,28 @@ const Home = () => {
           <div className="flex flex-col justify-center items-center mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
             All-in-one Volunteering
           </div>
-          <div className="flex justify-center items-center">
-            <ClickableImage />
+          <div className="flex flex-row justify-center items-center">
+            <div className="flex justify-center items-center">
+              <img
+                src={require("../resources/img/Team.png")}
+                alt="Team"
+                className="lg:h-full lg:w-full sm:h-2/3 sm:w-2/3"
+              />
+            </div>
+            <div className="flex justify-center items-center">
+              <img
+                src={require("../resources/img/Briefing.png")}
+                alt="Briefing"
+                className="lg:h-full lg:w-full sm:h-2/3 sm:w-2/3"
+              />
+            </div>
+            <div className="flex justify-center items-center">
+              <img
+                src={require("../resources/img/Post.png")}
+                alt="Post"
+                className="lg:h-full lg:w-full sm:h-2/3 sm:w-2/3"
+              />
+            </div>
           </div>
         </div>
       </div>

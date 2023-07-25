@@ -18,7 +18,9 @@ function Projects() {
           <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl pb-5">
             Projects
           </div>
-          <SearchBar />
+          <div className="sm:w-4/5 lg:w-2/3 sm:mb-2 lg:mb-0">
+            <SearchBar />
+          </div>
           <div className="lg:mt-2 -mb-2">
             <Filter />
           </div>
