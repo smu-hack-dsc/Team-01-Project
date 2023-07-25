@@ -97,10 +97,13 @@ exports.MatchByFilters = async (options) => {
 
 
 // Update
-exports.UpdateActivity = async (activity, newData) => {
+exports.UpdateActivity = async (activity, userData, newData) => {
     try {
-        const updataData = Object.assign(activity, newData);
-        const savedActivity = await updataData.save();
+        if (activity.organiserId !== userData.id) {
+            throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
+        }
+        const updateData = Object.assign(activity, newData);
+        const savedActivity = await updateData.save();
         return savedActivity.transform();
     } catch (err) {
         throw Activity.checkDuplication(err);
@@ -108,6 +111,9 @@ exports.UpdateActivity = async (activity, newData) => {
 };
 
 // Delete
-exports.RemoveActivity = async (activity) => {
+exports.RemoveActivity = async (activity, userData) => {
+    if (activity.organiserId !== userData.id) {
+        throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
+    }
     activity.deleteOne();
 };

@@ -14,17 +14,17 @@ const postSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             required: true
         },
-        activity: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true
-        },
-        location: {
+        postTitle: {
             type: String,
+            required: true
         },
         postContent: {
             type: String,
             required: true
         },
+        tags: [{
+            type: mongoose.Schema.Types.ObjectId
+        }],
         imageInfo: {
             imageName: {
                 type: String,
@@ -40,12 +40,27 @@ const postSchema = new mongoose.Schema(
 
 postSchema.index({ user: 1, activity: 1, postContent: 1 }, { unique: true, name: 'post_pri_key' });
 
-postSchema.method({
+// Pre-save hook to encrypt password
+postSchema.pre('save', async function save(next) {
+    try {
 
+        //to default the tags to this if there were no tags created
+        if (!this.tags) {
+            const generalTag = new mongoose.Types.ObjectId("");
+            this.tags = [generalTag];
+        }
+        return next();
+    } catch (err) {
+        return next(err);
+    }
+
+});
+
+postSchema.method({
     // Format for all membership returns: name of User, name of VolunteerOrg
     transform() {
         const transformed = {};
-        const fields = ['id', 'user', 'activity', 'postContent', 'location', 'imageInfo'];
+        const fields = ['id', 'user', 'postTitle', 'postContent', 'tags', 'imageInfo'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });

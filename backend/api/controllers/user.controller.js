@@ -9,20 +9,20 @@ const {
 const { CREATED } = require('../../utils/constants');
 
 // Load the user information into req.locals for use in the next thing
-exports.load = async (req, res, next, id) => {
-  const user = await GetUser(id);
-  req.locals = { user };
-  return next();
-};
+// exports.load = async (req, res, next, id) => {
+//   const user = await GetUser(id);
+//   req.locals = { user };
+//   return next();
+// };
 
 // Return information of the user 
-exports.get = (req, res) => res.json({ data: req.locals.user.transform(), success: 'SUCCESS' });
+exports.get = (req, res) => res.json(req.user.transform());
 
 // Get information of the logged in user 
 exports.login = async (req, res, next) => {
   try {
     const { user, accessToken } = await LoginUserInfo(req.body);
-    res.json({ data: user, token: accessToken, success: 'SUCCESS' });
+    res.json({ user: user, token: accessToken});
   } catch (error) {
     return next(error);
   }
@@ -33,7 +33,7 @@ exports.login = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
     const response = await CreateUser(req.body, req.files.image);
-    return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
+    return res.status(CREATED).json(response);
   } catch (error) {
     return next(error);
   }
@@ -42,9 +42,8 @@ exports.create = async (req, res, next) => {
 // Update user info 
 exports.update = async (req, res, next) => {
   try {
-    const { user } = req.locals;
-    const response = await UpdateUser(user, req.body);
-    return res.json({ data: response, success: 'SUCCESS' });
+    const response = await UpdateUser(req.user, req.body);
+    return res.json(response);
   } catch (error) {
     return next(error);
   }
@@ -53,8 +52,7 @@ exports.update = async (req, res, next) => {
 // Remove the user account 
 exports.remove = async (req, res, next) => {
   try {
-    const { user } = req.locals;
-    await RemoveUser(user);
+    await RemoveUser(req.user);
     res.status(203).end();
   } catch (error) {
     next(error);

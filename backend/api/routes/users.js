@@ -18,7 +18,7 @@ const { USER, VOLUNTEERORG } = require('../../utils/constants');
 
 // anytime that the parameter of the url has the userId, 
 // then it will have the controller.load method execute first
-app.param('userId', controller.load); // PENDING
+// app.param('userId', controller.load); // PENDING
 
 // app.route('/')
 //     .get(controller.load) // PENDING
@@ -30,7 +30,7 @@ app.route('/register')
 app.route('/login')
     .post(controller.login); // WORKING
     
-app.route('/:userId')
+app.route('/profile')
     .get(Authorize(USER), controller.get) // WORKING
     .put(Authorize(USER), controller.update) // WORKING
     .delete(Authorize(USER), controller.remove); // WORKING

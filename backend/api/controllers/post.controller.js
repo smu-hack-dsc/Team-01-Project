@@ -1,13 +1,13 @@
 const { CREATED } = require("../../utils/constants");
 const { CreatePost, GetPost,
-        GetPostsByUser, GetPostsByLatest,
+        GetPostsByUser, GetPostsByLatest, CommunityPosts,
         RemovePost } = require("../service/post.service");
 
 
 exports.create = async (req, res, next) => {
     try {
         const response = await CreatePost(req.user, req.body, req.files.image);
-        return res.json({data: response});
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
@@ -17,7 +17,7 @@ exports.create = async (req, res, next) => {
 exports.getLatest = async (req, res, next) => {
     try {
         const response = await GetPostsByLatest(req);
-        return res.json({data: response});
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
@@ -28,7 +28,16 @@ exports.getByUser = async (req, res, next) => {
     try {
         const userId = req.user.id;
         const response = await GetPostsByUser(userId);
-        return res.json({ data: response, success: 'SUCCESS' });
+        return res.json(response);
+    } catch (error) {
+        return next(error);
+    }
+}
+
+exports.communitiesFilter = async (req, res, next) => {
+    try {
+        const response = await CommunityPosts(req.body);
+        return res.json(response);
     } catch (error) {
         return next(error);
     }

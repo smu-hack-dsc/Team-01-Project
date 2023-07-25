@@ -11,6 +11,9 @@ app.route('/')
     .post(Authorize(), controller.create) // WORKING
     .get(Authorize(), controller.getLatest); // WORKING
 
+app.route('/communities')
+    .post(Authorize(), controller.communitiesFilter) // PENDING
+
 app.route('/myposts')
     .get(Authorize(), controller.getByUser); // WORKING
 

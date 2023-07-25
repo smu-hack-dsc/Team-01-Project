@@ -7,17 +7,18 @@ exports.CreatePost = async (userData, postData, imageData) => {
     try {
         const postPicture = imageData;
         const pictureName = moment().format().toString() + imageData.name;
-        const uploadPath = __dirname + '../../../src/postUploads/' + pictureName ;
+        const uploadPath = __dirname + '../../../src/postUploads/' + pictureName;
         postPicture.mv(uploadPath);
-        
-        const post = new Post({userData, postData,
+
+        const post = new Post({
+            userData, postData,
             imageInfo: {
                 imageName: pictureName,
                 imagePath: uploadPath,
             }
         });
 
-        console.log({post: post});
+        console.log({ post: post });
         const saved = await post.save();
         console.log("here");
         return saved.transform();
@@ -56,6 +57,18 @@ exports.GetPostsByLatest = async (req) => {
         throw Post.checkDuplication(err);
     }
 };
+
+exports.CommunityPosts = async (filterOptions) => {
+    try {
+        const posts = await Post.find({ $expr: { $setIsSubset: [filterOptions, "$tags"] } });
+        posts.forEach(post => {
+            post.transform();
+        });
+        return posts;
+    } catch (err) {
+        throw Post.checkDuplication(err);
+    }
+}
 
 // Delete
 exports.RemovePost = async (post) => {

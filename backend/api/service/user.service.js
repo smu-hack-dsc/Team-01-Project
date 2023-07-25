@@ -12,7 +12,7 @@ exports.LoginUserInfo = async (options) => {
 }
 
 // Create user account
-exports.CreateUser = async (userData, imageData) => {
+exports.CreateUser = async (userData/*, imageData*/) => {
     try {
         const postPicture = imageData;
         const pictureName = moment().format().toString() + imageData.name;
@@ -42,21 +42,33 @@ exports.CreateUser = async (userData, imageData) => {
 // Get user by id
 exports.GetUser = async (id) => User.get(id);
 
-exports.LogoutUser = async(payload) => {
-    try {
-        User.unauthorize(payload);
-        next();
-    } catch (err) {
-        throw User.checkDuplication(err);
-    }
-}
+// exports.LogoutUser = async(payload) => {
+//     try {
+//         User.unauthorize(payload);
+//         next();
+//     } catch (err) {
+//         throw User.checkDuplication(err);
+//     }
+// }
 
 // Update user information
 exports.UpdateUser = async (user, newData) => {
     try {
+        // check which role it is, and compare the appropriate data
+        var updateData;
 
-        // Compare data between the orig user and with the new Info in newData
-        const updateData = Object.assign(user, newData);
+        if (user.role === 'user') {
+            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests', 'imageInfo'];
+            fields.forEach((field) => {
+                updateData[field] = this[field];
+            });
+        } else {
+            
+            const fields = ['name', 'email', 'imageInfo'];
+            fields.forEach((field) => {
+                updateData[field] = this[field];
+            });
+        }
         const savedUser = await updateData.save();
         return savedUser.transform();
 

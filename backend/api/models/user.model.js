@@ -48,11 +48,6 @@ const userSchema = mongoose.Schema(
             type: String,
             enum: SKILLS
         }],
-
-        // badges: [{
-        //     type: String,
-        //     enum: BADGES
-        // }],
         role: {
             //  to determine if the user is a volunteer org or not
             // --> for authorization later on
@@ -106,10 +101,6 @@ userSchema.pre('remove', async function (next) {
 
         // Deleting signup documents that reference the user
         await Signup.deleteMany({ user: userId });
-
-        // Deleting member documents that reference the user
-        await Member.deleteMany({ user: userId });
-        await Member.deleteMany({ volunteerOrg: userId });
 
         // Proceed to the next hook or remove operation
         return next();

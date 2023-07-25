@@ -17,13 +17,13 @@ exports.load = async (req, res, next, id) => {
 
 
 // Return information of activity by its id 
-exports.get = async (req, res) => res.json({ data: req.locals.activity.transform(), success: 'SUCCESS' });
+exports.get = async (req, res) => res.json(req.locals.activity.transform());
 
 // Return information of all the activities after today
 exports.getAfterToday = async (req, res, next) => {
     try {
         const response = await GetActivitiesAfterToday(req);
-        return res.json({ data: response, success: 'SUCCESS' });
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
@@ -34,20 +34,17 @@ exports.getByVO = async (req, res, next) => {
     try {
         const organiserId = req.params.organiserId;
         const response = await GetActivitiesByVo(organiserId);
-        return res.json({ data: response, success: 'SUCCESS' });
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
 }
 
-// Return information of activities under this category
-// Return information of activities with this required skill
-
 // Create activity
 exports.create = async (req, res, next) => {
     try {
         const response = await CreateActivity(req.user, req.body, req.files.image);
-        return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
+        return res.status(CREATED).json(response);
     } catch (error) {
         return next(error);
     }
@@ -57,41 +54,41 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const { activity } = req.locals;
-        const response = await UpdateActivity(activity, req.body);
-        return res.json({ data: response, success: 'SUCCESS' });
+        const response = await UpdateActivity(activity, req.user, req.body);
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
 };
 
 // Filter by skills required for the user
-exports.filterUserSkills = async (req, res, next) => {
-    try {
-        const user = req.user;
+// exports.filterUserSkills = async (req, res, next) => {
+//     try {
+//         const user = req.user;
 
-        const response = await MatchActivitiesBySkills(user.skills);
-        return res.json({data: response, success: 'SUCCESS'});
-    } catch (error) {
-        return next(error);
-    }
-}
+//         const response = await MatchActivitiesBySkills(user.skills);
+//         return res.json(response);
+//     } catch (error) {
+//         return next(error);
+//     }
+// }
 
 // Filter the shown activities by the user's interests
-exports.filterUserInterests = async (req, res, next) => {
-    try {
-        const user = req.user;
-        const response = await MatchActivitiesByInterests(user.interests);
-        return res.json({data: response, success: 'SUCCESS'});
-    } catch (error) {
-        return next(error);
-    }
-}
+// exports.filterUserInterests = async (req, res, next) => {
+//     try {
+//         const user = req.user;
+//         const response = await MatchActivitiesByInterests(user.interests);
+//         return res.json(response);
+//     } catch (error) {
+//         return next(error);
+//     }
+// }
 
 exports.filterFunc = async (req, res, next) => {
     try {
         const filterOptions = req.body;
         const response = await MatchByFilters(filterOptions);
-        return res.json({data: response, success: 'SUCCESS'});
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
@@ -101,7 +98,7 @@ exports.filterFunc = async (req, res, next) => {
 exports.remove = async (req, res, next) => {
     try {
         const { activity } = req.locals;
-        await RemoveActivity(activity);
+        await RemoveActivity(activity, req.user);
         res.status(203).end();
     } catch (error) {
         next(error);

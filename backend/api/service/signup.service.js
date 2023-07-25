@@ -1,5 +1,5 @@
 const APIError = require('../../utils/APIError');
-const { VALIDATION_ERROR, BAD_REQUEST, VOLUNTEERORG } = require('../../utils/constants');
+const { VALIDATION_ERROR, BAD_REQUEST, VOLUNTEERORG, INVALID_CREDENTIALS, UNAUTHORIZED } = require('../../utils/constants');
 
 const Activity = require('../models/activity.model');
 const Signup = require('../models/signup.model');
@@ -22,6 +22,18 @@ exports.CreateSignup = async (signupData) => {
 // Get signup by the signup id
 exports.GetSignup = async (id) => Signup.get(id);
 
+exports.CheckGet = async (userData, signupData) => {
+    if (userData.id !== signupData.user) {
+        const activityConcerned = await User.find({acitivity: signupData.activty});
+        if (userData.id !== activityConcerned.organiserId) {
+            throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
+        }
+    }
+
+    return signupData;
+
+};
+
 // Get signup by the user id provided (giving back all the activities that user signed up for)
 exports.GetByUser = async (userInfo) => {
     try {
@@ -29,24 +41,21 @@ exports.GetByUser = async (userInfo) => {
 
         const role = userInfo.role;
 
+        var userSignups;
 
         if (role === VOLUNTEERORG) {
             const activities = await Activity.find({ organiserId: userIdString });
             activities.forEach(activity => {
                 activity = activity.id;
             });
-            const userSignups = await Signup.find({ activity: { $in: activities } });
-            userSignups.forEach(userSignup => {
-                userSignup.transform();
-            });
-            return userSignups;
+            userSignups = await Signup.find({ activity: { $in: activities } });
         } else {
-            const userSignups = await Signup.find({ user: userIdString });
-            userSignups.forEach(userSignup => {
-                userSignup.transform();
-            });
-            return userSignups;
+            userSignups = await Signup.find({ user: userIdString });
         }
+        userSignups.forEach(userSignup => {
+            userSignup.transform();
+        });
+        return userSignups;
 
     } catch (err) {
         throw Signup.checkDuplication(err);
@@ -69,12 +78,13 @@ exports.GetByActivity = async (activityId) => {
 
 
 // Update the signup information (for example when you have a successful application)
-exports.UpdateSignup = async (signup, newData) => {
+exports.UpdateSignup = async (userData, signup, newData) => {
     try {
+        this.CheckGet(userData, signup);
         const newUserDetails = newData.userDetails;
         if (!signup.userDetails.acceptanceIndication) {
             if (!newUserDetails.hoursCompleted|| newUserDetails.completionIndication || newUserDetails.rating) {
-                throw new APIError({ message: VALIDATION_ERROR + " top", errorCode: BAD_REQUEST });
+                throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
             } 
         } else if (!signup.userDetails.completionIndication) {
             if (newUserDetails.hoursCompleted|| newUserDetails.rating) {

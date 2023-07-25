@@ -1,6 +1,6 @@
 const {
     CreateSignup,
-    GetSignup, GetByUser, GetByActivity,
+    GetSignup, GetByUser, GetByActivity, CheckGet,
     UpdateSignup,
     RemoveSignup
 } = require('../service/signup.service');
@@ -15,13 +15,20 @@ exports.load = async (req, res, next, id) => {
 }
 
 // Return information of the signup
-exports.get = (req, res) => res.json({ data: req.locals.signup.transform(), success: 'SUCCESS' });
+exports.get = async (req, res) => {
+    try {
+        const response = await CheckGet(req.user, req.locals.signup);
+        return res.json(response);
+    } catch (error) {
+        return next(error);
+    }
+}
 
 // Return information of signups under a user
 exports.getUnderUser = async (req, res, next) => {
     try {
         const response = await GetByUser(req.user);
-        return res.json({data: response, success: 'SUCCESS'});
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
@@ -30,8 +37,8 @@ exports.getUnderUser = async (req, res, next) => {
 // Return information of signups under an activity
 exports.getUnderActivity = async (req, res, next) => {
     try {
-        const response = await GetByActivity(req.body.activityId);
-        return res.json({data: response, success: 'SUCCESS'});
+        const response = await GetByActivity(req.user, req.body.activityId);
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
@@ -41,7 +48,7 @@ exports.getUnderActivity = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     try {
         const response = await CreateSignup({userId: req.user.id, activityId: req.body.activityId});
-        return res.status(CREATED).json({ data: response, success: 'SUCCESS' });
+        return res.status(CREATED).json(response);
     } catch (error) {
         return next(error);
     }
@@ -52,8 +59,8 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const { signup } = req.locals;
-        const response = await UpdateSignup(signup, req.body);
-        return res.json({ data: response, success: 'SUCCESS' });
+        const response = await UpdateSignup(req.user, signup, req.body);
+        return res.json(response);
     } catch (error) {
         return next(error);
     }
