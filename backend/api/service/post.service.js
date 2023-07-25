@@ -1,26 +1,39 @@
 const Post = require('../models/post.model');
 const moment = require('moment');
 const mongoose = require('mongoose');
+const fs = require('fs');
+const path = require('path');
 
 // Create
 exports.CreatePost = async (userData, postData, imageData) => {
     try {
         const postPicture = imageData;
-        const pictureName = moment().format().toString() + imageData.name;
-        const uploadPath = __dirname + '../../../src/postUploads/' + pictureName;
-        postPicture.mv(uploadPath);
+        const pictureName = /*moment().format().toString() + */imageData.name;
+        const uploadPath = path.join(__dirname + '/../../src/postUploads/' + pictureName);
+
+
+        postPicture.mv(uploadPath, error => {
+            if (error) {
+                throw new APIError({
+                    message: "file cannot mv",
+                    status: 400,
+                })
+            } 
+        });
 
         const post = new Post({
-            userData, postData,
+            user: userData.id,
+            postTitle: postData.postTitle,
+            postContent: postData.postContent,
+            tags: postData.tags,
             imageInfo: {
                 imageName: pictureName,
                 imagePath: uploadPath,
             }
         });
 
-        console.log({ post: post });
+        // console.log({ post: post });
         const saved = await post.save();
-        console.log("here");
         return saved.transform();
 
     } catch (err) {

@@ -2,28 +2,28 @@ const mongoose = require('mongoose');
 
 const APIError = require('../../utils/APIError');
 const {
-    SKILLS, INTERESTS,
+    INTERESTS,
     NO_RECORD_FOUND, NOT_FOUND, POST_MADE_BEFORE,
-    BAD_REQUEST, VALIDATION_ERROR,
-    USER_REGISTERED, USER_VO_MEMBER
+    BAD_REQUEST, VALIDATION_ERROR
 } = require('../../utils/constants');
 
 const postSchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true
+            // required: true
         },
         postTitle: {
             type: String,
-            required: true
+            // required: true
         },
         postContent: {
             type: String,
-            required: true
+            // required: true
         },
         tags: [{
-            type: mongoose.Schema.Types.ObjectId
+            type: String,
+            enum: INTERESTS,
         }],
         imageInfo: {
             imageName: {
@@ -46,7 +46,7 @@ postSchema.pre('save', async function save(next) {
 
         //to default the tags to this if there were no tags created
         if (!this.tags) {
-            const generalTag = new mongoose.Types.ObjectId("");
+            const generalTag = 'general';
             this.tags = [generalTag];
         }
         return next();
