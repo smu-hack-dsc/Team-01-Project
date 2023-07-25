@@ -1,16 +1,15 @@
 const Post = require('../models/post.model');
 const moment = require('moment');
 const mongoose = require('mongoose');
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
 
 // Create
 exports.CreatePost = async (userData, postData, imageData) => {
     try {
         const postPicture = imageData;
-        const pictureName = /*moment().format().toString() + */imageData.name;
+        const pictureName = `${Date.now()}-${imageData.name}`;
         const uploadPath = path.join(__dirname + '/../../src/postUploads/' + pictureName);
-
 
         postPicture.mv(uploadPath, error => {
             if (error) {

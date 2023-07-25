@@ -1,7 +1,7 @@
 const app = require('express').Router();
 const path = require('path');
-//for validating data later on
-// const Validate = require('express-validation');
+const fileUpload = require('express-fileupload');
+
 const controller = require('../controllers/user.controller');
 
 const { Authorize } = require('../../middleware/auth');
@@ -9,10 +9,6 @@ const { Authorize } = require('../../middleware/auth');
 const passport = require('passport');
 app.use(passport.initialize());
 require('../../config/passport.config');
-
-// const {
-//   listUsers, createUser, replaceUser, updateUser,
-// } = require('../validations/user');
 
 const { USER, VOLUNTEERORG } = require('../../utils/constants');
 
@@ -25,14 +21,14 @@ const { USER, VOLUNTEERORG } = require('../../utils/constants');
 
 
 app.route('/register')
-    .post(controller.create); // WORKING
+    .post(fileUpload({createParentPath: true}), controller.create); // WORKING
 
 app.route('/login')
     .post(controller.login); // WORKING
     
 app.route('/profile')
     .get(Authorize(USER), controller.get) // WORKING
-    .put(Authorize(USER), controller.update) // WORKING
+    .put(fileUpload({createParentPath: true}), Authorize(USER), controller.update) // WORKING
     .delete(Authorize(USER), controller.remove); // WORKING
 
 module.exports = app;

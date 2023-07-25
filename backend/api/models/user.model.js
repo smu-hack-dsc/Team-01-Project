@@ -75,10 +75,11 @@ userSchema.pre('save', async function save(next) {
         if (!this.isModified('password')) return next();
 
         // to ensure dateOfBirth recorded for user only
-        if (this.role == 'user' && (!this.dateOfBirth)) {
-            throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
-        } else if (this.role == 'volunteerOrg' && (this.dateOfBirth || this.interests || this.skills)) {
-            throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
+        if (this.role === 'user' && (!this.dateOfBirth)) {
+            throw new APIError({ message: VALIDATION_ERROR + ' for user', errorCode: BAD_REQUEST });
+        } else if (this.role === 'volunteerOrg' && (this.dateOfBirth !== undefined || this.interests.length !== 0 || this.skills.length !== 0)) {
+            console.log(this);
+            throw new APIError({ message: VALIDATION_ERROR + ' for vo', errorCode: BAD_REQUEST });
         }
 
         // hash password
@@ -116,12 +117,12 @@ userSchema.method({
         const transformed = {};
 
         // to ensure dateOfBirth recorded for user only
-        if (this.role == 'user') {
+        if (this.role === 'user') {
             const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'imageInfo'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });
-        } else if (this.role == 'volunteerOrg' && (dateOfBirth)) {
+        } else if (this.role === 'volunteerOrg') {
             const fields = ['id', 'name', 'email', 'role', 'imageInfo'];
             fields.forEach((field) => {
                 transformed[field] = this[field];

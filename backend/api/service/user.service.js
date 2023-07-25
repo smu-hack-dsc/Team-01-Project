@@ -1,5 +1,6 @@
 const APIError = require('../../utils/APIError');
-const User = require('../models/user.model')
+const User = require('../models/user.model');
+const path = require('path');
 
 // for getting the jwt token when the user logins
 exports.LoginUserInfo = async (options) => {
@@ -12,26 +13,49 @@ exports.LoginUserInfo = async (options) => {
 }
 
 // Create user account
-exports.CreateUser = async (userData/*, imageData*/) => {
+exports.CreateUser = async (userData, imageData) => {
     try {
         const postPicture = imageData;
-        const pictureName = moment().format().toString() + imageData.name;
-        const uploadPath = __dirname + '../../../src/profileUploads/' + pictureName ;
-        postPicture.mv(uploadPath, (err) => {
-            throw new APIError({
-                message: "file cannot mv",
-                status: 404,
-            })
+        const pictureName = `${Date.now()}-${imageData.name}`;
+        const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
+
+        postPicture.mv(uploadPath, error => {
+            if (error) {
+                throw new APIError({
+                    message: "file cannot mv",
+                    status: 400,
+                })
+            } 
         });
 
-        const user = new User({
-            userData, 
-            imageInfo: {
-                imageName: pictureName,
-                imagePath: uploadPath,
-            }
-        });
-        
+        var user;
+        if (userData.role === 'user') {
+            user = new User ({
+                name: userData.name,
+                password: userData.password,
+                dateOfBirth: userData.dateOfBirth,
+                email: userData.email,
+                interests: userData.interests,
+                skills: userData.skills,
+                role: userData.role,
+                imageInfo: {
+                    imageName: pictureName,
+                    imagePath: uploadPath,
+                }
+            });
+        } else {
+            user = new User ({
+                name: userData.name,
+                password: userData.password,
+                email: userData.email,
+                role: userData.role,
+                imageInfo: {
+                    imageName: pictureName,
+                    imagePath: uploadPath,
+                }
+            });
+
+        }
         const su = await user.save();
         return su.transform();
     } catch (err) {
@@ -42,32 +66,43 @@ exports.CreateUser = async (userData/*, imageData*/) => {
 // Get user by id
 exports.GetUser = async (id) => User.get(id);
 
-// exports.LogoutUser = async(payload) => {
-//     try {
-//         User.unauthorize(payload);
-//         next();
-//     } catch (err) {
-//         throw User.checkDuplication(err);
-//     }
-// }
 
 // Update user information
-exports.UpdateUser = async (user, newData) => {
+exports.UpdateUser = async (user, newData, imageData) => {
     try {
         // check which role it is, and compare the appropriate data
-        var updateData;
+        const updateData = {};
 
         if (user.role === 'user') {
-            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests', 'imageInfo'];
+            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests'];
             fields.forEach((field) => {
-                updateData[field] = this[field];
+                updateData[field] = !newData[field] ? user[field] : newData[field];
             });
         } else {
-            
-            const fields = ['name', 'email', 'imageInfo'];
+            const fields = ['name', 'email'];
             fields.forEach((field) => {
-                updateData[field] = this[field];
+                updateData[field] = !newData[field] ? user[field] : newData[field];
             });
+        }
+
+        if (imageData) {
+            const postPicture = imageData;
+            const pictureName = `${Date.now()}-${imageData.name}`;
+            const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
+    
+            postPicture.mv(uploadPath, error => {
+                if (error) {
+                    throw new APIError({
+                        message: "file cannot mv",
+                        status: 400,
+                    })
+                } 
+            });
+
+            updateData[imageInfo] = {
+                imageName: pictureName,
+                imagePath: uploadPath,
+            };
         }
         const savedUser = await updateData.save();
         return savedUser.transform();

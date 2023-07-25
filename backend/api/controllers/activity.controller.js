@@ -54,7 +54,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const { activity } = req.locals;
-        const response = await UpdateActivity(activity, req.user, req.body);
+        const response = await UpdateActivity(activity, req.user, req.body, req.files.image);
         return res.json(response);
     } catch (error) {
         return next(error);

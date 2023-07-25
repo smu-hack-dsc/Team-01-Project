@@ -42,7 +42,7 @@ exports.create = async (req, res, next) => {
 // Update user info 
 exports.update = async (req, res, next) => {
   try {
-    const response = await UpdateUser(req.user, req.body);
+    const response = await UpdateUser(req.user, req.body, req.files.image);
     return res.json(response);
   } catch (error) {
     return next(error);

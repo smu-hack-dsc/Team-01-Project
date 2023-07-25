@@ -1,5 +1,5 @@
 const app = require('express').Router();
-
+const fileUpload = require('express-fileupload');
 const controller = require('../controllers/activity.controller');
 
 const { VOLUNTEERORG, USER } = require('../../utils/constants');
@@ -11,7 +11,7 @@ app.param('activityId', controller.load); // PENDING
 
 app.route('/')
     .get(controller.getAfterToday) // WORKING
-    .post(Authorize(VOLUNTEERORG), controller.create); // WORKING
+    .post(Authorize(VOLUNTEERORG), fileUpload({createParentPath: true}), controller.create); // WORKING
 
 app.route('/:activityId')
     .get(controller.get) // WORKING
