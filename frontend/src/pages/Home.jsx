@@ -10,9 +10,9 @@ import React from "react";
 
 const Home = () => {
 
-  // const isLargeScreen = useMedia('(min-width: 1024px)');
+  const isLargeScreen = useMedia('(min-width: 1024px)');
   
-  // const size = isLargeScreen ? 'large' : 'medium';
+  const size = isLargeScreen ? 'medium' : 'small';
 
   return (
     // first section
@@ -50,7 +50,7 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size="small">BE A VOLUNTEER</Button>
+                <Button variant="yellow" size={size}>BE A VOLUNTEER</Button>
               </div>
             </div>
             <div className="container lg:-mx-20 flex flex-col justify-center items-center">
@@ -60,7 +60,7 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size="small">EXPLORE PROJECTS</Button>
+                <Button variant="yellow" size={size}>EXPLORE PROJECTS</Button>
               </div>
             </div>
             <div className="container mx-auto flex flex-col justify-center items-center">
@@ -70,7 +70,7 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size="small">POST OPPORTUNITIES</Button>
+                <Button variant="yellow" size={size}>POST OPPORTUNITIES</Button>
               </div>
             </div>
           </div>
