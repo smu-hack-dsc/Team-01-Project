@@ -38,6 +38,7 @@ exports.CreateUser = async (userData, imageData) => {
                 interests: userData.interests,
                 skills: userData.skills,
                 role: userData.role,
+                description: userData.description,
                 imageInfo: {
                     imageName: pictureName,
                     imagePath: uploadPath,
@@ -49,6 +50,7 @@ exports.CreateUser = async (userData, imageData) => {
                 password: userData.password,
                 email: userData.email,
                 role: userData.role,
+                description: userData.description,
                 imageInfo: {
                     imageName: pictureName,
                     imagePath: uploadPath,
@@ -74,12 +76,12 @@ exports.UpdateUser = async (user, newData, imageData) => {
         const updateData = {};
 
         if (user.role === 'user') {
-            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests'];
+            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests', 'description'];
             fields.forEach((field) => {
                 updateData[field] = !newData[field] ? user[field] : newData[field];
             });
         } else {
-            const fields = ['name', 'email'];
+            const fields = ['name', 'email', 'description'];
             fields.forEach((field) => {
                 updateData[field] = !newData[field] ? user[field] : newData[field];
             });

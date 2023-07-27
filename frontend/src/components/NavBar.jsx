@@ -42,7 +42,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-black font-bold text-3xl">Logo</span>
+                <span className="text-black font-bold text-3xl ml-10">Logo</span>
               </div>
             </div>
             <div className="hidden md:block ml-auto">

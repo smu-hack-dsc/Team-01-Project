@@ -7,8 +7,8 @@ const ProjectCard = ({activityName, description, imageUrl}) => {
   return (
     <div className="flex flex-col sm:w-1/3 lg:w-1/4 sm:h-1/4 lg:h-2/5 bg-gray-100 rounded-lg mt-4 sm:mb-5 lg:mb-0 mx-2 grow pb-24">
       <img
-        // src={require("../resources/img/Project.png")}
-        src = {imageUrl}
+        src={require("../resources/img/Project.png")}
+        // src = {require(imageUrl)}
         alt="Project"
         className="w-full h-187 object-cover rounded-lg"
       />

@@ -22,7 +22,7 @@ const Home = () => {
           alt="Billboard"
           className="w-full h-full"
         />
-        <div className="absolute top-7 left-20 w-full h-full flex flex-col justify-center items-start p-4">
+        <div className="absolute top-7 left-20 w-93vw h-full flex flex-col justify-center items-start p-4">
           <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold sm:text-6xl lg:text-7xl">
             Giving hope through service.
             <div className="sm:pt-5 lg:pt-8">

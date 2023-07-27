@@ -23,9 +23,7 @@ function Projects() {
   useEffect(() => {
     Axios.get("http://localhost:4001/activity/")
       .then((response) => {
-        console.log({data: response.data});
         setProjectData(response.data);
-        console.log("happened");
       })
       .catch((error) => {
         console.log('Error fetching projects data: ', error);

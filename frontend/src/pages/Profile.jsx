@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
+import Axios from 'axios';
 // import { useLocation } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
 import Filter from "components/Filter";
 
 function Profile() {
+
+  const [profileData, setProfileData] = useState([])
+
+  useEffect(() => {
+    Axios.get("http://localhost:4001/user/profile")
+      .then((response) => {
+        setProfileData(response.data);
+      })
+      .catch((error) => {
+        console.log('Error fetching profile data: ', error);
+      });
+  }, []);
+
   return (
     <div>
       <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
@@ -14,10 +28,12 @@ function Profile() {
           <div>
             <img
               src={require("../resources/img/Siyu.png")}
+              // src = {profileData.map((profile) => profile.imageInfo?.imagePath)}
               alt="Siyu"
               className="s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 rounded-md mb-15"
             />
             <div className="text-black font-DM font-semibold sm:text-xl lg:text-2xl mt-3 mb-5">
+              {profileData.name}
               Tay Si Yu
             </div>
             <div className="flex flex-col">
@@ -35,6 +51,7 @@ function Profile() {
                 Nullam nec fermentum elit,
                 sed ullamcorper elit.
                 Curabitur tristique mollis.
+                {profileData.description}
               </div>
               <div className="w-202.002 h-1 bg-gray-300 mb-15" />
             </div>

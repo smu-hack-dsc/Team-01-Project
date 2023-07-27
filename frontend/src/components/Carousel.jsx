@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Slider from "react-slick";
+import Axios from 'axios';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CarouselCard } from "components/CarouselCard";
@@ -23,15 +24,36 @@ const Carousel = () => {
     nextArrow: <></>, 
   };
 
+  const [projectData, setProjectData] = useState([])
+
+  useEffect(() => {
+    Axios.get("http://localhost:4001/activity/")
+      .then((response) => {
+        setProjectData(response.data);
+      })
+      .catch((error) => {
+        console.log('Error fetching projects data: ', error);
+      });
+  }, []);
+
   return (
     <div className="flex flex-col justify-center">
       <Slider {...carouselSettings} ref={sliderRef}>
+        {projectData.map((project) => (
+          <CarouselCard 
+            key={project._id}
+            activityName = {project.activityName}
+            description = {project.description}
+            imageUrl = {project.imageInfo?.imagePath}
+          />
+        ))}
+
+        {/* <CarouselCard />
         <CarouselCard />
         <CarouselCard />
         <CarouselCard />
         <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
+        <CarouselCard /> */}
       </Slider>
     </div>
   );

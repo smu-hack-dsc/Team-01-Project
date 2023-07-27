@@ -55,6 +55,9 @@ const userSchema = mongoose.Schema(
             enum: ROLES,
             default: 'user',
         },
+        description: {
+            type: String,
+        },
         imageInfo: {
             imageName: {
                 type: String,
@@ -118,12 +121,12 @@ userSchema.method({
 
         // to ensure dateOfBirth recorded for user only
         if (this.role === 'user') {
-            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'imageInfo'];
+            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'description', 'imageInfo'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });
         } else if (this.role === 'volunteerOrg') {
-            const fields = ['id', 'name', 'email', 'role', 'imageInfo'];
+            const fields = ['id', 'name', 'email', 'role', 'description', 'imageInfo'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });
