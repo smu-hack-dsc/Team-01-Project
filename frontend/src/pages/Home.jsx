@@ -38,38 +38,38 @@ const Home = () => {
 
       {/* second section */}
       <div className="w-full h-500 flex justify-center bg-purple_9663FC">
-        <div className="top-1/2 left-1/2 w-3/4 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 -mt-8 z-10">
-          <div className="flex justify-center items-center mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
+        <div className="flex flex-col items-center top-1/2 left-1/2 w-3/4 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 -mt-8 z-10">
+          <div className="mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
             All-in-one Volunteering
           </div>
-          <div className="flex flex-row justify-center items-center mx-20">
-            <div className="container mx-auto flex flex-col justify-center items-center ml-5">
+          <div className="flex flex-row justify-end items-center w-full px-auto">
+            <div className="container mx-auto flex flex-col justify-center items-center">
               <img
                 src={require("../resources/img/Team.png")}
                 alt="Team"
-                className="lg:h-2/3 lg:w-2/3 sm:h-1/2 sm:w-1/2"
+                className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
-              <div className="flex items-center justify-center">
+              <div className="lg:mt-5 sm:mt-3">
                 <Button variant="yellow" size="small">BE A VOLUNTEER</Button>
               </div>
             </div>
-            <div className="container mx-auto flex flex-col justify-center items-center lg:mx-20">
+            <div className="container lg:-mx-20 flex flex-col justify-center items-center">
               <img
                 src={require("../resources/img/Briefing.png")}
                 alt="Briefing"
-                className="lg:h-2/3 lg:w-2/3 sm:h-1/2 sm:w-1/2"
+                className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
-              <div className="flex items-center justify-center">
+              <div className="lg:mt-5 sm:mt-3">
                 <Button variant="yellow" size="small">EXPLORE PROJECTS</Button>
               </div>
             </div>
-            <div className="container mx-auto flex flex-col justify-center items-center mr-5">
+            <div className="container mx-auto flex flex-col justify-center items-center">
               <img
                 src={require("../resources/img/Post.png")}
                 alt="Post"
-                className="lg:h-2/3 lg:w-2/3 sm:h-1/2 sm:w-1/2"
+                className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
-              <div className="flex items-center justify-center">
+              <div className="lg:mt-5 sm:mt-3">
                 <Button variant="yellow" size="small">POST OPPORTUNITIES</Button>
               </div>
             </div>
