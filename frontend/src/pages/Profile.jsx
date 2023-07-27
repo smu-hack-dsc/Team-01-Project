@@ -2,6 +2,7 @@ import React from "react";
 // import { useLocation } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
+import Filter from "components/Filter";
 
 function Profile() {
   return (
@@ -59,13 +60,13 @@ function Profile() {
           {/* right side */}
           <div className="w-full flex flex-col">
             <div className="mt-15">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                   My Posts
                 </div>
-                <Button variant='yellow' size='small'>
-                  All Time
-                </Button>
+                <Filter categorySubcategories={{
+                  "Recent":null,
+                }}/>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 mt-5">

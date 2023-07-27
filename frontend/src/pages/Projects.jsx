@@ -27,7 +27,12 @@ function Projects() {
             <SearchBar />
           </div>
           <div className="lg:mt-2 -mb-2">
-            <Filter />
+            <Filter categorySubcategories={{
+              'My Interests': ['interest1', 'interest2', 'interest3'],
+              'VO': ['vo1', 'vo2', 'vo3'],
+              'Skill': ['skill1', 'skill2', 'skill3'],
+              'Date': ['idk what to do for date lol'],
+            }}/>
           </div>
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
             <ProjectCard onLearnMoreClick={handleLearnMoreClick} />

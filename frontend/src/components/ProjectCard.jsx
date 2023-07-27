@@ -25,7 +25,7 @@ const ProjectCard = () => {
         </p>
       </div>
       <div className="pl-3 sm:pt-2 lg:pt-3">
-        <Button variant="green" size="small">
+        <Button variant="green" size="medium">
           LEARN MORE
         </Button>
       </div>

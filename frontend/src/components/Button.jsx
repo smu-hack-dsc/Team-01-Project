@@ -52,28 +52,28 @@ const Button = ({
 
   switch (variant) {
     case "green":
-      buttonClasses += "bg-green_C8F3D9 ";
+      buttonClasses += "bg-green_C8F3D9 hover:bg-green-300 ";
       textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-3 py-2 " : "text-sm px-3 py-1 ";
       break;
     case "yellow":
-      buttonClasses += "bg-yellow_FFDA7A ";
+      buttonClasses += "bg-yellow_FFDA7A hover:bg-yellow-400 ";
       textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-4 py-2 " : "text-sm px-3 py-1 ";
       break;
     case "purple":
-      buttonClasses += "bg-purple_9663FC ";
+      buttonClasses += "bg-purple_9663FC hover:bg-purple-500 ";
       textClasses += "text-";
       textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-4 py-2 " : "text-sm px-3 py-1 ";
       break;
     case "white":
     default:
-      buttonClasses += "bg-white ";
+      buttonClasses += "bg-white hover:bg-gray-200 ";
       textClasses += "text-";
       textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-4 py-2 " : "text-sm px-3 py-1 ";
       break;
   }
 
   return (
-    <button className={`${buttonClasses} w-443 h-78 rounded-full border-none hover:bg-gray-300 font-inherit whitespace-nowrap`}>
+    <button className={`${buttonClasses} w-443 h-78 rounded-full border-none font-inherit whitespace-nowrap`}>
       {icon}
       <div className={`${textClasses} font-semibold text-black`}>
         {children}

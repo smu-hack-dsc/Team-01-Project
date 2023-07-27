@@ -11,14 +11,14 @@ const CarouselCard = () => (
       className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
     />
     <div className="flex justify-between p-2">
-      <div className="flex flex-col justify-center text-black font-DMSans text-xl font-semibold">
+      <div className="flex flex-col justify-center text-black font-DMSans text-xl font-semibold ml-1">
         Project Name
       </div>
       <div className="flex flex-col justify-center text-black font-DMSans text-sm font-semibold">
         <IonIcon icon={image} size="large" />
       </div>
     </div>
-    <div className="flex flex-col justify-start h-20 text-black font-DMSans text-sm font-normal p-2">
+    <div className="flex flex-col justify-start h-20 text-black font-DMSans text-sm font-normal p-2 ml-1">
       <p>
         short description
       </p>
