@@ -40,7 +40,7 @@ const Home = () => {
           <div className="mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
             All-in-one Volunteering
           </div>
-          <div className="flex flex-row justify-end items-center w-full px-auto">
+          <div className="flex flex-row justify-end items-center w-full px-auto mr-3">
             <div className="container mx-auto flex flex-col justify-center items-center">
               <img
                 src={require("../resources/img/Team.png")}
@@ -51,7 +51,7 @@ const Home = () => {
                 <Button variant="yellow" size={size2}>BE A VOLUNTEER</Button>
               </div>
             </div>
-            <div className="container lg:-mx-20 flex flex-col justify-center items-center">
+            <div className="container lg:-mx-20 flex flex-col justify-center items-center pr-3">
               <img
                 src={require("../resources/img/Briefing.png")}
                 alt="Briefing"
