@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState } from 'react';
 import SearchBar from 'components/SearchBar';
-import { useMedia } from 'react-use';
-import { ProjectCard } from "components/ProjectCard";
+// import { useMedia } from 'react-use';
+import ProjectCard from "components/ProjectCard";
 import Filter from "components/Filter";
-// import { useLocation } from "react-router-dom";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 function Projects() {
-  
-  const isLargeScreen = useMedia('(min-width: 1024px)');
-  
-  const size = isLargeScreen ? 'large' : 'medium';
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleLearnMoreClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   return (
-    // first section
     <div>
         <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
           <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl pb-5">
@@ -25,13 +30,32 @@ function Projects() {
             <Filter />
           </div>
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
-            <ProjectCard />
+            <ProjectCard onLearnMoreClick={handleLearnMoreClick} />
             <ProjectCard />
             <ProjectCard />
             <ProjectCard />
             <ProjectCard />
             <ProjectCard />
           </div>
+
+          <Popup open={showPopup} onClose={handleClosePopup} modal>
+          {(close) => (
+            <div className="p-4 bg-white rounded-lg">
+              <h2 className="text-2xl font-bold mb-4">Popup Content</h2>
+              <p className="text-lg mb-4">This is the content of the popup.</p>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                onClick={() => {
+                  handleClosePopup();
+                  close();
+                }}
+              >
+                Close
+              </button>
+            </div>
+          )}
+        </Popup>
+
         </div>
     </div>);
 }

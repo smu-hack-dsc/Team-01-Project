@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProjectCard } from 'components/ProjectCard';
+import ProjectCard from 'components/ProjectCard';
 import { IonIcon } from '@ionic/react';
 import { filter } from 'ionicons/icons';
 

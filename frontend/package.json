@@ -24,6 +24,7 @@
     "react-slick": "^0.29.0",
     "react-use": "^17.4.0",
     "reactdom": "^2.0.0",
+    "reactjs-popup": "^2.0.5",
     "slick": "^1.12.2",
     "slick-carousel": "^1.8.1",
     "style-loader": "^3.3.3",
