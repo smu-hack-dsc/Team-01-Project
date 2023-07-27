@@ -1,9 +1,6 @@
-// import { css } from '@emotion/css';
 import { Button } from 'components/Button';
-import { ClickableImage } from 'components/ClickableImage';
 import Carousel from 'components/Carousel';
 import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
-import { TranslucentPurple } from 'components/TranslucentPurple';
 import { useMedia } from 'react-use';
 import React from "react";
 // import { useLocation } from "react-router-dom";
@@ -12,7 +9,8 @@ const Home = () => {
 
   const isLargeScreen = useMedia('(min-width: 1024px)');
   
-  const size = isLargeScreen ? 'medium' : 'small';
+  const size1 = isLargeScreen ? 'large' : 'medium';
+  const size2 = isLargeScreen ? 'medium' : 'small';
 
   return (
     // first section
@@ -28,7 +26,7 @@ const Home = () => {
           <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold sm:text-6xl lg:text-7xl">
             Giving hope through service.
             <div className="sm:pt-5 lg:pt-8">
-              <Button variant="green" size="large">
+              <Button variant="green" size={size1}>
                 BROWSE OPPORTUNITIES
               </Button>
             </div>
@@ -50,7 +48,7 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size={size}>BE A VOLUNTEER</Button>
+                <Button variant="yellow" size={size2}>BE A VOLUNTEER</Button>
               </div>
             </div>
             <div className="container lg:-mx-20 flex flex-col justify-center items-center">
@@ -60,7 +58,7 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size={size}>EXPLORE PROJECTS</Button>
+                <Button variant="yellow" size={size2}>EXPLORE PROJECTS</Button>
               </div>
             </div>
             <div className="container mx-auto flex flex-col justify-center items-center">
@@ -70,7 +68,7 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size={size}>POST OPPORTUNITIES</Button>
+                <Button variant="yellow" size={size2}>POST OPPORTUNITIES</Button>
               </div>
             </div>
           </div>
@@ -89,8 +87,29 @@ const Home = () => {
       </div>
 
       {/* last section */}
-      <div>
-        <TranslucentPurple />
+      <div className="flex justify-center items-center">
+        {/* edit max height and image overflow */}
+        <div className="relative w-full h-full flex-shrink-1">
+          <div className="absolute top-0 left-0 w-full h-full bg-purple_9663FC opacity-50 z-10"></div>
+          <img
+            src={require("../resources/img/FooterImg.png")}
+            alt="FooterImg"
+            className="relative z-1"
+          />
+        </div>
+        <div className="absolute flex items-center w-1020 h-62.434 flex-col justify-center text-white text-center z-10">
+          <div className="font-RecoletaAlt text-4xl lg:text-5xl z-3">
+            You can make a difference today!
+          </div>
+          <div className="font-DMSans text-xl lg:text-2xl z-3">
+            There’s a lot more we can do, together.
+          </div>
+          <div className="z-3 mt-4">
+            <Button variant="yellow" size={size1}>
+              SIGN UP NOW
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

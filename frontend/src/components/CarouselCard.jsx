@@ -24,7 +24,7 @@ const CarouselCard = () => (
       </p>
     </div>
     <div className="pl-2 pt-1">
-      <Button variant="green" size="small">
+      <Button variant="green" size="medium">
         LEARN MORE
       </Button>
     </div>

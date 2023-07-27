@@ -53,7 +53,7 @@ const Button = ({
   switch (variant) {
     case "green":
       buttonClasses += "bg-green_C8F3D9 ";
-      textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-4 py-2 " : "text-sm px-3 py-1 ";
+      textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-3 py-2 " : "text-sm px-3 py-1 ";
       break;
     case "yellow":
       buttonClasses += "bg-yellow_FFDA7A ";
