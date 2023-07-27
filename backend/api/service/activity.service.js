@@ -47,13 +47,13 @@ exports.GetActivitiesAfterToday = async (req) => {
     try {
         const today = new Date();
         const activities = await Activity.find({
-            endDate: { $gte: today },
-            $expr: {
-                $and: [
-                    { $setIsSubset: ["$requiredSkills", req.user.skills] },
-                    { $setIsSubset: ["$categories", req.user.interests] }
-                ]
-            }
+            endDate: { $gte: today }
+            // $expr: {
+            //     $and: [
+            //         { $setIsSubset: ["$requiredSkills", req.user.skills] },
+            //         { $setIsSubset: ["$categories", req.user.interests] }
+            //     ]
+            // }
         });
         activities.forEach(activity => {
             activity.transform();

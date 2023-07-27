@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const swagger = require('./utils/swagger');
+const cors = require('cors'); 
 require("dotenv").config();
 
 const userRouter = require('./api/routes/users');
@@ -13,6 +14,7 @@ const postRouter = require('./api/routes/posts');
 app.use(express.json())
 app.use(express.urlencoded({extended: true})) // true because we have nested data structures
 app.use(swagger);
+app.use(cors());
 
 //routes
 app.use('/user', userRouter);

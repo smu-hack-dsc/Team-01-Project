@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from 'components/SearchBar';
 // import { useMedia } from 'react-use';
 import ProjectCard from "components/ProjectCard";
 import Filter from "components/Filter";
 import Popup from 'reactjs-popup';
+import Axios from "axios";
 import 'reactjs-popup/dist/index.css';
 
 function Projects() {
@@ -16,6 +17,20 @@ function Projects() {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+
+  const [projectData, setProjectData] = useState([])
+
+  useEffect(() => {
+    Axios.get("http://localhost:4001/activity/")
+      .then((response) => {
+        console.log({data: response.data});
+        setProjectData(response.data);
+        console.log("happened");
+      })
+      .catch((error) => {
+        console.log('Error fetching projects data: ', error);
+      });
+  }, []);
 
   return (
     <div>
@@ -35,12 +50,21 @@ function Projects() {
             }}/>
           </div>
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
-            <ProjectCard onLearnMoreClick={handleLearnMoreClick} />
+            {projectData.map((project) => (
+              <ProjectCard 
+                key={project._id}
+                activityName = {project.activityName}
+                description = {project.description}
+                imageUrl = {project.imageInfo?.imagePath}
+                onLearnMoreClick = {handleLearnMoreClick}
+              />
+            ))}
+            {/* <ProjectCard onLearnMoreClick={handleLearnMoreClick} />
             <ProjectCard />
             <ProjectCard />
             <ProjectCard />
             <ProjectCard />
-            <ProjectCard />
+            <ProjectCard /> */}
           </div>
 
           <Popup open={showPopup} onClose={handleClosePopup} modal>
