@@ -15,11 +15,11 @@ const postSchema = new mongoose.Schema(
         },
         postTitle: {
             type: String,
-            // required: true
+            required: true
         },
         postContent: {
             type: String,
-            // required: true
+            required: true
         },
         tags: [{
             type: String,
@@ -38,7 +38,7 @@ const postSchema = new mongoose.Schema(
         timestamps: true
     });
 
-postSchema.index({ user: 1, activity: 1, postContent: 1 }, { unique: true, name: 'post_pri_key' });
+postSchema.index({ user: 1, postTitle: 1 }, { unique: true, name: 'post_pri_key' });
 
 // Pre-save hook to encrypt password
 postSchema.pre('save', async function save(next) {
@@ -57,7 +57,6 @@ postSchema.pre('save', async function save(next) {
 });
 
 postSchema.method({
-    // Format for all membership returns: name of User, name of VolunteerOrg
     transform() {
         const transformed = {};
         const fields = ['id', 'user', 'postTitle', 'postContent', 'tags', 'imageInfo'];

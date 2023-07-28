@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'components/shared/Button';
+// import { Button } from 'components/shared/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -112,9 +112,9 @@ const LoginInput = () => {
             Create account
           </div>
 
-          <Button variant='purple' size='small'>
+          <button variant='purple' size='small'>
             Login
-          </Button>
+          </button>
         </div>
       </form>
     </div>

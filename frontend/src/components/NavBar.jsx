@@ -5,6 +5,7 @@ import Home from 'pages/Home';
 import Projects from 'pages/Projects';
 import Community from 'pages/Community';
 import Profile from 'pages/Profile';
+import Login1 from 'components/LoginSignup/Login1';
 import { IonIcon } from '@ionic/react';
 import { menuOutline } from 'ionicons/icons';
 
@@ -47,6 +48,14 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block ml-auto">
               <div className="flex space-x-4">
+                <NavLink
+                  exact
+                  to="/login"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl text-purple-500"
+                  activeClassName="bg-gray-200"
+                >
+                  Login
+                </NavLink>
                 <NavLink
                   exact
                   to="/"
@@ -110,6 +119,15 @@ const Navbar = () => {
               <NavLink
                 onClick={toggleMenu}
                 exact
+                to="/login"
+                className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium text-purple-500"
+                activeClassName="bg-gray-200"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                onClick={toggleMenu}
+                exact
                 to="/"
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-gray-200"
@@ -146,6 +164,7 @@ const Navbar = () => {
       </nav>
 
       <Routes>
+        <Route path="/login" Component={Login1} />
         <Route path="/" Component={Home} />
         <Route path="/projects" Component={Projects} />
         <Route path="/community" Component={Community} />

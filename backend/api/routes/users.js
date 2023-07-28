@@ -28,7 +28,7 @@ app.route('/login')
     
 app.route('/profile')
     .get(Authorize(USER), controller.get) // WORKING
-    .put(fileUpload({createParentPath: true}), Authorize(USER), controller.update) // WORKING
+    .put(Authorize(USER), fileUpload({createParentPath: true}), controller.update) // WORKING
     .delete(Authorize(USER), controller.remove); // WORKING
 
 module.exports = app;

@@ -3,72 +3,25 @@ import { css } from '@emotion/css';
 import ToggleSwitch from './ToggleSwitch';
 import LoginInput from "components/LoginSignup/LoginInput";
 
-const Login1 = () => (
-  <div
-    className={css`
-      width: 100%;
-      background: #FFF;
-      max-width: 1514px;
-      position: relative; /* Add relative positioning for the nested div */
-      margin: 0;
-      padding: 0;
-      height: 100vh; /* Set the height of the body to the viewport height */
-      overflow: hidden; /* Hide both horizontal and vertical scrollbars */
-    `}
-  >
-    <div
-      className={css`
-        width: 1587.099px;
-        height: 544.196px;
-        transform: rotate(-3.819deg);
-        flex-shrink: 0;
-        background: #EDEDED;
-        position: absolute;
-        top: -229px;
-        left: -63px;
-        z-index: 1;
-      `}
-    />
-    <div
-      className={css`
-        display: flex;
-        position: relative;
-        top: 120px;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-        z-index: 2;
-        `}
-    >
-      <div
-        className={css`
-          color: #000;
-          text-align: center;
-          font-family: Uncut Sans;
-          font-size: 40px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: 16px; /* 40.001% */
-          letter-spacing: -0.12px;
-          margin-bottom: 50px;
-        `}
-      >
-        Choose an account
+const Login1 = () => {
+  console.log("login1");
+  return (
+    <div>
+      <div class="w-full bg-gray-200 max-w-1514 relative m-0 p-0 h-100vh overflow-hidden"  >
+        <div class="w-full h-25vh rotate-25 flex-shrink-0 bg-color-gray-200 absolute z-1 top-[-299px] left-[-63px]" />
+          <div class="flex relative top-[120px] flex-col justify-center items-center flex-shrink-0 z-2">
+            <div class="text-black text-center font-sans text-2xl font-bold leading-[16px] tracking-tighter">
+              Choose an account
+            </div>
+            <div class="mb-[100px]">
+              <ToggleSwitch />
+            </div>
+            <LoginInput />
+          </div>
+        {/* </div> */}
       </div>
-
-      <div
-        className={css`
-          margin-bottom: 100px;
-        `}
-      >
-        <ToggleSwitch />
-      </div>
-
-      <LoginInput />
     </div>
-
-  </div>
-);
+  )
+};
 
 export default Login1;
