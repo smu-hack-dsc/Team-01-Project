@@ -4,21 +4,19 @@ import ToggleSwitch from './ToggleSwitch';
 import LoginInput from "components/LoginSignup/LoginInput";
 
 const Login1 = () => {
-  console.log("login1");
   return (
     <div>
-      <div class="w-full bg-gray-200 max-w-1514 relative m-0 p-0 h-100vh overflow-hidden"  >
-        <div class="w-full h-25vh rotate-25 flex-shrink-0 bg-color-gray-200 absolute z-1 top-[-299px] left-[-63px]" />
-          <div class="flex relative top-[120px] flex-col justify-center items-center flex-shrink-0 z-2">
-            <div class="text-black text-center font-sans text-2xl font-bold leading-[16px] tracking-tighter">
-              Choose an account
-            </div>
-            <div class="mb-[100px]">
-              <ToggleSwitch />
-            </div>
-            <LoginInput />
+      <div class="absolute left-0 w-screen h-screen flex flex-col justify-start items-center pt-5 overflow-hidden">
+        <div class="absolute w-[200vw] h-full -rotate-12 -top-2/3 -left-1/3 bg-gray-200 z-1" />
+        <div class="flex relative top-[120px] flex-col justify-center items-center z-2">
+          <div class="flex text-black text-center font-sans text-2xl font-bold pb-12 pt-12">
+            Choose an account
           </div>
-        {/* </div> */}
+          <div class="pb-16 pt-4 items-center">
+            <ToggleSwitch />
+          </div>
+          <LoginInput />
+        </div>
       </div>
     </div>
   )
