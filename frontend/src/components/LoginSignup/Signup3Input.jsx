@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button } from 'components/shared/Button';
+import { Button } from 'components/Button';
+import { Link } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button } from 'components/shared/Button';
+import { Link } from 'react-router-dom';
+import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -181,8 +182,10 @@ const Signup2InputDOB = () => {
         />
 
         <div css={containerStyles}>
-          <Button variant='purple' type="submit" size='small'>
-            Next
+          <Button variant='purple' size='small'>
+            <Link to="/signup_personalise">
+              Next
+            </Link>
           </Button>
         </div>
       </form>

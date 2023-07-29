@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
-import Signup1 from 'components/LoginSignup/Signup1';
 
 const LoginInput = () => {
   const [email, setEmail] = useState('');
@@ -75,15 +74,15 @@ const LoginInput = () => {
         </div>
       </form>
 
-        <div class="w-full flex justify-between items-center mt-4">
+      <div class="w-full flex justify-between items-center mt-4">
         <Link to="/signup" className="font-DMSans font-bold text-2xl text-purple-500">
           Create account
         </Link>
 
-          <Button variant='purple' size='medium'>
-            Login
-          </Button>
-        </div>
+        <Button variant='purple' size='medium'>
+          Login
+        </Button>
+      </div>
     </div>
 
   );

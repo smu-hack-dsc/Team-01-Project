@@ -7,6 +7,8 @@ import Community from 'pages/Community';
 import Profile from 'pages/Profile';
 import Login1 from 'components/LoginSignup/Login1';
 import Signup1 from 'components/LoginSignup/Signup1';
+import Signup2 from 'components/LoginSignup/Signup2';
+import Signup3 from 'components/LoginSignup/Signup3';
 import { IonIcon } from '@ionic/react';
 import { menuOutline } from 'ionicons/icons';
 
@@ -171,6 +173,8 @@ const Navbar = () => {
         <Route path="/community" Component={Community} />
         <Route path="/profile" Component={Profile} />
         <Route path="/signup" Component={Signup1} />
+        <Route path="/signupDetails" Component={Signup2} />
+        <Route path="/signup_personalise" Component={Signup3} />
       </Routes>
     </Router>
   );
