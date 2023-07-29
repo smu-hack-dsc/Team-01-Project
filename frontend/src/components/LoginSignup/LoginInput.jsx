@@ -13,14 +13,14 @@ const LoginInput = () => {
   };
 
   const handleEmailFocus = (e) => {
-    if (e.target.placeholder === 'Username or email') {
+    if (e.target.placeholder === 'Email') {
       e.target.placeholder = '';
     }
   };
 
   const handleEmailBlur = (e) => {
     if (e.target.value === '') {
-      e.target.placeholder = 'Username or email';
+      e.target.placeholder = 'Email';
     }
   };
 
@@ -35,29 +35,6 @@ const LoginInput = () => {
       e.target.placeholder = 'Password';
     }
   };
-
-  const inputStyles = css`
-    width: 700px;
-    height: 80px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    border: 1px solid #000;
-    outline: none;
-    font-family: Uncut Sans;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 16px; /* 66.668% */
-    letter-spacing: -0.12px;
-    color: #000;
-    padding: 0px 30px;
-    margin-bottom: 16px;
-
-    ::placeholder {
-      /* Set the placeholder text color */
-      color: #D9D9D9;
-    }
-  `;
 
   const createAccountStyles = css`
     color: #9663FC;
@@ -80,9 +57,9 @@ const LoginInput = () => {
   `;
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <div>
+    <div class="w-3/5"> 
+      <form onSubmit={handleLogin} class=" flex flex-col justify-center items-center">
+        <div class="w-full">
           <input
             type="email"
             value={email}
@@ -90,11 +67,11 @@ const LoginInput = () => {
             onFocus={handleEmailFocus}
             onBlur={handleEmailBlur}
             required
-            placeholder='Username or email'
-            css={inputStyles}
+            placeholder='Email'
+            class = "w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
-        <div className="form-group">
+        <div className="form-group w-full">
           <input
             type="password"
             value={password}
@@ -103,11 +80,11 @@ const LoginInput = () => {
             onBlur={handlePasswordBlur}
             required
             placeholder='Password'
-            css={inputStyles}
+            class = "w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
 
-        <div css={containerStyles}>
+        <div class="w-full flex justify-between items-center mt-4">
           <div css={createAccountStyles}>
             Create account
           </div>

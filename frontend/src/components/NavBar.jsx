@@ -51,7 +51,7 @@ const Navbar = () => {
                 <NavLink
                   exact
                   to="/login"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl text-purple-500"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
                   Login

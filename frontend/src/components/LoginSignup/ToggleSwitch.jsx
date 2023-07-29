@@ -12,7 +12,7 @@ const ToggleSwitch = () => {
   // might want to consider making a moving flex at the back to allow for transition animation
   return (
     <div class="flex flex-row justify-center items-center">
-      <div class="w-full h-20 bg-gray-400 cursor-pointer items-center rounded-3xl" onClick={handleToggle}>
+      <div class="w-3/5 h-20 bg-gray-400 cursor-pointer items-center rounded-3xl" onClick={handleToggle}>
          {isOption1Selected ? (
             <div class="flex flex-row">
               <div class="flex w-3/6 h-20 items-center justify-center text-center font-RecoletaAlt text-2xl bg-purple-500 text-white rounded-l-3xl">Volunteer</div>
