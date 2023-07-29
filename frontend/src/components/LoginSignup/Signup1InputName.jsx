@@ -89,6 +89,7 @@ const Signup1InputName = () => {
             onChange={(e) => setPassword(e.target.value)}
             onFocus={handleNameFocus}
             onBlur={handleNameBlur}
+            required
             placeholder='Password'
             class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
@@ -100,6 +101,7 @@ const Signup1InputName = () => {
             onChange={(e) => setPasswordCheck(e.target.value)}
             onFocus={handleNameFocus}
             onBlur={handleNameBlur}
+            required
             placeholder='Confirm Password'
             class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />

@@ -8,7 +8,7 @@ const Signup2InputDOB = () => {
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
-  const [gender, setGender] = useState('');
+  const [name, setName] = useState('');
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const Signup2InputDOB = () => {
   };
 
   const dayStyles = css`
-    width: 85px;
+    width: 120px;
     height: 80px;
     flex-shrink: 0;
     border-radius: 15px;
@@ -67,28 +67,28 @@ const Signup2InputDOB = () => {
     padding: 0px 30px;
   `;
 
-  const genderStyles = css`
-    width: 700px;
-    height: 80px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    border: 1px solid #000;
-    outline: none;
-    font-family: Uncut Sans;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 16px; /* 66.668% */
-    letter-spacing: -0.12px;
-    color: #000;
-    padding: 0px 30px;
-    margin-bottom: 16px;
+  // const genderStyles = css`
+  //   width: 700px;
+  //   height: 80px;
+  //   flex-shrink: 0;
+  //   border-radius: 15px;
+  //   border: 1px solid #000;
+  //   outline: none;
+  //   font-family: Uncut Sans;
+  //   font-size: 24px;
+  //   font-style: normal;
+  //   font-weight: 600;
+  //   line-height: 16px; /* 66.668% */
+  //   letter-spacing: -0.12px;
+  //   color: #000;
+  //   padding: 0px 30px;
+  //   margin-bottom: 16px;
 
-    ::placeholder {
-      /* Set the placeholder text color */
-      color: #D9D9D9;
-    }
-  `;
+  //   ::placeholder {
+  //     /* Set the placeholder text color */
+  //     color: #D9D9D9;
+  //   }
+  // `;
 
   const containerStyles = css`
     display: flex;
@@ -113,6 +113,18 @@ const Signup2InputDOB = () => {
   return (
     <div>
       <form onSubmit={handleSignup}>
+
+        <input
+          type="text" // Change the input type to 'text' for First name
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onFocus={handleGenderFocus}
+          onBlur={handleGenderBlur}
+          required
+          placeholder='Name'
+          class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+        />
+
         <div css={overallStyles}>
           <div>
             <label htmlFor="day"></label>
@@ -128,7 +140,7 @@ const Signup2InputDOB = () => {
               css={dayStyles}
             />
           </div>
-          <div>
+          <div class="border-x-8">
             <label htmlFor="month"></label>
             <select
               id="month"
@@ -170,18 +182,7 @@ const Signup2InputDOB = () => {
           </div>
         </div>
 
-        <input
-          type="text" // Change the input type to 'text' for First name
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          onFocus={handleGenderFocus}
-          onBlur={handleGenderBlur}
-          required
-          placeholder='Gender'
-          css={genderStyles}
-        />
-
-        <div css={containerStyles}>
+        <div class="w-full flex justify-end items-center mt-4">
           <Button variant='purple' size='small'>
             <Link to="/signup_personalise">
               Next

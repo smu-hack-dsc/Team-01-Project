@@ -75,7 +75,7 @@ const Signup1 = () => (
     <div class="absolute w-[200vw] h-full -rotate-12 -top-2/3 -left-1/3 bg-gray-200 z-1" />
     <div class="flex relative top-[120px] w-[80vw] flex-col justify-center items-center z-2">
       <div class="flex text-black text-center font-RecoletaAlt text-2xl font-bold pb-12 pt-12">
-        Choose your account
+        Create an account
       </div>
       <div class="pb-16 pt-4 items-center justify-center w-5/6">
         <ToggleSwitch />

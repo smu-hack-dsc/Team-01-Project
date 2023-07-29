@@ -89,7 +89,7 @@ const Signup3Input = () => {
 
   return (
     <div>
-      <form onSubmit={handleLogin}>
+      {/* <form onSubmit={handleLogin}>
         <div>
           <input
             type="email"
@@ -127,12 +127,13 @@ const Signup3Input = () => {
           />
         </div>
 
-        <div css={containerStyles}>
-          <Button variant='purple' size='large'>
-            Create account
-          </Button>
-        </div>
-      </form>
+      </form> */}
+
+      <div css={containerStyles}>
+        <Button variant='purple' size='large'>
+          Create account
+        </Button>
+      </div>
     </div>
   );
 };
