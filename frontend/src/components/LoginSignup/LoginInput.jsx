@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { Button } from 'components/shared/Button';
+import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -36,19 +36,6 @@ const LoginInput = () => {
     }
   };
 
-  const createAccountStyles = css`
-    color: #9663FC;
-    font-family: Uncut Sans;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 16px; /* 66.668% */
-    letter-spacing: -0.12px;
-    &:hover {
-      color: #732ffb;
-    }
-  `;
-
   const containerStyles = css`
     display: flex;
     justify-content: space-between;
@@ -84,14 +71,15 @@ const LoginInput = () => {
           />
         </div>
 
+        {/* do some navigation routing to signup page */}
         <div class="w-full flex justify-between items-center mt-4">
-          <div css={createAccountStyles}>
+          <div class="font-DMSans font-bold text-2xl text-purple-500">
             Create account
           </div>
 
-          <button variant='purple' size='small'>
+          <Button variant='purple' size='medium'>
             Login
-          </button>
+          </Button>
         </div>
       </form>
     </div>

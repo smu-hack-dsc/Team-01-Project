@@ -60,7 +60,7 @@ const Button = ({
       textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-4 py-2 " : "text-sm px-3 py-1 ";
       break;
     case "purple":
-      buttonClasses += "bg-purple_9663FC hover:bg-purple-500 ";
+      buttonClasses += "bg-purple-400 hover:bg-purple-400 ";
       textClasses += "text-";
       textClasses += size === "large" ? "text-2xl p-3 " : size === "medium" ? "text-base px-4 py-2 " : "text-sm px-3 py-1 ";
       break;
