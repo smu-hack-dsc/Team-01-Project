@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+// import { css } from '@emotion/react';
+import Signup1 from 'components/LoginSignup/Signup1';
 
 const LoginInput = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -36,15 +39,15 @@ const LoginInput = () => {
     }
   };
 
-  const containerStyles = css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 50px;
-  `;
+  // const containerStyles = css`
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   margin-top: 50px;
+  // `;
 
   return (
-    <div class="w-3/5"> 
+    <div class="w-3/5">
       <form onSubmit={handleLogin} class=" flex flex-col justify-center items-center">
         <div class="w-full">
           <input
@@ -55,10 +58,10 @@ const LoginInput = () => {
             onBlur={handleEmailBlur}
             required
             placeholder='Email'
-            class = "w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
-        <div className="form-group w-full">
+        <div className="w-full">
           <input
             type="password"
             value={password}
@@ -67,22 +70,22 @@ const LoginInput = () => {
             onBlur={handlePasswordBlur}
             required
             placeholder='Password'
-            class = "w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
+      </form>
 
-        {/* do some navigation routing to signup page */}
         <div class="w-full flex justify-between items-center mt-4">
-          <div class="font-DMSans font-bold text-2xl text-purple-500">
-            Create account
-          </div>
+        <Link to="/signup" className="font-DMSans font-bold text-2xl text-purple-500">
+          Create account
+        </Link>
 
           <Button variant='purple' size='medium'>
             Login
           </Button>
         </div>
-      </form>
     </div>
+
   );
 };
 

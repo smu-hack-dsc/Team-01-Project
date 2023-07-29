@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'components/shared/Button';
+import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
