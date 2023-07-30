@@ -1,6 +1,6 @@
 // tailwind attempt
 import React from 'react';
-const ProfilePost = () => {
+const ProfilePost = ({imageUrl}) => {
   const handleClick = () => {
     // Handle click event here
     console.log('Image clicked!');
@@ -10,7 +10,8 @@ const ProfilePost = () => {
       <div className="w-350 h-242 flex-shrink-0 rounded-13 bg-gray-300 overflow-hidden">
         <a href="UserPost" onClick={handleClick}>
           <img
-            src={require("../resources/img/ProfilePost.png")}
+            // src={require("../resources/img/ProfilePost.png")}
+            src={require(imageUrl)}
             alt="ProfilePost"
           />
         </a>
