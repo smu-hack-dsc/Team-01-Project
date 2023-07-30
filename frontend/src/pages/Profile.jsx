@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import Axios from 'axios';
+import api from '../api';
 // import { useLocation } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
@@ -10,13 +10,16 @@ function Profile() {
   const [profileData, setProfileData] = useState([])
 
   useEffect(() => {
-    Axios.get("http://localhost:4001/user/profile")
-      .then((response) => {
+    const fetchProfile = async () => {
+      try {
+        const response = await api.get('/user/profile');
         setProfileData(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log('Error fetching profile data: ', error);
-      });
+      }
+    };
+
+    fetchProfile();
   }, []);
 
   return (
@@ -34,7 +37,7 @@ function Profile() {
             />
             <div className="text-black font-DM font-semibold sm:text-xl lg:text-2xl mt-3 mb-5">
               {profileData.name}
-              Tay Si Yu
+              {/* Tay Si Yu */}
             </div>
             <div className="flex flex-col">
               <div className="flex flex-row justify-between justify-items-start font-DM text-black font-semibold">
@@ -42,7 +45,7 @@ function Profile() {
                 <div>12.8k friends</div>
               </div>
                 <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
-                Lorem ipsum dolor sit amet,
+                {/* Lorem ipsum dolor sit amet,
                 consectetur adipiscing elit.
                 Donec placerat volutpat magna,
                 sed ornare nunc auctor et.
@@ -50,7 +53,7 @@ function Profile() {
                 Nullam ut sem libero.
                 Nullam nec fermentum elit,
                 sed ullamcorper elit.
-                Curabitur tristique mollis.
+                Curabitur tristique mollis. */}
                 {profileData.description}
               </div>
               <div className="w-202.002 h-1 bg-gray-300 mb-15" />

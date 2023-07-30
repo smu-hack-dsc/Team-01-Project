@@ -4,7 +4,7 @@ import SearchBar from 'components/SearchBar';
 import ProjectCard from "components/ProjectCard";
 import Filter from "components/Filter";
 import Popup from 'reactjs-popup';
-import Axios from "axios";
+import api from '../api';
 import 'reactjs-popup/dist/index.css';
 
 function Projects() {
@@ -21,13 +21,16 @@ function Projects() {
   const [projectData, setProjectData] = useState([])
 
   useEffect(() => {
-    Axios.get("http://localhost:4001/activity/")
-      .then((response) => {
+    const fetchProjects = async () => {
+      try {
+        const response = await api.get('/activity/');
         setProjectData(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log('Error fetching projects data: ', error);
-      });
+      }
+    };
+
+    fetchProjects();
   }, []);
 
   return (
