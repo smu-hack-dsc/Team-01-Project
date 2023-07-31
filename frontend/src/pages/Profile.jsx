@@ -12,6 +12,11 @@ function Profile() {
 
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/'; // Redirect to the login page after logging out
+  };
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -21,7 +26,6 @@ function Profile() {
         console.log('Error fetching profile data: ', error);
 
         if (error.response && error.response.status === 401) {
-          console.log(401);
           navigate('/login');
         }
       }
@@ -49,7 +53,7 @@ function Profile() {
             < div >
               <img
                 // src={require("../resources/img/Siyu.png")}
-                src={profileData.map((profile) => profile.imageInfo?.imagePath)}
+                src={require = (profileData.imageInfo?.imagePath)}
                 alt="Siyu"
                 className="s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 rounded-md mb-15"
               />
@@ -59,7 +63,8 @@ function Profile() {
               </div>
               <div className="flex flex-col">
                 <div className="flex flex-row justify-between justify-items-start font-DM text-black font-semibold">
-                  <div>12 posts</div>
+                  {userPostsData?.length ? <div>{userPostsData.length} posts</div> : <div>0 posts</div>}
+                  {/* <div>12 posts</div> */}
                   <div>12.8k friends</div>
                 </div>
                 <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
@@ -78,20 +83,33 @@ function Profile() {
               </div>
 
               <div className="text-black font-DM font-semibold">Interests</div>
-              <div className="text-opacity-40 font-DM text-15px font-normal">Youth Education, Environment Conservation</div>
+              <div className="text-opacity-40 font-DM text-15px font-normal">
+                {profileData.interests && profileData.interests.map((interest, index) => (
+                  <React.Fragment key={index}>
+                    {interest}
+                    {index !== profileData.interests.length - 1 && ', '}
+                  </React.Fragment>
+                ))}
+              </div>
+              {/* <div className="text-opacity-40 font-DM text-15px font-normal">Youth Education, Environment Conservation</div> */}
 
               <div className="text-black font-DM font-semibold mt-3">Location</div>
               <div className="text-opacity-40 font-DM text-15px font-normal">Singapore, Singapore</div>
 
-              <div className="flex flex-row mt-4 gap-3 max-w-[10%]">
+              <div className="flex flex-row mt-4 gap-3">
                 <img
                   src={require("../resources/img/Settings.png")}
                   alt='Settings'
-                  className="w-24 h-25.711" />
+                  className="w-8 h-8" />
                 <img
                   src={require("../resources/img/Question.png")}
                   alt='Help'
-                  className="w-24 h-25.711" />
+                  className="w-8 h-8" />
+                  <img
+                    src={require("../resources/img/Logout.png")}
+                    alt='Logout'
+                    onClick={handleLogout}
+                    className="w-8 h-8" />
               </div>
             </div>
           </div>

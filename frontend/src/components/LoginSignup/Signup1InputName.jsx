@@ -1,17 +1,53 @@
 import React, { useState } from 'react';
 import { Button } from 'components/Button';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import api from '../../api';
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
 
-const Signup1InputName = () => {
+const Signup1InputName = ({ isVolunteer, handleAccountKeys }) => {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
+  const [isFailPWCheck, setIsFailPWCheck] = useState(false);
+  const [hasDuplicate, setHasDuplicate] = useState(false);
 
-  const handleSignup = (e) => {
+  const navigate = useNavigate();
+
+  const handleSignup = async (e) => {
     e.preventDefault();
     // Perform signup logic here (e.g., API call to register the user)
+    try {
+      //check if the password is valid
+      if (passwordCheck !== password) {
+        setIsFailPWCheck(true);
+        console.log("set is fail pw check")
+      } else {
+        setIsFailPWCheck(false);
+        console.log("here");
+      }
+
+      if (!isFailPWCheck) {
+        console.log({})
+        //check if the email has been used
+        await api.post('/user/register', {
+          email: email,
+          name: name,
+          password: password,
+          role: isVolunteer
+        });
+        //navigate to signupDetails
+        navigate('/signupDetails')
+      }
+
+    } catch (error) {
+      if (error.response?.status === 500) {
+        setHasDuplicate(true);
+        console.log("duplicate problem");
+      }
+      console.log(error);
+    }
   };
 
   const handleEmailFocus = (e) => {
@@ -82,6 +118,18 @@ const Signup1InputName = () => {
             class="w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
+        <div class="w-full">
+          <input
+            type="text" // Change the input type to 'text' for Email
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onFocus={handleNameFocus}
+            onBlur={handleNameBlur}
+            required
+            placeholder='Name'
+            class="w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+          />
+        </div>
         <div className="form-group w-full">
           <input
             type="password" // Change the input type to 'password' for Password
@@ -94,7 +142,7 @@ const Signup1InputName = () => {
             class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
-        <div className="form-group w-full">
+        <div class="form-group w-full">
           <input
             type="password" // Change the input type to 'password' for Password
             value={passwordCheck}
@@ -106,12 +154,18 @@ const Signup1InputName = () => {
             class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
           />
         </div>
+        {isFailPWCheck ?
+          <div>
+            The password is not consistent!
+          </div> : null}
+        {hasDuplicate ?
+          <div>
+            The email used has created an account already!
+          </div> : null}
 
         <div class="w-full flex justify-end items-center mt-4">
           <Button variant='purple' size='medium'>
-            <Link to="/signupDetails">
-              Next1
-            </Link>
+            Next
           </Button>
         </div>
       </form>

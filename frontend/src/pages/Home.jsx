@@ -2,13 +2,13 @@ import { Button } from 'components/Button';
 import Carousel from 'components/Carousel';
 import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
 import { useMedia } from 'react-use';
-import React from "react";
+import React, { useState } from "react";
 // import { useLocation } from "react-router-dom";
 
 const Home = () => {
 
   const isLargeScreen = useMedia('(min-width: 1024px)');
-  
+
   const size1 = isLargeScreen ? 'large' : 'medium';
   const size2 = isLargeScreen ? 'medium' : 'small';
 
@@ -16,7 +16,7 @@ const Home = () => {
     // first section
     <div>
       <div className="relative flex flex-col items-center justify-center w-full sm:h-full lg:h-1/2">
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
         <img
           src={require("../resources/img/Billboard.png")}
           alt="Billboard"

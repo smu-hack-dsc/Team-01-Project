@@ -32,7 +32,7 @@ exports.login = async (req, res, next) => {
 // Create a user 
 exports.create = async (req, res, next) => {
   try {
-    const response = await CreateUser(req.body, req.files.image);
+    const response = await CreateUser(req.body, req.files?.image);
     return res.status(CREATED).json(response);
   } catch (error) {
     return next(error);
@@ -42,7 +42,7 @@ exports.create = async (req, res, next) => {
 // Update user info 
 exports.update = async (req, res, next) => {
   try {
-    const response = await UpdateUser(req.user, req.body, req.files.image);
+    const response = await UpdateUser(req.user, req.body, req.files?.image);
     return res.json(response);
   } catch (error) {
     return next(error);

@@ -26,7 +26,7 @@ const Navbar = () => {
       setMenuOpen(false);
     }
   };
-  
+
   useEffect(() => {
     if (isMenuOpen) {
       document.addEventListener('click', handleClickOutsideMenu);
@@ -51,14 +51,6 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block ml-auto">
               <div className="flex space-x-4">
-                <NavLink
-                  exact
-                  to="/login"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
-                  activeClassName="bg-gray-200"
-                >
-                  Login
-                </NavLink>
                 <NavLink
                   exact
                   to="/"
@@ -98,20 +90,20 @@ const Navbar = () => {
                 aria-label="Menu"
                 ref={menuRef}
               >
-                <IonIcon icon={ menuOutline } size="large"/>
-                  {isMenuOpen ? (
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M5 11h14v2H5v-2zm0-7h14v2H5V4zm0 14h14v2H5v-2z"
-                    />
-                  ) : (
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M3 5h18v2H3V5zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"
-                    />
-                  )}
+                <IonIcon icon={menuOutline} size="large" />
+                {isMenuOpen ? (
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M5 11h14v2H5v-2zm0-7h14v2H5V4zm0 14h14v2H5v-2z"
+                  />
+                ) : (
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M3 5h18v2H3V5zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"
+                  />
+                )}
               </button>
             </div>
           </div>
@@ -119,15 +111,6 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="absolute right-0 md:hidden bg-white shadow-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <NavLink
-                onClick={toggleMenu}
-                exact
-                to="/login"
-                className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium text-purple-500"
-                activeClassName="bg-gray-200"
-              >
-                Login
-              </NavLink>
               <NavLink
                 onClick={toggleMenu}
                 exact
@@ -176,7 +159,7 @@ const Navbar = () => {
         <Route path="/signupDetails" Component={Signup2} />
         <Route path="/signup_personalise" Component={Signup3} />
       </Routes>
-    </Router>
+    </Router >
   );
 };
 
