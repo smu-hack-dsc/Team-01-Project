@@ -4,7 +4,9 @@ tags:
   - name: activity
     description: Everything about the activities that volunteer organisations can hold and the volunteers can sign up for.
   - name: signup
-    description: Details about the signups between the volunteers and the activity
+    description: Details about the signups between the volunteers and the activity.
+  - name: post
+    description: Accessing the posts that the users can create, view and delete as part of the community channel.
 paths:
   /user/register:
     post:
@@ -14,7 +16,7 @@ paths:
       description: Create a new user account for either the volunteer or the volunteer organisation
       operationId: createUser
       requestBody:
-          description: 'The user account.'
+          description: 'User account details. Will require name, email, password and role. Required only for user: dateOfBirth. Optional for all: image. Optional for user : skills, interests.'
           content:
             application/json:
               schema:
@@ -23,9 +25,6 @@ paths:
                   - name
                   - email
                   - password
-                  - dateOfBirth
-                  - interests
-                  - skills
                   - role
                 properties:
                   name: 
@@ -95,7 +94,7 @@ paths:
                     example: [environment, elderly]
                 
         '500':
-          description: Server error
+          description: Server error due to duplicate values, invalid input
       security: []
   /user/login:
     post:
@@ -105,7 +104,7 @@ paths:
       description: Login to user account using email and password
       operationId: loginUser
       requestBody:
-        description: To use user's email and password
+        description: Require the user email and password, not necessary to have role.
         content:
           application/json:
               schema:
@@ -165,21 +164,13 @@ paths:
           description: NOT_FOUND
       security:
         - bearerAuth: []
-  /user/{userId}:
+  /profile:
     get:
       tags:
         - user
       summary: Find user information by ID
       description: Returns a single user
       operationId: getUserById
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user to return
-          required: true
-          schema:
-            type: string
-            format: mongoose.Types.ObjectId
       responses:
         '200':
           description: SUCCESS
@@ -222,16 +213,8 @@ paths:
       summary: Update user information by ID
       description: Returns a single user
       operationId: updateUserById
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user to return
-          required: true
-          schema:
-            type: string
-            format: mongoose.Types.ObjectId
       requestBody:
-        description: 'The edited user account information. '
+        description: 'The edited user account information. Look at register to see what is required and not required. '
         content:
           application/json:
             schema:
@@ -240,9 +223,6 @@ paths:
                 - name
                 - email
                 - password
-                - dateOfBirth
-                - interests
-                - skills
                 - role
               properties:
                 name: 
@@ -324,15 +304,6 @@ paths:
       summary: Delete user information by ID
       description: Deletes a single user
       operationId: deleteUserById
-      parameters:
-        - name: userId
-          in: path
-          description: ID of user to delete
-          required: true
-          schema:
-            type: string
-            format: mongoose.Types.ObjectId
-        
       responses:
         '200':
           description: SUCCESS
@@ -408,7 +379,7 @@ paths:
       description: To allow the volunteer organisation create an activity
       operationId: createActivity
       requestBody:
-        description: The activity details
+        description: The activity details optional description, image
         content:
           application/json:
             schema:
@@ -517,12 +488,43 @@ paths:
       security:
         - bearerAuth: []
   /activity/filter:
-    get:
+    post:
       tags:
         - activity
       summary: Get information of activities by a group of filters
-      description: Get the information of the activities held by the volunteer organisation with that organiser id
-      operationId: getActivitiesById
+      description: Get the information of the activities with the user's filters
+      operationId: getActivitiesByFilter
+      requestBody:
+        description: filter information
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                skills:
+                  type: array
+                  items: 
+                    type: string
+                    enum: 
+                      - elderly
+                      - environment
+                      - children
+                      - tutoring
+                      - animals
+                categories:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                      - english
+                      - chinese
+                      - malay
+                      - hindi
+                      - teaching
+                      - caregiving
       responses:
         '200':
           description: SUCCESS
@@ -837,7 +839,7 @@ paths:
                   activityName:
                     type: string
                     example: Beach Cleaning at ECP
-                  requiredSkills:
+                  categories:
                     type: array
                     items: 
                       type: string
@@ -848,7 +850,7 @@ paths:
                         - tutoring
                         - animals
                     example: [english, tutoring]
-                  categories:
+                  requiredSkills:
                     type: array
                     items:
                       type: string
@@ -1126,7 +1128,6 @@ paths:
                     rating:
                       type: integer
                       format: int64
-            
       responses:
         '200':
           description: SUCCESS
@@ -1189,6 +1190,135 @@ paths:
           description: Signup not found
       security:
         - bearerAuth: []
+  /post/:
+    get:
+      tags: 
+        - post
+      summary: Get all the latest posts 
+      description: Get all the latest posts in order of date descending
+      operationId: getsLatestPosts
+      responses:
+        '200':
+          description: Collection of posts
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Unauthorized
+      security:
+        - bearerAuth: []
+    post:
+      tags: 
+        - post
+      summary: Create a post
+      description: Allows the user to create a post
+      operationId: createPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                postTitle: 
+                  type: string
+                postContent:
+                  type: string
+                tags:
+                  type: array
+                  items: 
+                    type: string
+                    enum: 
+                      - elderly
+                      - environment
+                      - children
+                      - tutoring
+                      - animals
+                imageInfo:
+                  type: object
+                  properties:
+                    imageName:
+                      type: string
+                    imagePath:
+                      type: string
+      responses:
+        '200':
+          description: Success
+      security:
+        - bearerAuth: []
+  /post/communities:
+    post:
+      tags:
+        - post
+      summary: get all the posts under a certain tag
+      description: define the tag and get all the posts in descending date order
+      operationId: getPostByTag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  items: 
+                    type: string
+                    enum: 
+                      - elderly
+                      - environment
+                      - children
+                      - tutoring
+                      - animals
+      responses:
+        '200':
+          description: success
+        '401': 
+          description: not authorized
+        '404':
+          description: tag not found
+                  
+      security:
+        - bearerAuth: []
+  
+  /post/myposts:
+    get:
+      tags:
+        - post
+      summary: get all the posts under the user
+      description: find all the posts under the user that is logged in
+      operationId: getPostUnderUser
+      responses:
+        '200':
+          description: success
+        '401': 
+          description: not authorized
+        '404':
+          description: tag not found
+      security:
+        - bearerAuth: []
+        
+  /post/{postId}:
+    delete:
+      tags:
+        - post
+      summary: delete the post under the user
+      description: delete the post defined by the id of the postId
+      operationId: deletePostById
+      parameters:
+        - name: postId
+          in: path
+          description: ID of post to delete
+          required: true
+          schema:
+            type: string
+            format: mongoose.Types.ObjectId
+      responses:
+        '200':
+          description: success
+        '401': 
+          description: not authorized
+        '404':
+          description: tag not found
+      security:
+        - bearerAuth: []
     
 components:
   schemas:
@@ -1212,17 +1342,6 @@ components:
         email: 
           type: string
           example: alice.tan@test.com
-        skills: 
-          type: array
-          items: 
-            type: string
-            enum: 
-              - elderly
-              - environment
-              - children
-              - tutoring
-              - animals
-          example: [english, tutoring]
         interests: 
           type: array
           items:
@@ -1235,6 +1354,33 @@ components:
               - teaching
               - caregiving
           example: [environment, elderly]
+        skills: 
+          type: array
+          items: 
+            type: string
+            enum: 
+              - elderly
+              - environment
+              - children
+              - tutoring
+              - animals
+          example: [english, tutoring]
+        role:
+          type: string
+          enum:
+            - user
+            - volunteerOrg
+          example: user
+        description:
+          type: string
+          example: hi i am alice tan
+        imageInfo: 
+          type: object
+          properties:
+            imageName:
+              type: string
+            imagePath:
+              type: string
     Activity:
       type: object
       required:
@@ -1284,6 +1430,13 @@ components:
         description: 
           type: string
           example: Beach cleaning event at ECP every saturday morning in August with a tea-time picnic.
+        imageInfo:
+          type: object
+          properties:
+            imageName:
+              type: string
+            imagePath:
+              type: string
     Signup:
       type: object
       required:
@@ -1311,6 +1464,44 @@ components:
             rating:
               type: integer
               format: int64
+    Post: 
+      type: object
+      required:
+        - user
+        - postTitle
+        - postContent
+      properties:
+        user:
+          type: string
+          format: mongoose.Types.ObjectId
+          example: 64b656dd46463602c054c2d8
+        postTitle:
+          type: string
+          example: Beach Cleaning
+        postContent:
+          type: string
+          example: Beach Cleaning at ECP is arguably the best activity i've joined but I would say that you should bring insect repellents as they are not provided
+        tags:
+          type: array
+          items:
+            type: string
+            enum:
+              - english
+              - chinese
+              - malay
+              - hindi
+              - teaching
+              - caregiving
+          example: [environment]
+        imageInfo:
+
+          type: object
+          properties:
+            imageName:
+              type: string
+            imagePath: 
+              type: string
+        
   securitySchemes:
     bearerAuth:
       type: http

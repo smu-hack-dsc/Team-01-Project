@@ -15,22 +15,25 @@ exports.LoginUserInfo = async (options) => {
 // Create user account
 exports.CreateUser = async (userData, imageData) => {
     try {
-        const postPicture = imageData;
-        const pictureName = `${Date.now()}-${imageData.name}`;
-        const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
+        let pictureName, uploadPath;
+        if (imageData) {
+            const postPicture = imageData;
+            const pictureName = `${Date.now()}-${imageData.name}`;
+            const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
 
-        postPicture.mv(uploadPath, error => {
-            if (error) {
-                throw new APIError({
-                    message: "file cannot mv",
-                    status: 400,
-                })
-            } 
-        });
+            postPicture.mv(uploadPath, error => {
+                if (error) {
+                    throw new APIError({
+                        message: "file cannot mv",
+                        status: 400,
+                    })
+                }
+            });
+        }
 
         var user;
         if (userData.role === 'user') {
-            user = new User ({
+            user = new User({
                 name: userData.name,
                 password: userData.password,
                 dateOfBirth: userData.dateOfBirth,
@@ -45,7 +48,7 @@ exports.CreateUser = async (userData, imageData) => {
                 }
             });
         } else {
-            user = new User ({
+            user = new User({
                 name: userData.name,
                 password: userData.password,
                 email: userData.email,
@@ -91,14 +94,14 @@ exports.UpdateUser = async (user, newData, imageData) => {
             const postPicture = imageData;
             const pictureName = `${Date.now()}-${imageData.name}`;
             const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
-    
+
             postPicture.mv(uploadPath, error => {
                 if (error) {
                     throw new APIError({
                         message: "file cannot mv",
                         status: 400,
                     })
-                } 
+                }
             });
 
             updateData[imageInfo] = {

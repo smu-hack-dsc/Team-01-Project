@@ -43,7 +43,7 @@ exports.getByVO = async (req, res, next) => {
 // Create activity
 exports.create = async (req, res, next) => {
     try {
-        const response = await CreateActivity(req.user, req.body, req.files.image);
+        const response = await CreateActivity(req.user, req.body, req.files?.image);
         return res.status(CREATED).json(response);
     } catch (error) {
         return next(error);
@@ -54,7 +54,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
     try {
         const { activity } = req.locals;
-        const response = await UpdateActivity(activity, req.user, req.body, req.files.image);
+        const response = await UpdateActivity(activity, req.user, req.body, req.files?.image);
         return res.json(response);
     } catch (error) {
         return next(error);
