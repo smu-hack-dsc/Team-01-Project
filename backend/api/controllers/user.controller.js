@@ -1,6 +1,6 @@
 const {
   CreateUser,
-  GetUser, LoginUserInfo, LogoutUser,
+  GetUser, LoginUserInfo, LogoutUser, FindUserEmail,
   UpdateUser,
   RemoveUser
 } = require('../service/user.service');
@@ -38,6 +38,15 @@ exports.create = async (req, res, next) => {
     return next(error);
   }
 };
+
+// exports.findEmail = async (req, res, next) => {
+//   try {
+//     const response = await FindUserEmail(req.body);
+//     return res.json(response);
+//   } catch (error) {
+//     return next(error);
+//   }
+// }
 
 // Update user info 
 exports.update = async (req, res, next) => {

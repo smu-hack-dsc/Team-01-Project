@@ -77,13 +77,13 @@ userSchema.pre('save', async function save(next) {
     try {
         if (!this.isModified('password')) return next();
 
-        // to ensure dateOfBirth recorded for user only
-        if (this.role === 'user' && (!this.dateOfBirth)) {
-            throw new APIError({ message: VALIDATION_ERROR + ' for user', errorCode: BAD_REQUEST });
-        } else if (this.role === 'volunteerOrg' && (this.dateOfBirth !== undefined || this.interests.length !== 0 || this.skills.length !== 0)) {
-            console.log(this);
-            throw new APIError({ message: VALIDATION_ERROR + ' for vo', errorCode: BAD_REQUEST });
-        }
+        // // to ensure dateOfBirth recorded for user only
+        // if (this.role === 'user' && (!this.dateOfBirth)) {
+        //     throw new APIError({ message: VALIDATION_ERROR + ' for user', errorCode: BAD_REQUEST });
+        // } else if (this.role === 'volunteerOrg' && (this.dateOfBirth !== undefined || this.interests.length !== 0 || this.skills.length !== 0)) {
+        //     console.log(this);
+        //     throw new APIError({ message: VALIDATION_ERROR + ' for vo', errorCode: BAD_REQUEST });
+        // }
 
         // hash password
         const hash = await bcrypt.hash(this.password, 10);

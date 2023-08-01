@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import api from "../../api";
 
 const Signup2InputDOB = () => {
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
-  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     // Perform signup logic here (e.g., API call to register the user)
     const dateOfBirth = `${year}-${month}-${day}`;
     console.log('Date of Birth:', dateOfBirth);
+    console.log(description);
+    try {
+      await api.put('/user/profile', {
+        dateOfBirth: dateOfBirth,
+        description: description
+      });
+      navigate('/signup_personalise');
+    } catch (error) {
+      console.log("error", error);
+    }
+
+
   };
 
   const handleGenderFocus = (e) => {
@@ -116,12 +130,12 @@ const Signup2InputDOB = () => {
 
         <input
           type="text" // Change the input type to 'text' for First name
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           onFocus={handleGenderFocus}
           onBlur={handleGenderBlur}
           required
-          placeholder='Name'
+          placeholder='Description'
           class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
         />
 
@@ -184,9 +198,7 @@ const Signup2InputDOB = () => {
 
         <div class="w-full flex justify-end items-center mt-4">
           <Button variant='purple' size='small'>
-            <Link to="/signup_personalise">
-              Next
-            </Link>
+            Next
           </Button>
         </div>
       </form>

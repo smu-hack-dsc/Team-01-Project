@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from 'components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../../api';
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
 
-const Signup1InputName = ({ isVolunteer, handleAccountKeys }) => {
+const Signup1InputName = ({ isVolunteer }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -25,22 +25,26 @@ const Signup1InputName = ({ isVolunteer, handleAccountKeys }) => {
         console.log("set is fail pw check")
       } else {
         setIsFailPWCheck(false);
-        console.log("here");
       }
 
       if (!isFailPWCheck) {
-        console.log({})
         //check if the email has been used
         await api.post('/user/register', {
           email: email,
           name: name,
           password: password,
-          role: isVolunteer
         });
+        const response = await api.post('/user/login', {
+          email:email,
+          password:password
+        });
+        const { token } = response.data;
+        localStorage.setItem('token', token);
         //navigate to signupDetails
-        navigate('/signupDetails')
+        navigate('/signupDetails');
+      } else {
+        setHasDuplicate(true);
       }
-
     } catch (error) {
       if (error.response?.status === 500) {
         setHasDuplicate(true);
@@ -163,7 +167,11 @@ const Signup1InputName = ({ isVolunteer, handleAccountKeys }) => {
             The email used has created an account already!
           </div> : null}
 
-        <div class="w-full flex justify-end items-center mt-4">
+        <div class="w-full flex justify-between items-center mt-4">
+          <Link to="/login" class="font-DMSans font-bold text-2xl text-purple-500">
+            Back to Login
+          </Link>
+
           <Button variant='purple' size='medium'>
             Next
           </Button>

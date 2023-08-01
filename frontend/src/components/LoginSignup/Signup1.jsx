@@ -5,10 +5,12 @@ import SignupInputName from "components/LoginSignup/Signup1InputName";
 
 const Signup1 = () => {
   const [isVolunteer, setIsVolunteer] = useState(false);
-  const handleToggleChange = (newValue) => {
-    setIsVolunteer(newValue);
-  };
 
+  const handleToggleChange = (newValue) => {
+    console.log("registered handleToggleChange in Login")
+    setIsVolunteer(!newValue);
+    console.log(isVolunteer, 'volunteer value');
+  };
 // <div 
 //   className={css`
 //     width: 100%;
@@ -83,8 +85,10 @@ return (
           Create an account
         </div>
         <div class="pb-16 pt-4 items-center justify-center w-5/6">
-          <ToggleSwitch onChange={handleToggleChange} />
+          <ToggleSwitch handleToggleChange={handleToggleChange}/>
+          {/* <ToggleSwitch /> */}
         </div>
+        {/* <SignupInputName /> */}
         <SignupInputName 
           isVolunteer = {isVolunteer}/>
       </div>

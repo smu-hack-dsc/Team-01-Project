@@ -68,6 +68,16 @@ exports.CreateUser = async (userData, imageData) => {
     }
 };
 
+// exports.FindUserEmail = async(email) => {
+//     try {
+//         const foundUser = User.findOne({email: email});
+//         if (!foundUser) return true;
+//         return false;
+//     } catch (error) {
+//         throw User.checkDuplication(err);
+//     }
+// }
+
 // Get user by id
 exports.GetUser = async (id) => User.get(id);
 
@@ -109,7 +119,8 @@ exports.UpdateUser = async (user, newData, imageData) => {
                 imagePath: uploadPath,
             };
         }
-        const savedUser = await updateData.save();
+        Object.assign(user, updateData);
+        const savedUser = await user.save();
         return savedUser.transform();
 
     } catch (err) {

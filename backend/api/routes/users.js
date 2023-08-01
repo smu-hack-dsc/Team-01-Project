@@ -25,6 +25,9 @@ app.route('/register')
 
 app.route('/login')
     .post(controller.login); // WORKING
+
+// app.route('/find')
+//     .post(controller.findEmail);
     
 app.route('/profile')
     .get(Authorize(USER), controller.get) // WORKING
