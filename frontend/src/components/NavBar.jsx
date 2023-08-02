@@ -11,6 +11,8 @@ import Signup2 from 'components/LoginSignup/Signup2';
 import Signup3 from 'components/LoginSignup/Signup3';
 import { IonIcon } from '@ionic/react';
 import { menuOutline } from 'ionicons/icons';
+import VOProfile from 'pages/VOProfile';
+import VOProject from 'pages/VOProject';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -158,6 +160,10 @@ const Navbar = () => {
         <Route path="/signup" Component={Signup1} />
         <Route path="/signupDetails" Component={Signup2} />
         <Route path="/signup_personalise" Component={Signup3} />
+
+        {/* to reroute once edited */}
+        <Route path="/voprofile" Component={VOProfile} />
+        <Route path="/voproject" Component={VOProject} />
       </Routes>
     </Router >
   );

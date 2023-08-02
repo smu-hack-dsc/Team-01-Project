@@ -52,7 +52,7 @@ function Projects() {
           </div>
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
             {projectData.map((project) => (
-              <ProjectCard 
+              <ProjectCard
                 key={project._id}
                 activityName = {project.activityName}
                 description = {project.description}

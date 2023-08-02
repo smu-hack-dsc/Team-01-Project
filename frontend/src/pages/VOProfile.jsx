@@ -5,8 +5,7 @@ import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
 import Filter from "components/Filter";
 
-
-function Profile() {
+function VOProfile() {
   const [profileData, setProfileData] = useState([]);
   const [userPostsData, setUserPostsData] = useState([]);
 
@@ -54,7 +53,7 @@ function Profile() {
               <img
                 // src={require("../resources/img/Siyu.png")}
                 src={require = (profileData.imageInfo?.imagePath)}
-                alt="Siyu"
+                alt="Food Bank"
                 className="s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 rounded-md mb-15"
               />
               <div className="text-black font-DM font-semibold sm:text-xl lg:text-2xl mt-3 mb-5">
@@ -65,7 +64,7 @@ function Profile() {
                 <div className="flex flex-row justify-between justify-items-start font-DM text-black font-semibold">
                   {userPostsData?.length ? <div>{userPostsData.length} posts</div> : <div>0 Posts</div>}
                   {/* <div>12 posts</div> */}
-                  <div>12.8k Friends</div>
+                  <div>12.8k Subscribers</div>
                 </div>
                 <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
                   {/* Lorem ipsum dolor sit amet,
@@ -118,11 +117,14 @@ function Profile() {
             <div className="mt-15">
               <div className="flex justify-between items-center">
                 <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
-                  My Posts
+                  My Activities
                 </div>
-                <Filter categorySubcategories={{
+                {/* <Filter categorySubcategories={{
                   "Recent": null,
-                }} />
+                }} /> */}
+                <Button variant="yellow" size="small">
+                  Create New Activity
+                </Button>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 mt-5">
@@ -140,4 +142,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default VOProfile;
