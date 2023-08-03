@@ -11,7 +11,7 @@ const CarouselCard = ({activityName, description, imageUrl}) => (
       alt="Project"
       className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
     />
-    <div className="flex justify-between p-2">
+    <div className="flex justify-between p-2 h-[72px]">
       <div className="flex flex-col justify-center text-black font-DMSans text-xl font-semibold ml-1">
         {/* Project Name */}
         {activityName}
@@ -22,7 +22,11 @@ const CarouselCard = ({activityName, description, imageUrl}) => (
     </div>
     <div className="flex flex-col justify-start h-20 text-black font-DMSans text-sm font-normal p-2 ml-1">
       <p>
-        {description}
+        {(description.split(" ").length >= 10) ? 
+        (
+        <> {description.split(" ").slice(0, 10).join(" ") + ' ...'}
+        </>): (<>
+        {description}</>)}
         {/* short description */}
       </p>
     </div>

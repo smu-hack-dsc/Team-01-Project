@@ -117,12 +117,23 @@ function Profile() {
           <div className="w-full flex flex-col">
             <div className="mt-15">
               <div className="flex justify-between items-center">
-                <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
-                  My Posts
-                </div>
-                <Filter categorySubcategories={{
-                  "Recent": null,
-                }} />
+                {profileData.role === 'user' ? (
+                  <>
+                    <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
+                      My Posts
+                    </div>
+                    <Filter categorySubcategories={{ "Recent": null }} />
+                  </>
+                ) : (
+                  <>
+                    <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
+                      My Activities
+                    </div>
+                    <Button variant="yellow" size="small">
+                      Create New Activity
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 mt-5">
