@@ -16,13 +16,13 @@ const ToggleSwitch = ({handleToggleChange}) => {
       <div class="w-3/5 h-20 bg-gray-400 cursor-pointer items-center rounded-3xl" onClick={handleChange}>
         {isOption1Selected ? (
           <div class="flex flex-row">
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-RecoletaAlt text-2xl bg-purple-500 text-white rounded-l-3xl">Volunteer</div>
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-RecoletaAlt text-2xl ">Organisation</div>
+            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl bg-purple-500 text-white rounded-l-3xl">Volunteer</div>
+            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl ">Organisation</div>
           </div>
         ) : (
           <div class="flex flex-row">
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-RecoletaAlt text-2xl">Volunteer</div>
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-RecoletaAlt text-2xl bg-purple-500 text-white rounded-r-3xl">Organisation</div>
+            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl">Volunteer</div>
+            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl bg-purple-500 text-white rounded-r-3xl">Organisation</div>
           </div>
         )}
 

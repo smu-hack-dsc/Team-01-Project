@@ -13,6 +13,7 @@ import { IonIcon } from '@ionic/react';
 import { menuOutline } from 'ionicons/icons';
 import VOProfile from 'pages/VOProfile';
 import VOProject from 'pages/VOProject';
+import api from '../api';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -28,6 +29,23 @@ const Navbar = () => {
       setMenuOpen(false);
     }
   };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const checkLoginStatus = async () => {
+    try {
+      const response = await api.get('/user/profile');
+      setIsLoggedIn(response.data.isLoggedIn);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.log('Error checking login status: ', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -80,7 +98,7 @@ const Navbar = () => {
                   className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
-                  Profile
+                  {isLoggedIn ? "Profile" : "Signup/Login"}
                 </NavLink>
               </div>
             </div>
@@ -144,7 +162,7 @@ const Navbar = () => {
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-gray-200"
               >
-                Profile
+                {isLoggedIn ? "Profile" : "Signup/Login"}
               </NavLink>
             </div>
           </div>

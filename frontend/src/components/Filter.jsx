@@ -8,13 +8,6 @@ const Filter = ({ categorySubcategories }) => {
     // project data for filtering logic? idk
   ];
 
-  // const categorySubcategories = {
-  //   'My Interests': ['interest1', 'interest2', 'interest3'],
-  //   'VO': ['vo1', 'vo2', 'vo3'],
-  //   'Skill': ['skill1', 'skill2', 'skill3'],
-  //   'Date': ['idk what to do for date lol'],
-  // };
-
   const categories = Object.keys(categorySubcategories);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -30,7 +23,7 @@ const Filter = ({ categorySubcategories }) => {
   };
 
   const filteredProjects = projectsData.filter((project) => {
-    if (!selectedCategory && !selectedSubCategory) return true; // If no category or subcategory is selected, show all projects
+    if (!selectedCategory && !selectedSubCategory) return true; 
 
     if (selectedSubCategory) {
       // Filter based on both category and subcategory
