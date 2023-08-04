@@ -1,6 +1,6 @@
 const {
   CreateUser,
-  GetUser, LoginUserInfo, LogoutUser, FindUserEmail,
+  GetUser, LoginUserInfo, FindImage, 
   UpdateUser,
   RemoveUser
 } = require('../service/user.service');
@@ -16,7 +16,14 @@ const { CREATED } = require('../../utils/constants');
 // };
 
 // Return information of the user 
-exports.get = (req, res) => res.json(req.user.transform());
+exports.get = async (req, res) => {
+  try {
+    const user = await GetUser(req.user.id);
+    return res.json(user.transform());
+  } catch (error) {
+    return next(error);
+  }
+}
 
 // Get information of the logged in user 
 exports.login = async (req, res, next) => {
@@ -39,6 +46,13 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.findImage = async(req, res, next) => {
+  try {
+    return res.sendFile(req.body.imagePath);
+  } catch (error) {
+    return next(error);
+  }
+}
 // exports.findEmail = async (req, res, next) => {
 //   try {
 //     const response = await FindUserEmail(req.body);

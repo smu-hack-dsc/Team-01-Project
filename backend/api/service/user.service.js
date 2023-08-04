@@ -2,6 +2,24 @@ const APIError = require('../../utils/APIError');
 const User = require('../models/user.model');
 const path = require('path');
 
+const { S3Client, PutObjectCommand, GetObjectCommand } = require( "@aws-sdk/client-s3");
+const { getSignedUrl } = require( '@aws-sdk/s3-request-presigner');
+require('dotenv').config();
+
+
+const bucketName = process.env.BUCKET_NAME
+const bucketRegion = process.env.BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
+
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretAccessKey
+    },
+    region: bucketRegion
+});
+
 // for getting the jwt token when the user logins
 exports.LoginUserInfo = async (options) => {
     try {
@@ -15,10 +33,20 @@ exports.LoginUserInfo = async (options) => {
 // Create user account
 exports.CreateUser = async (userData, imageData) => {
     try {
+
         let pictureName, uploadPath;
         if (imageData) {
             const postPicture = imageData;
             const pictureName = `${Date.now()}-${imageData.name}`;
+            const params={
+                Bucket: bucketName,
+                Key: imageData.pictureName,
+                Body: imageData.buffer,
+                ContentType: imageData.mimetype,
+            };
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+
             const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
 
             postPicture.mv(uploadPath, error => {
@@ -77,9 +105,26 @@ exports.CreateUser = async (userData, imageData) => {
 //         throw User.checkDuplication(err);
 //     }
 // }
-
+// {
+//     const client = new S3Client(clientParams);
+//     const command = new GetObjectCommand(getObjectParams);
+//     const url = await getSignedUrl(client, command, {expiresIn: 3600});
+// }
 // Get user by id
-exports.GetUser = async (id) => User.get(id);
+exports.GetUser = async (id) => {
+    const user = await User.get(id);
+
+    const getObjectParams = {
+        Bucket: bucketName,
+        Key: user.imageInfo.imageName,
+    };
+
+    const command = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(s3, command, {expiresIn: 60});
+    user.imageUrl = url;
+    console.log(url);
+    return user;
+}
 
 
 // Update user information

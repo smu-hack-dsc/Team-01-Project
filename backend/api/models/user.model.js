@@ -121,12 +121,12 @@ userSchema.method({
 
         // to ensure dateOfBirth recorded for user only
         if (this.role === 'user') {
-            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'description', 'imageInfo'];
+            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'description', 'imageInfo', 'imageUrl'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });
         } else if (this.role === 'volunteerOrg') {
-            const fields = ['id', 'name', 'email', 'role', 'description', 'imageInfo'];
+            const fields = ['id', 'name', 'email', 'role', 'description', 'imageInfo', 'imageUrl'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });
