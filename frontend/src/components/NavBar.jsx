@@ -34,8 +34,8 @@ const Navbar = () => {
 
   const checkLoginStatus = async () => {
     try {
-      const response = await api.get('/user/profile');
-      setIsLoggedIn(response.data.isLoggedIn);
+      await api.get('/user/profile');
+      setIsLoggedIn(true);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         console.log('Error checking login status: ', error);

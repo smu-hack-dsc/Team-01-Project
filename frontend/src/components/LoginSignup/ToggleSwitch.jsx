@@ -10,7 +10,6 @@ const ToggleSwitch = ({handleToggleChange}) => {
     handleToggleChange(!isOption1Selected);
   };
 
-
   return (
     <div class="flex flex-row justify-center items-center">
       <div class="w-3/5 h-20 bg-gray-400 cursor-pointer items-center rounded-3xl" onClick={handleChange}>
