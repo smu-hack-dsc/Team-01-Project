@@ -139,7 +139,12 @@ const Signup1InputName = ({ isVolunteer }) => {
           </div> : null}
 
           <div class="w-full flex justify-center my-4">
-            <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold">
+            <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold"
+                    onClick={() => {
+                      if (email && name && password && passwordCheck && !isFailPWCheck && !hasDuplicate) {
+                        navigate('/signupDetails', { state: { role } });
+                      }
+                    }}>
               NEXT
             </button>
           </div>
