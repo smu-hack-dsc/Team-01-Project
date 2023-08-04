@@ -4,22 +4,41 @@ const path = require('path');
 
 const mongoose = require("mongoose");
 
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+require('dotenv').config();
+
+
+const bucketName = process.env.BUCKET_NAME
+const bucketRegion = process.env.BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
+
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretAccessKey
+    },
+    region: bucketRegion
+});
+
 // Create
 exports.CreateActivity = async (userData, activityData, imageData) => {
     try {
-        const postPicture = imageData;
-        const pictureName = `${Date.now()}-${imageData.name}`;
-        const uploadPath = path.join(__dirname + '/../../src/activityUploads/' + pictureName);
 
-        postPicture.mv(uploadPath, error => {
-            if (error) {
-                throw new APIError({
-                    message: "file cannot mv",
-                    status: 400,
-                })
-            } 
-        });
-
+        let pictureName;
+        if (imageData) {
+            pictureName = `${Date.now()}-${imageData.name}`;
+            pictureName = `${Date.now()}-${imageData.name}`;
+            const params = {
+                Bucket: bucketName,
+                Key: imageData.pictureName,
+                Body: imageData.buffer,
+                ContentType: imageData.mimetype,
+            };
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
         const activity = new Activity({
             activityName: activityData.activityName,
             requiredSkills: activityData.requiredSkills,
@@ -30,7 +49,6 @@ exports.CreateActivity = async (userData, activityData, imageData) => {
             description: activityData.description,
             imageInfo: {
                 imageName: pictureName,
-                imagePath: uploadPath,
             }
         });
         const saved = await activity.save();
@@ -41,7 +59,19 @@ exports.CreateActivity = async (userData, activityData, imageData) => {
 };
 
 // Read
-exports.GetActivity = async (id) => Activity.get(id);
+exports.GetActivity = async (id) => {
+    const activity = await Activity.get(id);
+
+    const getObjectParams = {
+        Bucket: bucketName,
+        Key: activity.imageInfo.imageName,
+    };
+
+    const command = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+    activity.imageUrl = url;
+    return activity;
+}
 
 exports.GetActivitiesAfterToday = async (req) => {
     try {
@@ -55,10 +85,20 @@ exports.GetActivitiesAfterToday = async (req) => {
             //     ]
             // }
         });
-        activities.forEach(activity => {
-            activity.transform();
-        });
-        return activities;
+        for (const activity of activities) {
+            if (activity.imageInfo) {
+                const getObjectParams = {
+                    Bucket: bucketName,
+                    Key: activity.imageInfo.imageName,
+                };
+
+                const command = new GetObjectCommand(getObjectParams);
+                const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+                activity.imageInfo.imagePath = url;
+            }
+        }
+
+        return activities
     } catch (err) {
         throw Activity.checkDuplication(err);
     }
@@ -68,7 +108,16 @@ exports.GetActivitiesByVo = async (organiserId) => {
     try {
         const organiserIdString = new mongoose.Types.ObjectId(organiserId);
         const activities = await Activity.find({ organiserId: organiserIdString });
-        activities.forEach(activity => {
+        activities.forEach(async (activity) => {
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: activity.imageInfo.imageName,
+            };
+
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+            activity.imageUrl = url;
+            console.log(imageUrl);
             activity.transform();
         });
         return activities;
@@ -79,8 +128,9 @@ exports.GetActivitiesByVo = async (organiserId) => {
 
 exports.MatchByFilters = async (options) => {
     const { date, skills, categories } = options;
+    let activities;
     if (date == undefined) {
-        const activities = await Activity.find({
+        activities = await Activity.find({
             endDate: { $gte: new Date() },
             $expr: {
                 $and: [
@@ -89,12 +139,8 @@ exports.MatchByFilters = async (options) => {
                 ]
             }
         });
-        activities.forEach(activity => {
-            activity.transform();
-        });
-        return activities;
     } else {
-        const activities = await Activity.find({
+        activities = await Activity.find({
             endDate: { $gte: date },
             $expr: {
                 $and: [
@@ -103,11 +149,19 @@ exports.MatchByFilters = async (options) => {
                 ]
             }
         });
-        activities.forEach(activity => {
-            activity.transform();
-        });
-        return activities;
     }
+    activities.forEach(async (activity) => {
+        const getObjectParams = {
+            Bucket: bucketName,
+            Key: user.imageInfo.imageName,
+        };
+
+        const command = new GetObjectCommand(getObjectParams);
+        const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+        activity.imageUrl = url;
+        activity.transform();
+    });
+    return activities;
 }
 
 
@@ -118,34 +172,28 @@ exports.UpdateActivity = async (activityData, userData, newData, imageData) => {
         if (activity.organiserId !== userData.id) {
             throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
         }
-        
+
         const updateData = {};
         const fields = ['activtyName', 'requiredSkills', 'categories', 'beginDate', 'endDate', 'description'];
         fields.forEach((field) => {
             updateData[field] = !newData[field] ? activityData[field] : newData[field];
         });
-    
+
+        // for image updating
         if (imageData) {
-            const postPicture = imageData;
-            const pictureName = `${Date.now()}-${imageData.name}`;
-            const uploadPath = path.join(__dirname + '/../../src/activityUploads/' + pictureName);
-
-            postPicture.mv(uploadPath, error => {
-                if (error) {
-                    throw new APIError({
-                        message: "file cannot mv",
-                        status: 400,
-                    })
-                } 
-            });
-
-        updateData[imageInfo] = {
-            imageName: pictureName,
-            imagePath: uploadPath,
-        };
-    }
-
-        const savedActivity = await updateData.save();
+            const path = activityData.imageInfo?.imageName ? activityData.imageInfo.imageName : `${Date.now()}-${imageData.name}`;
+            const params = {
+                Bucket: bucketName,
+                Key: path,
+                Body: imageData.buffer,
+                ContentType: imageData.mimetype,
+            };
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+            updateData.imageInfo.imageName = path;
+        }
+        Object.assign(activityData, updateData)
+        const savedActivity = await activityData.save();
         return savedActivity.transform();
     } catch (err) {
         throw Activity.checkDuplication(err);
@@ -156,6 +204,14 @@ exports.UpdateActivity = async (activityData, userData, newData, imageData) => {
 exports.RemoveActivity = async (activity, userData) => {
     if (activity.organiserId !== userData.id) {
         throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
+    }
+    if (activity.imageInfo) {
+        const params = {
+            Bucket: bucketName,
+            Key: activity.imageInfo.imageName
+        }
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
     }
     activity.deleteOne();
 };

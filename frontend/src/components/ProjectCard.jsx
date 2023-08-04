@@ -7,10 +7,10 @@ const ProjectCard = ({activityName, description, imageUrl}) => {
   return (
     <div className="flex flex-col sm:w-1/3 lg:w-1/4 sm:h-1/4 lg:h-2/5 bg-gray-100 rounded-lg mt-4 sm:mb-5 lg:mb-0 mx-2 grow pb-24">
       <img
-        src={require("../resources/img/Project.png")}
+        src={imageUrl}
         // src = {require(imageUrl)}
         alt="Project"
-        className="w-full h-187 object-cover rounded-lg"
+        className="w-full max-h-[150px] object-cover rounded-lg"
       />
       <div className="flex justify-between">
         <div className="w-247 h-59.682 flex flex-col justify-center text-black font-DMSans sm:text-xl lg:text-2xl font-semibold ml-4 sm:mt-2 lg:mt-3">

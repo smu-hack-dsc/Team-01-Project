@@ -1,6 +1,5 @@
 const APIError = require('../../utils/APIError');
 const User = require('../models/user.model');
-const path = require('path');
 
 const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
@@ -45,7 +44,6 @@ exports.CreateUser = async (userData, imageData) => {
             };
             const command = new PutObjectCommand(params);
             await s3.send(command);
-
         }
 
         var user;
@@ -78,7 +76,7 @@ exports.CreateUser = async (userData, imageData) => {
 
         }
         const su = await user.save();
-        return su.transform();
+        return su;
     } catch (err) {
         throw User.checkDuplication(err);
     }
@@ -131,7 +129,7 @@ exports.UpdateUser = async (user, newData, imageData) => {
             const path = userData.imageInfo?.imageName ? userData.imageInfo.imageName : `${Date.now()}-${imageData.name}`;
             const params = {
                 Bucket: bucketName,
-                Key: imageData.pictureName,
+                Key: path,
                 Body: imageData.buffer,
                 ContentType: imageData.mimetype,
             };
@@ -140,7 +138,7 @@ exports.UpdateUser = async (user, newData, imageData) => {
         }
         Object.assign(user, updateData);
         const savedUser = await user.save();
-        return savedUser.transform();
+        return savedUser;
 
     } catch (err) {
         throw User.checkDuplication(err);

@@ -6,8 +6,8 @@ import { image } from 'ionicons/icons';
 const CarouselCard = ({activityName, description, imageUrl}) => (
   <div className="flex flex-col w-48 sm:w-60 bg-gray-100 rounded-lg mt-4 mx-auto flex-shrink-0 pb-4">
     <img
-      src={require("../resources/img/Project.png")}
-      // src = {require(imageUrl)}
+      // src={require("../resources/img/Project.png")}
+      src = {imageUrl}
       alt="Project"
       className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
     />

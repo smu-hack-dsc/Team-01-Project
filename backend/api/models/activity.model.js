@@ -60,7 +60,7 @@ activitySchema.method({
     // Format for all membership returns: name of User, name of VolunteerOrg
     transform() {
         const transformed = {};
-        const fields = ['id', 'activityName', 'requiredSkills', 'categories', 'beginDate', 'endDate', 'organiserId', 'description', 'imageInfo'];
+        const fields = ['id', 'activityName', 'requiredSkills', 'categories', 'beginDate', 'endDate', 'organiserId', 'description', 'imageInfo', 'imageUrl'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });
