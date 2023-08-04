@@ -35,11 +35,20 @@ const Navbar = () => {
   const checkLoginStatus = async () => {
     try {
       await api.get('/user/profile');
-      setIsLoggedIn(true);
+
+      // if (response !== null) {
+        setIsLoggedIn(true);
+        // console.log("hello");
+      // } else {
+      //   setIsLoggedIn(false);
+      // }
+
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        console.log('Error checking login status: ', error);
-      }
+      // if (error.response && error.name === "AxiosError") {
+      //   setIsLoggedIn(true);
+      // } else {
+      //   setIsLoggedIn(false);
+      // }
     }
   };
 

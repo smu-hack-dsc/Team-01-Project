@@ -22,10 +22,10 @@ const LoginInput = () => {
       });
       const { token } = response.data;
       localStorage.setItem('token', token);
-
       // render = () => {
           navigate('/');
       // }
+      window.location.reload();
     } catch (error) {
       // Handle login error
       if (error.response?.status === 500) {

@@ -14,7 +14,8 @@ function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.href = '/'; // Redirect to the login page after logging out
+    // window.location.href = '/'; // Redirect to the login page after logging out
+    window.location.reload();
   };
 
   useEffect(() => {
