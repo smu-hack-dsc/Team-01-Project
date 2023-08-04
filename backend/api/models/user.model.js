@@ -126,7 +126,7 @@ userSchema.method({
                 transformed[field] = this[field];
             });
         } else if (this.role === 'volunteerOrg') {
-            const fields = ['id', 'name', 'email', 'role', 'description', 'imageInfo', 'imageUrl'];
+            const fields = ['id', 'name', 'email', 'role', 'interests', 'description', 'imageInfo', 'imageUrl'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });

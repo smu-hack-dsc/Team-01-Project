@@ -2,8 +2,8 @@ const APIError = require('../../utils/APIError');
 const User = require('../models/user.model');
 const path = require('path');
 
-const { S3Client, PutObjectCommand, GetObjectCommand } = require( "@aws-sdk/client-s3");
-const { getSignedUrl } = require( '@aws-sdk/s3-request-presigner');
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 require('dotenv').config();
 
 
@@ -34,11 +34,10 @@ exports.LoginUserInfo = async (options) => {
 exports.CreateUser = async (userData, imageData) => {
     try {
 
-        let pictureName, uploadPath;
+        let pictureName;
         if (imageData) {
-            const postPicture = imageData;
-            const pictureName = `${Date.now()}-${imageData.name}`;
-            const params={
+            pictureName = `${Date.now()}-${imageData.name}`;
+            const params = {
                 Bucket: bucketName,
                 Key: imageData.pictureName,
                 Body: imageData.buffer,
@@ -47,16 +46,6 @@ exports.CreateUser = async (userData, imageData) => {
             const command = new PutObjectCommand(params);
             await s3.send(command);
 
-            const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
-
-            postPicture.mv(uploadPath, error => {
-                if (error) {
-                    throw new APIError({
-                        message: "file cannot mv",
-                        status: 400,
-                    })
-                }
-            });
         }
 
         var user;
@@ -72,7 +61,6 @@ exports.CreateUser = async (userData, imageData) => {
                 description: userData.description,
                 imageInfo: {
                     imageName: pictureName,
-                    imagePath: uploadPath,
                 }
             });
         } else {
@@ -80,11 +68,11 @@ exports.CreateUser = async (userData, imageData) => {
                 name: userData.name,
                 password: userData.password,
                 email: userData.email,
+                interests: userData.interests,
                 role: userData.role,
                 description: userData.description,
                 imageInfo: {
                     imageName: pictureName,
-                    imagePath: uploadPath,
                 }
             });
 
@@ -105,11 +93,6 @@ exports.CreateUser = async (userData, imageData) => {
 //         throw User.checkDuplication(err);
 //     }
 // }
-// {
-//     const client = new S3Client(clientParams);
-//     const command = new GetObjectCommand(getObjectParams);
-//     const url = await getSignedUrl(client, command, {expiresIn: 3600});
-// }
 // Get user by id
 exports.GetUser = async (id) => {
     const user = await User.get(id);
@@ -120,9 +103,8 @@ exports.GetUser = async (id) => {
     };
 
     const command = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, command, {expiresIn: 60});
+    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
     user.imageUrl = url;
-    console.log(url);
     return user;
 }
 
@@ -139,30 +121,22 @@ exports.UpdateUser = async (user, newData, imageData) => {
                 updateData[field] = !newData[field] ? user[field] : newData[field];
             });
         } else {
-            const fields = ['name', 'email', 'description'];
+            const fields = ['name', 'email', 'description', 'interests'];
             fields.forEach((field) => {
                 updateData[field] = !newData[field] ? user[field] : newData[field];
             });
         }
-
+        // for image updating
         if (imageData) {
-            const postPicture = imageData;
-            const pictureName = `${Date.now()}-${imageData.name}`;
-            const uploadPath = path.join(__dirname + '/../../src/profileUploads/' + pictureName);
-
-            postPicture.mv(uploadPath, error => {
-                if (error) {
-                    throw new APIError({
-                        message: "file cannot mv",
-                        status: 400,
-                    })
-                }
-            });
-
-            updateData[imageInfo] = {
-                imageName: pictureName,
-                imagePath: uploadPath,
+            const path = userData.imageInfo?.imageName ? userData.imageInfo.imageName : `${Date.now()}-${imageData.name}`;
+            const params = {
+                Bucket: bucketName,
+                Key: imageData.pictureName,
+                Body: imageData.buffer,
+                ContentType: imageData.mimetype,
             };
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
         }
         Object.assign(user, updateData);
         const savedUser = await user.save();
@@ -175,6 +149,14 @@ exports.UpdateUser = async (user, newData, imageData) => {
 
 // Remove user account
 exports.RemoveUser = async (user) => {
+    if (user.imageInfo) {
+        const params = {
+            Bucket: bucketName,
+            Key: user.imageInfo.imageName
+        }
+        const command = new DeleteObjectCommand(params);
+        await s3.send(command);
+    }
     user.deleteOne();
 };
 

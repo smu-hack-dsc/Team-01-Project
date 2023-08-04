@@ -25,13 +25,10 @@ app.route('/register')
 
 app.route('/login')
     .post(controller.login); // WORKING
-
-app.route('/image')
-    .post(controller.findImage);
     
 app.route('/profile')
-    .get(Authorize(USER), controller.get) // WORKING
-    .put(Authorize(USER), fileUpload({createParentPath: true}), controller.update) // WORKING
-    .delete(Authorize(USER), controller.remove); // WORKING
+    .get(Authorize(), controller.get) // WORKING
+    .put(Authorize(), fileUpload({createParentPath: true}), controller.update) // WORKING
+    .delete(Authorize(), controller.remove); // WORKING
 
 module.exports = app;

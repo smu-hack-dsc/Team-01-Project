@@ -9,7 +9,6 @@ import Filter from "components/Filter";
 function Profile() {
   const [profileData, setProfileData] = useState([]);
   const [userPostsData, setUserPostsData] = useState([]);
-  const [profileImage, setProfileImage] = useState({});
 
   const navigate = useNavigate();
 
@@ -23,13 +22,6 @@ function Profile() {
       try {
         const response = await api.get('/user/profile');
         setProfileData(response.data);
-
-        if (response.data.imageInfo) {
-          const imageResponse = await api.post('/user/image', {
-            imagePath: response.data.imageInfo.imagePath,
-          });
-          setProfileImage(new Uint8Array(imageResponse.data));
-        }
       } catch (error) {
         console.log('Error fetching profile data: ', error);
 
@@ -62,8 +54,8 @@ function Profile() {
             < div >
               <img
                 // src={require("../resources/img/Siyu.png")}
-                // src={profileImage}
-                src={`data:image/jpeg;base64,${btoa(String.fromCharCode(profileImage))}`}
+                src={profileData.imageUrl}
+                // src={`data:image/jpeg;base64,${btoa(String.fromCharCode(profileImage))}`}
                 // src={`data:image/jpeg;base64,${Buffer.from(profileImage, 'binary').toString('base64')}`}
                 alt="Siyu"
                 className="s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 rounded-md mb-15"
