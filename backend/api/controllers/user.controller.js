@@ -16,7 +16,7 @@ const { CREATED } = require('../../utils/constants');
 // };
 
 // Return information of the user 
-exports.get = async (req, res) => {
+exports.get = async (req, res, next) => {
   try {
     const user = await GetUser(req.user.id);
     return res.json(user.transform());

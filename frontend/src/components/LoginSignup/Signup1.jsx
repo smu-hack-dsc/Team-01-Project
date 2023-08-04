@@ -4,7 +4,7 @@ import ToggleSwitch from './ToggleSwitch';
 import SignupInputName from "components/LoginSignup/Signup1InputName";
 
 const Signup1 = () => {
-  const [isVolunteer, setIsVolunteer] = useState(false);
+  const [isVolunteer, setIsVolunteer] = useState(true);
 
   const handleToggleChange = (newValue) => {
     console.log("registered handleToggleChange in Login")

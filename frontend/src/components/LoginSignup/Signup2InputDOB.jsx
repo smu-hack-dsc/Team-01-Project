@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from 'components/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
@@ -10,20 +10,22 @@ const Signup2InputDOB = () => {
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
   const [description, setDescription] = useState('');
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const role = location.state?.role;
+  console.log(role);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     // Perform signup logic here (e.g., API call to register the user)
     const dateOfBirth = `${year}-${month}-${day}`;
-    console.log('Date of Birth:', dateOfBirth);
-    console.log(description);
     try {
       await api.put('/user/profile', {
         dateOfBirth: dateOfBirth,
         description: description
       });
-      navigate('/signup_personalise');
+      navigate('/signup_personalise', {state:{role}});
     } catch (error) {
       console.log("error", error);
     }

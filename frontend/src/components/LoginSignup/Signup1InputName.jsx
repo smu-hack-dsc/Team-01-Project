@@ -14,6 +14,7 @@ const Signup1InputName = ({ isVolunteer }) => {
   const [hasDuplicate, setHasDuplicate] = useState(false);
 
   const navigate = useNavigate();
+  const role = isVolunteer ? 'user' : 'volunteerOrg';
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -22,7 +23,6 @@ const Signup1InputName = ({ isVolunteer }) => {
       //check if the password is valid
       if (passwordCheck !== password) {
         setIsFailPWCheck(true);
-        console.log("set is fail pw check")
       } else {
         setIsFailPWCheck(false);
       }
@@ -33,6 +33,7 @@ const Signup1InputName = ({ isVolunteer }) => {
           email: email,
           name: name,
           password: password,
+          role: role
         });
         const response = await api.post('/user/login', {
           email:email,
@@ -41,14 +42,13 @@ const Signup1InputName = ({ isVolunteer }) => {
         const { token } = response.data;
         localStorage.setItem('token', token);
         //navigate to signupDetails
-        navigate('/signupDetails');
+        navigate('/signupDetails', { state: { role } });
       } else {
         setHasDuplicate(true);
       }
     } catch (error) {
       if (error.response?.status === 500) {
         setHasDuplicate(true);
-        console.log("duplicate problem");
       }
       console.log(error);
     }
