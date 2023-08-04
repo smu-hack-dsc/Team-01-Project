@@ -78,35 +78,6 @@ const Signup1InputName = ({ isVolunteer }) => {
     }
   };
 
-  // const inputStyles = css`
-  //   width: 700px;
-  //   height: 80px;
-  //   flex-shrink: 0;
-  //   border-radius: 15px;
-  //   border: 1px solid #000;
-  //   outline: none;
-  //   font-family: Uncut Sans;
-  //   font-size: 24px;
-  //   font-style: normal;
-  //   font-weight: 600;
-  //   line-height: 16px; /* 66.668% */
-  //   letter-spacing: -0.12px;
-  //   color: #000;
-  //   padding: 0px 30px;
-  //   margin-bottom: 16px;
-
-  //   ::placeholder {
-  //     /* Set the placeholder text color */
-  //     color: #D9D9D9;
-  //   }
-  // `;
-
-  // const containerStyles = css`
-  //   display: flex;
-  //   justify-content: flex-end;
-  //   margin-top: 50px;
-  // `;
-
   return (
     <div class="w-3/5">
       <form onSubmit={handleSignup} class=" flex flex-col justify-center items-center">
@@ -119,7 +90,7 @@ const Signup1InputName = ({ isVolunteer }) => {
             onBlur={handleEmailBlur}
             required
             placeholder='Email'
-            class="w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         <div class="w-full">
@@ -131,7 +102,7 @@ const Signup1InputName = ({ isVolunteer }) => {
             onBlur={handleNameBlur}
             required
             placeholder='Name'
-            class="w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         <div className="form-group w-full">
@@ -143,7 +114,7 @@ const Signup1InputName = ({ isVolunteer }) => {
             onBlur={handleNameBlur}
             required
             placeholder='Password'
-            class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         <div class="form-group w-full">
@@ -155,7 +126,7 @@ const Signup1InputName = ({ isVolunteer }) => {
             onBlur={handleNameBlur}
             required
             placeholder='Confirm Password'
-            class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         {isFailPWCheck ?
@@ -167,15 +138,18 @@ const Signup1InputName = ({ isVolunteer }) => {
             The email used has created an account already!
           </div> : null}
 
-        <div class="w-full flex justify-between items-center mt-4">
-          <Link to="/login" class="font-DMSans font-bold text-2xl text-purple-500">
-            Back to Login
-          </Link>
+          <div class="w-full flex justify-center my-4">
+            <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold">
+              NEXT
+            </button>
+          </div>
 
-          <Button variant='purple' size='medium'>
-            Next
-          </Button>
-        </div>
+          <div>
+            Already have an account?{' '}
+            <Link to="/login" class="font-DMSans font-bold text-purple_800CDB">
+                Login
+            </Link>
+          </div>
       </form>
     </div>
   );

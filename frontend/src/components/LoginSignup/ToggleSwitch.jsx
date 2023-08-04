@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import React, { useState } from 'react';
 
 const ToggleSwitch = ({handleToggleChange}) => {
@@ -12,18 +11,11 @@ const ToggleSwitch = ({handleToggleChange}) => {
 
   return (
     <div class="flex flex-row justify-center items-center">
-      <div class="w-3/5 h-20 bg-gray-400 cursor-pointer items-center rounded-3xl" onClick={handleChange}>
-        {isOption1Selected ? (
-          <div class="flex flex-row">
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl bg-purple-500 text-white rounded-l-3xl">Volunteer</div>
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl ">Organisation</div>
+      <div class="w-1/2 cursor-pointer items-center rounded-3xl" onClick={handleChange}>
+          <div class="flex flex-row h-10 sm:-mx-4 lg:mx-2">
+            <div className={`flex w-1/2 items-center justify-center text-center font-DMSans text-lg ${isOption1Selected ? "bg-purple-500 text-white" : "bg-white text-black border-[1px] border-gray-400"} rounded-l-3xl`}>Volunteer</div>
+            <div className={`flex w-1/2 items-center justify-center text-center font-DMSans text-lg ${!isOption1Selected ? "bg-purple-500 text-white" : "bg-white text-black border-[1px] border-gray-400"} rounded-r-3xl`}>Organisation</div>
           </div>
-        ) : (
-          <div class="flex flex-row">
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl">Volunteer</div>
-            <div class="flex w-3/6 h-20 items-center justify-center text-center font-DMSans text-2xl bg-purple-500 text-white rounded-r-3xl">Organisation</div>
-          </div>
-        )}
 
       </div>
     </div>

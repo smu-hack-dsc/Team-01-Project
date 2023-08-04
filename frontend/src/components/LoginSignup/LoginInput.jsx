@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'components/Button';
 import api from '../../api';
+import { checkLoginStatus } from '../NavBar'
+
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
 
@@ -10,7 +12,6 @@ const LoginInput = () => {
   const [password, setPassword] = useState('');
   const [isWrongCredentials, setIsWrongCredentials] = useState(false);
   const navigate = useNavigate();
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const LoginInput = () => {
       // render = () => {
           navigate('/');
       // }
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       // Handle login error
       if (error.response?.status === 500) {
@@ -59,13 +60,6 @@ const LoginInput = () => {
     }
   };
 
-  // const containerStyles = css`
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   margin-top: 50px;
-  // `;
-
   return (
     <div class="w-3/5">
       <form onSubmit={handleLogin} class=" flex flex-col justify-center items-center">
@@ -78,7 +72,7 @@ const LoginInput = () => {
             onBlur={handleEmailBlur}
             required
             placeholder='Email'
-            class="w-full h-[80px] rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         <div className="w-full">
@@ -90,22 +84,25 @@ const LoginInput = () => {
             onBlur={handlePasswordBlur}
             required
             placeholder='Password'
-            class="w-full h-[80px] justify-center rounded-xl border-[1px] border-black font-RecoletaAlt text-2xl mb-4 pl-8 placeholder:text-gray-200"
+            class="w-full justify-center rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         {isWrongCredentials ? 
         <div>
-          The email or password entered is incorrect!
+          The email or password entered is incorrect.
         </div> : null }
 
-        <div class="w-full flex justify-between items-center mt-4">
-          <Link to="/signup" class="font-DMSans font-bold text-2xl text-purple-500">
-            Create account
-          </Link>
+        <div class="w-full flex justify-center my-4">
+          <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold">
+            LOGIN
+          </button>
+        </div>
 
-          <Button variant='purple' size='medium'>
-            Login
-          </Button>
+        <div>
+          Don't have an account yet?{' '}
+          <Link to="/signup" class="font-DMSans font-bold text-purple_800CDB">
+              Sign Up
+          </Link>
         </div>
       </form>
     </div>

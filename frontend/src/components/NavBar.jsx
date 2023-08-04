@@ -16,40 +16,25 @@ import VOProject from 'pages/VOProject';
 import api from '../api';
 
 const Navbar = () => {
+  // const location = useLocation();
+  const menuRef = useRef();
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
 
-  const menuRef = useRef();
-
   const handleClickOutsideMenu = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setMenuOpen(false);
     }
-  };
+  };  
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const checkLoginStatus = async () => {
-    try {
-      await api.get('/user/profile');
-
-      // if (response !== null) {
-        setIsLoggedIn(true);
-        // console.log("hello");
-      // } else {
-      //   setIsLoggedIn(false);
-      // }
-
-    } catch (error) {
-      // if (error.response && error.name === "AxiosError") {
-      //   setIsLoggedIn(true);
-      // } else {
-      //   setIsLoggedIn(false);
-      // }
-    }
+  const checkLoginStatus = () => {
+    const token = localStorage.getItem('token');
+    console.log('its running');
+    setIsLoggedIn(token);
   };
 
   useEffect(() => {
@@ -107,7 +92,7 @@ const Navbar = () => {
                   className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
-                  {isLoggedIn ? "Profile" : "Signup/Login"}
+                  {isLoggedIn ? "Profile" : "Login"}
                 </NavLink>
               </div>
             </div>
@@ -171,7 +156,7 @@ const Navbar = () => {
                 className="block text-black hover:bg-gray-200 px-3 py-2 rounded-md text-base font-medium"
                 activeClassName="bg-gray-200"
               >
-                {isLoggedIn ? "Profile" : "Signup/Login"}
+                {isLoggedIn ? "Profile" : "Login"}
               </NavLink>
             </div>
           </div>
