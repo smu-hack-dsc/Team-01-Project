@@ -12,45 +12,64 @@ const Signup1InputName = ({ isVolunteer }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [isFailPWCheck, setIsFailPWCheck] = useState(false);
-  const [hasDuplicate, setHasDuplicate] = useState(false);
+  const [msg, setMsg] = useState('');
 
   const navigate = useNavigate();
-  const role = isVolunteer ? 'user' : 'volunteerOrg';
+  const role = isVolunteer ? 'volunteerOrg' : 'user';
+
+  const isValid = (email, password, passwordCheck) => {
+    if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) return false;
+    if (password !== passwordCheck) return false;
+    if (password.length < 8) return false;
+    return true;
+  }
 
   const handleSignup = async (e) => {
     e.preventDefault();
     // Perform signup logic here (e.g., API call to register the user)
     try {
-      //check if the password is valid
-      if (passwordCheck !== password) {
-        setIsFailPWCheck(true);
-      } else {
-        setIsFailPWCheck(false);
+      // setting the error msg
+      if (!isValid(email, password, passwordCheck)) {
+        if (password.length < 8) {
+          setMsg("Password should be at least 8 characters");
+        } else if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+          setMsg("Email is invalid");
+        } else if (password !== passwordCheck) {
+          setMsg("Passwords are not consistent!")
+        }
+        return;
       }
 
-      if (!isFailPWCheck) {
-        //check if the email has been used
-        await api.post('/user/register', {
+      //since all the inputs are valid,
+      if (isVolunteer) {
+        await api.post('user/register', {
+          email: email,
+          name: name,
+          password: password,
+          dateOfBirth: startDate,
+          role: role
+        });
+      } else {
+        await api.post('user/register', {
           email: email,
           name: name,
           password: password,
           role: role
         });
-        const response = await api.post('/user/login', {
-          email:email,
-          password:password
-        });
-        const { token } = response.data;
-        localStorage.setItem('token', token);
-        //navigate to signupDetails
-        navigate('/signupDetails', { state: { role } });
-      } else {
-        setHasDuplicate(true);
+
       }
+
+      const response = await api.post('/user/login', {
+        email: email,
+        password: password
+      });
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+      navigate('/signup_personalise', {state: {role}})
+
     } catch (error) {
       if (error.response?.status === 500) {
-        setHasDuplicate(true);
+        setMsg('This email has an account already!');
       }
       console.log(error);
     }
@@ -116,15 +135,16 @@ const Signup1InputName = ({ isVolunteer }) => {
             class="w-[68%] rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
 
-          {/* FIX THIS LATER */}
-          <div className="w-[30%]">
-            <DatePicker
-              className="w-[100%] rounded-xl border-[1px] border-black font-DMSans text-lg mb-4 py-4 px-5 placeholder:text-gray-200"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-            />
-          </div>
-
+          {/* FIX THIS LATER  (edited such that only a volunteer has the dob button) */}
+          {!isVolunteer ?
+            <div className="w-[30%]">
+              <DatePicker
+                className="w-[100%] rounded-xl border-[1px] border-black font-DMSans text-lg mb-4 py-4 px-5 placeholder:text-gray-200"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
+            </div> : null
+          }
           {/* <button
             onClick={() => setShowDatePicker(true)}
             className="self-end w-[30%] rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
@@ -165,32 +185,22 @@ const Signup1InputName = ({ isVolunteer }) => {
             class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
-        {isFailPWCheck ?
-          <div>
-            The password is not consistent!
-          </div> : null}
-        {hasDuplicate ?
-          <div>
-            The email used has created an account already!
-          </div> : null}
 
-          <div class="w-full flex justify-center my-4">
-            <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold"
-                    onClick={() => {
-                      if (email && name && password && passwordCheck && !isFailPWCheck && !hasDuplicate) {
-                        navigate('/signup_personalise', { state: { role } });
-                      }
-                    }}>
-              NEXT
-            </button>
+        <div class="w-full flex flex-col justify-center my-4">
+          <div class="flex flex-col px-4 py-2 w-full justify-center items-center text-base font-semibold">
+            {msg}
           </div>
+          <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold">
+            NEXT
+          </button>
+        </div>
 
-          <div>
-            Already have an account?{' '}
-            <Link to="/login" class="font-DMSans font-bold text-purple_800CDB">
-                Login
-            </Link>
-          </div>
+        <div>
+          Already have an account?{' '}
+          <Link to="/login" class="font-DMSans font-bold text-purple_800CDB">
+            Login
+          </Link>
+        </div>
       </form>
     </div>
   );
