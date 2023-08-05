@@ -13,6 +13,7 @@ import { IonIcon } from '@ionic/react';
 import { menuOutline } from 'ionicons/icons';
 import VOProfile from 'pages/VOProfile';
 import VOProject from 'pages/VOProject';
+import CommunityTag from 'pages/CommunityTag';
 
 const Navbar = () => {
   // const location = useLocation();
@@ -169,6 +170,7 @@ const Navbar = () => {
         <Route path="/signup" Component={Signup1} />
         {/* <Route path="/signupDetails" Component={Signup2} /> */}
         <Route path="/signup_personalise" Component={Signup3} />
+        <Route path="/posts" Component={CommunityTag} />
 
         {/* to reroute once edited */}
         <Route path="/voprofile" Component={VOProfile} />

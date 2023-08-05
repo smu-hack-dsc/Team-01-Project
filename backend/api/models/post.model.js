@@ -59,7 +59,7 @@ postSchema.pre('save', async function save(next) {
 postSchema.method({
     transform() {
         const transformed = {};
-        const fields = ['id', 'user', 'postTitle', 'postContent', 'tags', 'imageInfo'];
+        const fields = ['id', 'user', 'postTitle', 'postContent', 'tags', 'imageInfo', 'createdAt', 'imageUrl'];
         fields.forEach((field) => {
             transformed[field] = this[field];
         });

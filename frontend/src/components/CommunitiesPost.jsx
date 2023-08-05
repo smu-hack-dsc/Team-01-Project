@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CommunitiesPost = () => {
+const CommunitiesPost = ({username, }) => {
   const [posts, setPosts] = useState([]);
 
   const handlePostSubmit = (postText, tags, image) => {
