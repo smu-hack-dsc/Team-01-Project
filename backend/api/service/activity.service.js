@@ -29,7 +29,6 @@ exports.CreateActivity = async (userData, activityData, imageData) => {
         let pictureName;
         if (imageData) {
             pictureName = `${Date.now()}-${imageData.name}`;
-            pictureName = `${Date.now()}-${imageData.name}`;
             const params = {
                 Bucket: bucketName,
                 Key: imageData.pictureName,

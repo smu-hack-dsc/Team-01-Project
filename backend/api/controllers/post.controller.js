@@ -6,7 +6,7 @@ const { CreatePost, GetPost,
 
 exports.create = async (req, res, next) => {
     try {
-        const response = await CreatePost(req.user, req.body, req.files.image);
+        const response = await CreatePost(req.user, req.body, req.files?.image);
         return res.json(response);
     } catch (error) {
         return next(error);

@@ -4,21 +4,38 @@ const mongoose = require('mongoose');
 // const fs = require('fs');
 const path = require('path');
 
+const { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+require('dotenv').config();
+
+const bucketName = process.env.BUCKET_NAME
+const bucketRegion = process.env.BUCKET_REGION
+const accessKey = process.env.ACCESS_KEY
+const secretAccessKey = process.env.SECRET_ACCESS_KEY
+
+const s3 = new S3Client({
+    credentials: {
+        accessKeyId: accessKey,
+        secretAccessKey: secretAccessKey
+    },
+    region: bucketRegion
+});
+
 // Create
 exports.CreatePost = async (userData, postData, imageData) => {
     try {
-        const postPicture = imageData;
-        const pictureName = `${Date.now()}-${imageData.name}`;
-        const uploadPath = path.join(__dirname + '/../../src/postUploads/' + pictureName);
-
-        postPicture.mv(uploadPath, error => {
-            if (error) {
-                throw new APIError({
-                    message: "file cannot mv",
-                    status: 400,
-                })
-            } 
-        });
+        let pictureName;
+        if (imageData) {
+            pictureName = `${Date.now()}-${imageData.name}`;
+            const params = {
+                Bucket: bucketName,
+                Key: imageData.pictureName,
+                Body: imageData.buffer,
+                ContentType: imageData.mimetype,
+            };
+            const command = new PutObjectCommand(params);
+            await s3.send(command);
+        }
 
         const post = new Post({
             user: userData.id,
@@ -27,11 +44,9 @@ exports.CreatePost = async (userData, postData, imageData) => {
             tags: postData.tags,
             imageInfo: {
                 imageName: pictureName,
-                imagePath: uploadPath,
             }
         });
 
-        // console.log({ post: post });
         const saved = await post.save();
         return saved.transform();
 
@@ -42,15 +57,37 @@ exports.CreatePost = async (userData, postData, imageData) => {
 };
 
 // Get
-exports.GetPost = async (id) => Post.get(id);
+exports.GetPost = async (id) => {
+    const post = await Post.get(id);
+
+    const getObjectParams = {
+        Bucket: bucketName,
+        Key: activity.imageInfo.imageName,
+    };
+
+    const command = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+    post.imageUrl = url;
+    return post;
+};
 
 exports.GetPostsByUser = async (userId) => {
     try {
         const userIdString = new mongoose.Types.ObjectId(userId);
         const posts = await Post.find({ user: userIdString });
-        posts.forEach(post => {
-            post.transform();
-        });
+        for (const post of posts) {
+            if (post.imageInfo) {
+                const getObjectParams = {
+                    Bucket: bucketName,
+                    Key: post.imageInfo.imageName,
+                };
+
+                const command = new GetObjectCommand(getObjectParams);
+                const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+                post.imageInfo.imagePath = url;
+            }
+            post.transform()
+        }
         return posts;
     } catch (err) {
         throw Post.checkDuplication(err);
@@ -61,9 +98,19 @@ exports.GetPostsByUser = async (userId) => {
 exports.GetPostsByLatest = async (req) => {
     try {
         const posts = await Post.find().sort({ createdAt: -1 });
-        posts.forEach(post => {
-            post.transform();
-        });
+        for (const post of posts) {
+            if (post.imageInfo) {
+                const getObjectParams = {
+                    Bucket: bucketName,
+                    Key: post.imageInfo.imageName,
+                };
+
+                const command = new GetObjectCommand(getObjectParams);
+                const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+                post.imageInfo.imagePath = url;
+            }
+            post.transform()
+        }
         return posts;
     } catch (err) {
         throw Post.checkDuplication(err);
@@ -73,9 +120,19 @@ exports.GetPostsByLatest = async (req) => {
 exports.CommunityPosts = async (filterOptions) => {
     try {
         const posts = await Post.find({ $expr: { $setIsSubset: [filterOptions, "$tags"] } });
-        posts.forEach(post => {
+        for (const post of posts) {
+            if (post.imageInfo) {
+                const getObjectParams = {
+                    Bucket: bucketName,
+                    Key: post.imageInfo.imageName,
+                };
+
+                const command = new GetObjectCommand(getObjectParams);
+                const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+                post.imageInfo.imagePath = url;
+            }
             post.transform();
-        });
+        }
         return posts;
     } catch (err) {
         throw Post.checkDuplication(err);

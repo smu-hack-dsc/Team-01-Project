@@ -21,6 +21,7 @@ const LoginInput = () => {
         email:email,
         password:password
       });
+      console.log('here')
       const { token } = response.data;
       localStorage.setItem('token', token);
       // render = () => {
