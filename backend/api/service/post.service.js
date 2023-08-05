@@ -99,7 +99,7 @@ exports.GetPostsByLatest = async (req) => {
     try {
         const posts = await Post.find().sort({ createdAt: -1 });
         for (const post of posts) {
-            if (post.imageInfo) {
+            if (post.imageInfo.imageName) {
                 const getObjectParams = {
                     Bucket: bucketName,
                     Key: post.imageInfo.imageName,

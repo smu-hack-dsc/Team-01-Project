@@ -9,16 +9,16 @@ const { Authorize } = require('../../middleware/auth');
 
 app.route('/')
     .post(Authorize(), fileUpload({createParentPath: true}), controller.create) // WORKING
-    .get(Authorize(), controller.getLatest); // WORKING
+    .get(controller.getLatest); // WORKING
 
 app.route('/communities')
-    .post(Authorize(), controller.communitiesFilter) // PENDING
+    .post(controller.communitiesFilter) // PENDING
 
 app.route('/myposts')
     .get(Authorize(), controller.getByUser); // WORKING
 
 app.route('/:postId')
-    .delete(Authorize(), controller.remove); // PENDING
+    .delete(controller.remove); // PENDING
 
 
 module.exports = app;

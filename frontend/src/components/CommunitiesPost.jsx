@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {useNavigate} from "react-router-dom"
 import api from '../api';
 import SearchBar from "./SearchBar";
 
@@ -7,6 +8,7 @@ const CommunitiesPost = ({ tag }) => {
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
   const [selectedInterests, setSelectedInterests] = useState([]);
+  const navigate = useNavigate();
 
   const allInterests = ['general', 'elderly', 'environment', 'children', 'tutoring', 'animals'];
 
@@ -28,7 +30,6 @@ const CommunitiesPost = ({ tag }) => {
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-    console.log(fileInputRef.target?.files[0])
     // logic to handle the post submission and add it to the posts state
     if (fileInputRef.target?.files[0]) {
       const selectedFile = fileInputRef.target.files[0];
@@ -43,9 +44,6 @@ const CommunitiesPost = ({ tag }) => {
         console.log('error', error);
       }
     } else {
-      console.log(postTitle);
-      console.log(postContent);
-      console.log(selectedInterests);
       try {
         await api.post('/post/', {
           postTitle: postTitle,
@@ -67,11 +65,37 @@ const CommunitiesPost = ({ tag }) => {
     // setPosts([...posts, newPost]);
   };
 
+  useEffect(() => {
+    
+    const fetchPosts = async () => {
+      try {
+        const response = await api.get('/post/');
+        console.log(response);
+        const updatedPosts = await Promise.all(
+          response.data.map(async (post) => {
+            const profileData = await api.get(`/user/profile/${post.user}`);
+            console.log(profileData)
+            return {
+              ...post,
+              username: profileData.data.name,
+              userPictUrl: profileData.data.imageUrl,
+            };
+          })
+        );
+        console.log(updatedPosts);
+        setPosts(updatedPosts);
+      } catch (error) {
+        console.log('Error fetching post data: ', error);
+      }
+    }
+
+    fetchPosts();
+  }, [])
 
 
   return (
     <div className="container mx-2">
-      {/* post input/creation */}
+      {/* post input/creation --> need to check if user is logged in before you show this! */}
       <div className="p-4 border border-gray-300 rounded-md mb-4">
         <form onSubmit={handlePostSubmit}>
           {/* input fields for tags and image upload */}
@@ -141,18 +165,18 @@ const CommunitiesPost = ({ tag }) => {
       {posts.map((post, index) => (
         <div
           key={index}
-          className="p-4 border border-gray-300 rounded-md mb-4 font-DMSans"
+          className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans"
         >
           <div className="flex items-center mb-2">
             <img
               className="w-8 h-8 rounded-full mr-2"
-              src="https://via.placeholder.com/50"
+              src={post.userPictUrl}
               alt="User"
             />
-            <span className="text-lg font-bold">{post.username}</span>
-            <span className="text-gray-500 ml-2">{post.timestamp}</span>
+            <span className="text-lg font-bold">{post.postTitle}</span>
+            <span className="text-gray-500 ml-2">{post.username}</span>
           </div>
-          <p className="mb-2">{post.postText}</p>
+          <p className="mb-2">{post.postContent}</p>
 
           {/* tags */}
           <div className="mb-2">
@@ -161,7 +185,7 @@ const CommunitiesPost = ({ tag }) => {
                 key={idx}
                 className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
               >
-                {tag}
+                #{tag}
               </span>
             ))}
           </div>

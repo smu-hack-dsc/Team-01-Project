@@ -46,13 +46,21 @@ exports.create = async (req, res, next) => {
   }
 };
 
-exports.findImage = async(req, res, next) => {
+exports.getById = async (req, res, next) => {
   try {
-    return res.sendFile(req.body.imagePath);
+    const response = await GetUser(req.params.uid);
+    return res.json(response);
   } catch (error) {
     return next(error);
   }
 }
+// exports.findImage = async(req, res, next) => {
+//   try {
+//     return res.sendFile(req.body.imagePath);
+//   } catch (error) {
+//     return next(error);
+//   }
+// }
 // exports.findEmail = async (req, res, next) => {
 //   try {
 //     const response = await FindUserEmail(req.body);

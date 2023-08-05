@@ -102,9 +102,9 @@ exports.GetUser = async (id) => {
         const command = new GetObjectCommand(getObjectParams);
         const url = await getSignedUrl(s3, command, { expiresIn: 60 });
         user.imageUrl = url;
+        console.log(url);
     }
-
-    return user;
+    return user.transform();
 }
 
 
@@ -155,7 +155,7 @@ exports.UpdateUser = async (user, newData, imageData) => {
             const url = await getSignedUrl(s3, command, { expiresIn: 60 });
             savedUser.imageUrl = url;
         }
-        return savedUser;
+        return savedUser.transform();
 
     } catch (err) {
         throw User.checkDuplication(err);

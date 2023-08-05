@@ -31,4 +31,7 @@ app.route('/profile')
     .put(Authorize(), fileUpload({createParentPath: true}), controller.update) // WORKING
     .delete(Authorize(), controller.remove); // WORKING
 
+app.route('/profile/:uid')
+    .get(controller.getById);
+
 module.exports = app;
