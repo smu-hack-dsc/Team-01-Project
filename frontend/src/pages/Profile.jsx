@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import api from '../api';
 import { useNavigate } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
@@ -9,6 +9,29 @@ import Filter from "components/Filter";
 function Profile() {
   const [profileData, setProfileData] = useState([]);
   const [userPostsData, setUserPostsData] = useState([]);
+  const fileInputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    // Trigger the click event of the hidden file input element
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+    // upload the file
+    try {
+      const response = await api.put('/user/profile', formData);
+      setProfileData(response.data);
+      window.location.reload()
+
+
+    } catch(error) {
+      console.log('uploadfile', error);
+    }
+
+  };
 
   const navigate = useNavigate();
 
@@ -52,15 +75,41 @@ function Profile() {
         <div className="flex flex-row sm:w-4/5 lg:w-2/3">
           <div className="mr-20 max-w-[35%]">
             {/* left col */}
-            < div >
-              <img
-                // src={require("../resources/img/Siyu.png")}
-                src={profileData.imageUrl}
-                // src={`data:image/jpeg;base64,${btoa(String.fromCharCode(profileImage))}`}
-                // src={`data:image/jpeg;base64,${Buffer.from(profileImage, 'binary').toString('base64')}`}
-                alt="Siyu"
-                className="s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 rounded-md mb-15"
-              />
+            <div>
+              {profileData.imageUrl ?
+                <img
+                  src={profileData.imageUrl}
+                  alt="Siyu"
+                  className="object-cover w-full rounded-md mb-14 "
+                /> :
+                <>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+
+                  <label>
+                    <button
+                      className="flex s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 text-black font-DM font-semibold rounded-md mb-15 bg-gray-200"
+                      onClick={handleButtonClick}
+                    >
+                      Add a Profile Picture!
+                    </button>
+                  </label>
+                </>
+                // <>
+
+                //   <input type="file" accept="image/*" >
+                // <button className="flex s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 text-black font-DM font-semibold rounded-md mb-15 bg-gray-200">
+                // Add Picture!
+                //  </button>
+                //  </input>
+                // </>
+              }
+
               <div className="text-black font-DM font-semibold sm:text-xl lg:text-2xl mt-3 mb-5">
                 {profileData.name}
                 {/* Tay Si Yu */}
@@ -109,11 +158,11 @@ function Profile() {
                   src={require("../resources/img/Question.png")}
                   alt='Help'
                   className="w-8 h-8" />
-                  <img
-                    src={require("../resources/img/Logout.png")}
-                    alt='Logout'
-                    onClick={handleLogout}
-                    className="w-8 h-8" />
+                <img
+                  src={require("../resources/img/Logout.png")}
+                  alt='Logout'
+                  onClick={handleLogout}
+                  className="w-8 h-8" />
               </div>
             </div>
           </div>

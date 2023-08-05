@@ -39,7 +39,7 @@ exports.CreateUser = async (userData, imageData) => {
             const params = {
                 Bucket: bucketName,
                 Key: imageData.pictureName,
-                Body: imageData.buffer,
+                Body: imageData.data.buffer,
                 ContentType: imageData.mimetype,
             };
             const command = new PutObjectCommand(params);
@@ -94,15 +94,16 @@ exports.CreateUser = async (userData, imageData) => {
 // Get user by id
 exports.GetUser = async (id) => {
     const user = await User.get(id);
+    if (user.imageInfo.imageName) {
+        const getObjectParams = {
+            Bucket: bucketName,
+            Key: user.imageInfo.imageName,
+        };
+        const command = new GetObjectCommand(getObjectParams);
+        const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+        user.imageUrl = url;
+    }
 
-    const getObjectParams = {
-        Bucket: bucketName,
-        Key: user.imageInfo.imageName,
-    };
-
-    const command = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
-    user.imageUrl = url;
     return user;
 }
 
@@ -111,7 +112,7 @@ exports.GetUser = async (id) => {
 exports.UpdateUser = async (user, newData, imageData) => {
     try {
         // check which role it is, and compare the appropriate data
-        const updateData = {};
+        let updateData = {};
 
         if (user.role === 'user') {
             const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests', 'description'];
@@ -124,20 +125,36 @@ exports.UpdateUser = async (user, newData, imageData) => {
                 updateData[field] = !newData[field] ? user[field] : newData[field];
             });
         }
+
+        let pictureName;
         // for image updating
         if (imageData) {
-            const path = userData.imageInfo?.imageName ? userData.imageInfo.imageName : `${Date.now()}-${imageData.name}`;
+            pictureName = user.imageInfo?.imageName === undefined ? `${Date.now()}-${imageData.name}` : user.imageInfo.imageName;
             const params = {
                 Bucket: bucketName,
-                Key: path,
-                Body: imageData.buffer,
+                Key: pictureName,
+                Body: imageData.data.buffer,
                 ContentType: imageData.mimetype,
             };
             const command = new PutObjectCommand(params);
             await s3.send(command);
+            updateData = {
+                imageInfo: {
+                    imageName: pictureName,
+                }
+            }
         }
         Object.assign(user, updateData);
         const savedUser = await user.save();
+        if (user.imageInfo?.imageName) {
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: user.imageInfo.imageName,
+            };
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+            savedUser.imageUrl = url;
+        }
         return savedUser;
 
     } catch (err) {
