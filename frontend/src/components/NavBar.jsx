@@ -13,7 +13,6 @@ import { IonIcon } from '@ionic/react';
 import { menuOutline } from 'ionicons/icons';
 import VOProfile from 'pages/VOProfile';
 import VOProject from 'pages/VOProject';
-import api from '../api';
 
 const Navbar = () => {
   // const location = useLocation();
@@ -31,10 +30,8 @@ const Navbar = () => {
     }
   };  
 
-  const checkLoginStatus = () => {
-    const token = localStorage.getItem('token');
-    console.log('its running');
-    setIsLoggedIn(token);
+  const checkLoginStatus = async () => {
+    setIsLoggedIn(localStorage.getItem('token'));
   };
 
   useEffect(() => {

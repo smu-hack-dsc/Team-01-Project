@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button } from 'components/Button';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../../api';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 /** @jsxImportSource @emotion/react */
 // import { css } from '@emotion/react';
 
@@ -78,6 +80,15 @@ const Signup1InputName = ({ isVolunteer }) => {
     }
   };
 
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const [startDate, setStartDate] = useState(new Date());
+  const handleDateChange = (date) => {
+    // setSelectedDate(date);
+    setShowDatePicker(true);
+  };
+
   return (
     <div class="w-3/5">
       <form onSubmit={handleSignup} class=" flex flex-col justify-center items-center">
@@ -93,7 +104,7 @@ const Signup1InputName = ({ isVolunteer }) => {
             class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
         </div>
-        <div class="w-full">
+        <div class="flex justify-between w-full">
           <input
             type="text" // Change the input type to 'text' for Email
             value={name}
@@ -102,8 +113,33 @@ const Signup1InputName = ({ isVolunteer }) => {
             onBlur={handleNameBlur}
             required
             placeholder='Name'
-            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
+            class="w-[68%] rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
           />
+
+          {/* FIX THIS LATER */}
+          <div className="w-[30%]">
+            <DatePicker
+              className="w-[100%] rounded-xl border-[1px] border-black font-DMSans text-lg mb-4 py-4 px-5 placeholder:text-gray-200"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
+          </div>
+
+          {/* <button
+            onClick={() => setShowDatePicker(true)}
+            className="self-end w-[30%] rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
+          >
+            {selectedDate ? selectedDate.toDateString() : 'Birthday'}
+          </button> */}
+
+          {/* {showDatePicker && (
+            <DatePicker
+              selected={selectedDate}
+              onChange={handleDateChange}
+              dateFormat="MM/dd/yyyy"
+              isClearable
+            />
+          )} */}
         </div>
         <div className="form-group w-full">
           <input
@@ -142,7 +178,7 @@ const Signup1InputName = ({ isVolunteer }) => {
             <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold"
                     onClick={() => {
                       if (email && name && password && passwordCheck && !isFailPWCheck && !hasDuplicate) {
-                        navigate('/signupDetails', { state: { role } });
+                        navigate('/signup_personalise', { state: { role } });
                       }
                     }}>
               NEXT

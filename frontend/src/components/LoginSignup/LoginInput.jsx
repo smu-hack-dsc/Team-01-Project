@@ -26,7 +26,7 @@ const LoginInput = () => {
       // render = () => {
           navigate('/');
       // }
-      //window.location.reload();
+      window.location.reload();
     } catch (error) {
       // Handle login error
       if (error.response?.status === 500) {
