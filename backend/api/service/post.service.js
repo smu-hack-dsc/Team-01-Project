@@ -29,14 +29,13 @@ exports.CreatePost = async (userData, postData, imageData) => {
             pictureName = `${Date.now()}-${imageData.name}`;
             const params = {
                 Bucket: bucketName,
-                Key: imageData.pictureName,
-                Body: imageData.buffer,
+                Key: pictureName,
+                Body: imageData.data.buffer,
                 ContentType: imageData.mimetype,
             };
             const command = new PutObjectCommand(params);
             await s3.send(command);
         }
-
         const post = new Post({
             user: userData.id,
             postTitle: postData.postTitle,
@@ -46,7 +45,6 @@ exports.CreatePost = async (userData, postData, imageData) => {
                 imageName: pictureName,
             }
         });
-
         const saved = await post.save();
         return saved.transform();
 
