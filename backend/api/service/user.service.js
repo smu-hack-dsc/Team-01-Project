@@ -102,7 +102,6 @@ exports.GetUser = async (id) => {
         const command = new GetObjectCommand(getObjectParams);
         const url = await getSignedUrl(s3, command, { expiresIn: 60 });
         user.imageUrl = url;
-        console.log(url);
     }
     return user.transform();
 }
@@ -174,4 +173,3 @@ exports.RemoveUser = async (user) => {
     }
     user.deleteOne();
 };
-
