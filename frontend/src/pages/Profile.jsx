@@ -190,12 +190,12 @@ function Profile() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 mt-5">
-              {userPostsData.map((post) => (
+              {/* {userPostsData.map((post) => (
                 <ProfilePost
                   key={post._id}
                   imageUrl={post.imageInfo?.imagePath}
                 />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

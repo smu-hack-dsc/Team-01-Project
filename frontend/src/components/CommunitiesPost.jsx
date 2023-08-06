@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import api from '../api';
 import SearchBar from "./SearchBar";
 
 const CommunitiesPost = ({ tag }) => {
+  const tagArray = (tag) => {
+    return [tag.title];
+  }
   const [posts, setPosts] = useState([]);
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
   const [selectedInterests, setSelectedInterests] = useState([]);
   const navigate = useNavigate();
 
-  const allInterests = ['general', 'elderly', 'environment', 'children', 'tutoring', 'animals'];
+  const allInterests = ['elderly', 'environment', 'children', 'tutoring', 'animals'];
 
   // image adding logic
   const fileInputRef = useRef(null);
@@ -31,46 +34,44 @@ const CommunitiesPost = ({ tag }) => {
   const handlePostSubmit = async (e) => {
     e.preventDefault();
     // logic to handle the post submission and add it to the posts state
-    if (fileInputRef.target?.files[0]) {
-      const selectedFile = fileInputRef.target.files[0];
-      try {
-        await api.post('/post/', {
+    if (selectedInterests.length === 0) {
+      setSelectedInterests([...selectedInterests, 'general']);
+      console.log('edited', selectedInterests);
+    }
+    let response;
+    try {
+      if (fileInputRef.target?.files[0]) {
+        const selectedFile = fileInputRef.target.files[0];
+        response = await api.post('/post/', {
           postTitle: postTitle,
           postContent: postContent,
           tags: selectedInterests,
           image: selectedFile
         });
-      } catch (error) {
-        console.log('error', error);
-      }
-    } else {
-      try {
-        await api.post('/post/', {
+      } else {
+        response = await api.post('/post/', {
           postTitle: postTitle,
           postContent: postContent,
           tags: selectedInterests,
         });
-      } catch (error) {
-        console.log('error', error);
       }
-
+    } catch (error) {
+      console.log('error', error);
+    } finally {
+      // Ensure form reset even if the API call fails
+      setPostTitle('');
+      setPostContent('');
     }
-    // const newPost = {
-    //   postText,
-    //   tags: tags.map((tag) => tag.toLowerCase()),
-    //   image,
-    //   username: "sample person", // replace w username
-    //   timestamp: new Date().toISOString(), // timestamp
-    // };
-    // setPosts([...posts, newPost]);
+
   };
 
   useEffect(() => {
-    
+
     const fetchPosts = async () => {
       try {
-        const response = await api.get('/post/');
-        console.log(response);
+        const response = await api.post('/post/communities', {
+          tags: tagArray(tag)
+        });
         const updatedPosts = await Promise.all(
           response.data.map(async (post) => {
             const profileData = await api.get(`/user/profile/${post.user}`);
@@ -82,7 +83,6 @@ const CommunitiesPost = ({ tag }) => {
             };
           })
         );
-        console.log(updatedPosts);
         setPosts(updatedPosts);
       } catch (error) {
         console.log('Error fetching post data: ', error);
@@ -90,7 +90,7 @@ const CommunitiesPost = ({ tag }) => {
     }
 
     fetchPosts();
-  }, [])
+  }, [tag])
 
 
   return (

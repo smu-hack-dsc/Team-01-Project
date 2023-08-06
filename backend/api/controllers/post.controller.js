@@ -36,7 +36,7 @@ exports.getByUser = async (req, res, next) => {
 
 exports.communitiesFilter = async (req, res, next) => {
     try {
-        const response = await CommunityPosts(req.body);
+        const response = await CommunityPosts(req.body.tags);
         return res.json(response);
     } catch (error) {
         return next(error);

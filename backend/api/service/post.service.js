@@ -60,14 +60,17 @@ exports.CreatePost = async (userData, postData, imageData) => {
 exports.GetPost = async (id) => {
     const post = await Post.get(id);
 
-    const getObjectParams = {
-        Bucket: bucketName,
-        Key: activity.imageInfo.imageName,
-    };
+    if (post.imageInfo.imageName) {
+        const getObjectParams = {
+            Bucket: bucketName,
+            Key: post.imageInfo.imageName,
+        };
 
-    const command = new GetObjectCommand(getObjectParams);
-    const url = await getSignedUrl(s3, command, { expiresIn: 60 });
-    post.imageUrl = url;
+        const command = new GetObjectCommand(getObjectParams);
+        const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+        post.imageInfo.imagePath = url;
+    }
+    post.transform()
     return post;
 };
 
@@ -76,7 +79,7 @@ exports.GetPostsByUser = async (userId) => {
         const userIdString = new mongoose.Types.ObjectId(userId);
         const posts = await Post.find({ user: userIdString });
         for (const post of posts) {
-            if (post.imageInfo) {
+            if (post.imageInfo.imageName) {
                 const getObjectParams = {
                     Bucket: bucketName,
                     Key: post.imageInfo.imageName,
@@ -121,7 +124,7 @@ exports.CommunityPosts = async (filterOptions) => {
     try {
         const posts = await Post.find({ $expr: { $setIsSubset: [filterOptions, "$tags"] } });
         for (const post of posts) {
-            if (post.imageInfo) {
+            if (post.imageInfo.imageName) {
                 const getObjectParams = {
                     Bucket: bucketName,
                     Key: post.imageInfo.imageName,
