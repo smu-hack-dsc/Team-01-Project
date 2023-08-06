@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CommunitiesPost from "components/CommunitiesPost";
 import SearchBar from "components/SearchBar";
 import TagCard from "components/TagCard";
@@ -7,6 +7,15 @@ import { useNavigate } from "react-router-dom";
 function Community() {
   const [getInterest, setGetInterest] = useState('');
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+  const checkLoginStatus = async () => {
+    setIsLoggedIn(localStorage.getItem('token'));
+  };
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
 
   const allInterests = [{
     title: 'general',
@@ -35,15 +44,29 @@ function Community() {
   }
 
   return (
-    <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
-      <div className="flex flex-row sm:w-4/5 lg:w-2/3">
-        <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl pb-5">
-          Community
-        </div>
-        <div className="ml-10 grow">
-          <SearchBar />
+    <div className="absolute top-20">
+      <div className="left-0 w-full h-full flex flex-col justify-start items-center pt-5">
+        <div className="flex flex-row sm:w-4/5 lg:w-2/3">
+          <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl pb-5">
+            Community
+          </div>
+          <div className="ml-10 grow">
+            <SearchBar />
+          </div>
         </div>
       </div>
+
+      {/* put user's communities here */}
+      <div className="flex sm:ml-[11%] lg:ml-[17.2%] items-center sm:w-4/5 lg:w-2/3 pb-2 font-DMSans text-gray-600">
+        {/* add an extra bool to fetch the users communities. if fetch returns 0 or null,
+        display "Explore and participate in active volunteering communities. You aren't part of any communities right now.
+        or smth similar" */}
+        {isLoggedIn ? "display user's communities" 
+                    : "Explore and participate in active volunteering communities."}
+        {/* **for logged in users** Your communities */}
+        {/* i want to put scrollable clickable images here like ig story */}
+      </div>
+
       <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between">
         {allInterests.map((interest) => (
           <TagCard
@@ -55,6 +78,7 @@ function Community() {
         }
       </div>
       {/* <CommunitiesPost /> */}
+    
     </div>
   );
 }

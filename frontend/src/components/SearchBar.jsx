@@ -15,7 +15,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="px-4 py-1 outline outline-gray-300 flex items-center rounded-lg font-DMSans">
+    <div className="px-4 py-1 outline outline-[1px] outline-gray-300 flex items-center rounded-lg font-DMSans">
       <input
         type="text"
         value={searchText}

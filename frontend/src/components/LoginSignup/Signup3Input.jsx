@@ -53,7 +53,7 @@ const Signup3Input = () => {
   }
 
   return (
-    <div className="w-3/5 justify-center bg-white border-2 rounded-2xl border-black px-2 py-2" >
+    <div className="w-4/5 justify-center bg-white border-2 rounded-2xl border-black px-2 py-2" >
       <form onSubmit={handleLogin}>
         <div className="flex flex-col">
           <div className="flex text-xl font-medium justify-center">Interests:</div>
@@ -102,10 +102,18 @@ const Signup3Input = () => {
         </div>
 
           {/* to submit files */}
-          <div className='w-full flex justify-end items-center mt-4'>
-            <Button variant='purple' size='large'>
-              Create account
-            </Button>
+          <div className="flex flex-row justify-between items-center">
+            <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-gray-400 hover:bg-gray-300 text-white rounded-full text-base font-semibold">
+              SKIP
+            </button>
+            <div className='w-full flex justify-end items-center'>
+              {/* <Button variant='purple' size='large'>
+                CREATE ACCOUNT
+              </Button> */}
+              <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-gray-400 hover:bg-gray-300 text-white rounded-full text-base font-semibold">
+                CREATE ACCOUNT
+              </button>
+            </div>
           </div>
 
       </form>

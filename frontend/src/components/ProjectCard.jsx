@@ -22,7 +22,7 @@ const ProjectCard = ({activityName, description, imageUrl}) => {
         </div>
         <div className="flex flex-col whitespace-normal justify-start text-black font-DMSans text-sm font-normal mx-4 mt-1">
           {/* {(description.split(" ").length >= 20) ? 
-            (
+            (`
             <> {description.split(" ").slice(0, 20).join(" ") + ' ...'}
             </>): (<>
           {description}</>)} */}

@@ -45,8 +45,10 @@ function Projects() {
           <div className="lg:mt-2 -mb-2">
             <Filter categorySubcategories={{
               'My Interests': ['interest1', 'interest2', 'interest3'],
+              'Cause': ['cause1', 'cause2', 'cause3'],
               'VO': ['vo1', 'vo2', 'vo3'],
               'Skill': ['skill1', 'skill2', 'skill3'],
+              // put a date picker for range
               'Date': ['idk what to do for date lol'],
             }}/>
           </div>

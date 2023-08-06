@@ -113,21 +113,20 @@ const CommunitiesPost = ({ tag }) => {
             onChange={(e) => setPostContent(e.target.value)}
             required
             placeholder="What's on your mind?"
-            class="w-full rounded-md border border-gray-300 font-DMSans px-3 py-1 text-wrap placeholder:text-gray-300"
+            class="w-full rounded-md border border-gray-300 font-DMSans px-3 pt-1 text-wrap placeholder:text-gray-300"
           />
-          <div className="flex flex-wrap w-full my-1">
-            <div>
-              tags:
-            </div>
+
+          <div className="flex flex-wrap w-full py-2">
+            tags:
             {allInterests.map((interest) => {
               return (
                 !selectedInterests.includes(interest) ?
-                  <button className="block text-black border-2 border-purple-500 px-1 mx-1 rounded-md text-base font-medium"
+                  <button className="block text-black border-[1px] border-gray-300 px-[5px] mx-1 rounded-md text-base font-medium"
                     onClick={() => handleInterestAdd(interest)}
                     type="button">
                     {interest}
                   </button> :
-                  <button className="block text-white border-2 border-purple-500 bg-purple-500 px-1 mx-1 rounded-md text-base font-medium"
+                  <button className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 mx-1 rounded-md text-base font-medium"
                     onClick={() => handleInterestDelete(interest)}
                     type="button">
                     {interest}
@@ -135,7 +134,7 @@ const CommunitiesPost = ({ tag }) => {
             })}
 
           </div>
-          <div className="flex flex-row justify-between mt-2">
+          <div className="flex flex-row justify-between pt-1">
             <input
               type="file"
               accept="image/*"
@@ -148,7 +147,7 @@ const CommunitiesPost = ({ tag }) => {
                 className="px-4 py-2 bg-gray-200 text-black rounded-md hover:bg-gray-300 font-DMSans"
                 onClick={handleButtonClick}
               >
-                Add a Picture!
+                Upload pictures
               </button>
             </label>
             <button

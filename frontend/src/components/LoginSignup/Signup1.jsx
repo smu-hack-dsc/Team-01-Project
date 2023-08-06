@@ -19,10 +19,10 @@ return (
       {/* replace this w image or better ui later */}
       <div class="hidden lg:block absolute left-0 w-1/2 h-full bg-blue-500 z-0" />        
         <div class="flex relative justify-center items-center my-auto lg:left-1/4 lg:w-[55vw] sm:w-[95vw] flex-col z-2">
-        <div class="flex text-black text-center font-RecoletaAlt text-3xl font-bold pb-3 pt-12">
-            Nice to Meet You!
+          <div class="flex text-black text-center font-RecoletaAlt text-3xl font-bold pb-3 pt-12">
+            Nice to meet you!
           </div>
-          <div class="flex justify-center items-center max-w-[300px] whitespace-normal -mb-1 text-gray-600 text-center font-DMSans text-xl">
+          <div class="flex justify-center items-center max-w-[400px] whitespace-normal -mb-3 text-gray-600 text-center font-DMSans text-lg">
             Please create an account to proceed.
           </div>
         <div class="py-12 items-center justify-center w-5/6">

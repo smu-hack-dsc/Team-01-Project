@@ -2,6 +2,8 @@ import { Button } from 'components/Button';
 import Carousel from 'components/Carousel';
 import { useMedia } from 'react-use';
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+
 // import { useLocation } from "react-router-dom";
 
 const Home = () => {
@@ -81,8 +83,47 @@ const Home = () => {
       </div>
 
       {/* third section -- not done */}
-      <div className="mt-85 h-850 flex-shrink-0 bg-yellow-300">
-        {/* <EclipseBckgrnd /> */}
+      {/* put the yellow design things in the bg */}
+      <div className="flex justify-center items-start flex-row mt-85 flex-shrink-0 bg-yellow_FFDA7A">
+        <div className='flex sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt sm:text-3xl lg:text-4xl sm:py-5 lg:py-8'>
+          Explore these Causes
+          <img
+            src={require("../resources/img/CurlyArrow.png")}
+            alt="Curly Arrow"
+            className='sm:w-1/2 lg:w-3/5 ml-24 mt-2 -rotate-6'
+          >
+
+          </img>
+        </div>
+        <div className='flex flex-col items-start sm:py-5 lg:py-8 sm:pl-10 lg:pl-40'>
+          <button
+            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+          >
+            CAUSE 1
+          </button>
+          <button
+            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+            >
+            CAUSE 2
+          </button>
+          <button
+            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+            >
+            CAUSE 3
+          </button>
+          <button
+            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+            >
+            CAUSE 4
+          </button>
+        </div>
+        <div className='flex flex-col font-DMSans font-semibold sm:text-sm lg:text-xl sm:ml-4 lg:ml-6 sm:mt-36 lg:mt-40'>
+          <Link>
+            DISCOVER MORE
+          </Link>
+          {/* put an arrow here and try to add the moving animation */}
+          arrow here
+        </div>
       </div>
 
       {/* last section */}
