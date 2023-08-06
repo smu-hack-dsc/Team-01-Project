@@ -102,9 +102,8 @@ const Signup1InputName = ({ isVolunteer }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState();
   const handleDateChange = (date) => {
-    // setSelectedDate(date);
     setShowDatePicker(true);
   };
 
@@ -132,34 +131,19 @@ const Signup1InputName = ({ isVolunteer }) => {
             onBlur={handleNameBlur}
             required
             placeholder='Name'
-            class="w-[68%] rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
+            class={`${isVolunteer ? "w-full" : "w-[68%]"} rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200`}
           />
-
-          {/* FIX THIS LATER  (edited such that only a volunteer has the dob button) */}
           {!isVolunteer ?
             <div className="w-[30%]">
               <DatePicker
                 className="w-[100%] rounded-xl border-[1px] border-black font-DMSans text-lg mb-4 py-4 px-5 placeholder:text-gray-200"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
+                placeholderText={'Birthday'} 
               />
             </div> : null
           }
-          {/* <button
-            onClick={() => setShowDatePicker(true)}
-            className="self-end w-[30%] rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
-          >
-            {selectedDate ? selectedDate.toDateString() : 'Birthday'}
-          </button> */}
-
-          {/* {showDatePicker && (
-            <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
-              dateFormat="MM/dd/yyyy"
-              isClearable
-            />
-          )} */}
+        
         </div>
         <div className="form-group w-full">
           <input

@@ -1,6 +1,5 @@
 import { Button } from 'components/Button';
 import Carousel from 'components/Carousel';
-import { EclipseBckgrnd } from 'components/EclipseBckgrnd';
 import { useMedia } from 'react-use';
 import React, { useState } from "react";
 // import { useLocation } from "react-router-dom";
