@@ -65,6 +65,7 @@ const Signup1InputName = ({ isVolunteer }) => {
       });
       const { token } = response.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('type', role);
       navigate('/signup_personalise', {state: {role}})
 
     } catch (error) {

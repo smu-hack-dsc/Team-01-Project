@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
 import Filter from "components/Filter";
+import { IonIcon } from '@ionic/react';
+import { person } from 'ionicons/icons';
+import { css } from "@emotion/react";
 
 
 function Profile() {
@@ -79,7 +82,7 @@ function Profile() {
               {profileData.imageUrl ?
                 <img
                   src={profileData.imageUrl}
-                  alt="Siyu"
+                  alt="Profile Pic"
                   className="object-cover w-full rounded-md mb-14 "
                 /> :
                 <>
@@ -93,10 +96,10 @@ function Profile() {
 
                   <label>
                     <button
-                      className="flex s:h-2/3 sm:w-2/3 lg:h-2/3 lg:w-2/3 text-black font-DM font-semibold rounded-md mb-15 bg-gray-200"
+                      className="flex justify-center items-center p-6 text-black font-DM font-semibold rounded-md mb-15 bg-gray-200"
                       onClick={handleButtonClick}
                     >
-                      Add a Profile Picture!
+                      <IonIcon icon={ person } size="large"></IonIcon>
                     </button>
                   </label>
                 </>
@@ -117,8 +120,6 @@ function Profile() {
               <div className="flex flex-col">
                 <div className="flex flex-row justify-between justify-items-start font-DM text-black font-semibold">
                   {userPostsData?.length ? <div>{userPostsData.length} posts</div> : <div>0 Posts</div>}
-                  {/* <div>12 posts</div> */}
-                  <div>12.8k Friends</div>
                 </div>
                 <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
                   {/* Lorem ipsum dolor sit amet,
@@ -130,6 +131,7 @@ function Profile() {
                         Nullam nec fermentum elit,
                         sed ullamcorper elit.
                         Curabitur tristique mollis. */}
+                  
                   {profileData.description}
                 </div>
                 <div className="w-202.002 h-1 bg-gray-300 mb-15" />

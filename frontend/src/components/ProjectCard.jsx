@@ -9,7 +9,7 @@ const ProjectCard = ({activityName, description, imageUrl}) => {
       <img
         src={imageUrl}
         alt="Project"
-        className="w-full max-h-[150px] object-cover rounded-lg"
+        className="w-full max-h-[150px] object-cover rounded-t-lg"
       />
       {/* <div className="max-h-[60%]"> */}
         <div className="flex justify-between">

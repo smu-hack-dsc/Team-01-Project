@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CommunitiesPost from "components/CommunitiesPost";
 import SearchBar from "components/SearchBar";
 import TagCard from "components/TagCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Community() {
   const [getInterest, setGetInterest] = useState('');
@@ -39,6 +39,12 @@ function Community() {
     description: 'Devoted to discussions about animal welfare, rescue efforts, and promoting compassion and care for our furry and feathered friends'
   }];
 
+  const tempCommunities = ["community1", "community2", "community3"];
+
+  const handleCommunity = (c) => {
+    navigate('/posts', {state: {c}});
+  }
+
   const handleTag = (interest) => {
     navigate('/posts', {state: {interest}});
   }
@@ -57,7 +63,7 @@ function Community() {
       </div>
 
       {/* put user's communities here */}
-      <div className="flex sm:ml-[11%] lg:ml-[17.2%] items-center sm:w-4/5 lg:w-2/3 pb-2 font-DMSans text-gray-600">
+      <div className="flex flex-col sm:ml-[11%] lg:ml-[17.2%] items-start sm:w-4/5 lg:w-2/3 pb-2 font-DMSans text-gray-600">
         {/* add an extra bool to fetch the users communities. if fetch returns 0 or null,
         display "Explore and participate in active volunteering communities. You aren't part of any communities right now.
         or smth similar" */}
@@ -65,6 +71,11 @@ function Community() {
                     : "Explore and participate in active volunteering communities."}
         {/* **for logged in users** Your communities */}
         {/* i want to put scrollable clickable images here like ig story */}
+        {/* <div>
+          {allInterests.map((interest) => (
+            interest.title
+          ))} 
+        </div> */}
       </div>
 
       <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between">
