@@ -10,7 +10,7 @@ const OrgBioInput = () => {
     // perform logic here
     try {
       await api.put("/user/profile", {
-        bio: bio,
+        description: bio,
       });
       navigate("/");
       window.location.reload();
