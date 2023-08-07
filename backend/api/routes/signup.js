@@ -11,11 +11,13 @@ const { VOLUNTEERORG, USER } = require('../../utils/constants');
 app.param('signupId', controller.load); // PENDING
 
 app.route('/')
-    .post(Authorize(USER), controller.create); // WORKING
+    .get(Authorize(USER), controller.getUserActivity)
+    .post(Authorize(USER), controller.create)
+    .delete(Authorize(USER), controller.deleteUserActivity); // WORKING
 
 app.route('/user')
     .get(Authorize(USER), controller.getUnderUser); // WORKING
-    
+
 app.route('/activity')
     .post(Authorize(VOLUNTEERORG), controller.getUnderActivity); // WORKING
 

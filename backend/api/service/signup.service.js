@@ -22,9 +22,31 @@ exports.CreateSignup = async (signupData) => {
 // Get signup by the signup id
 exports.GetSignup = async (id) => Signup.get(id);
 
+exports.GetUserActivity = async (userId, activityId) => {
+    try {
+        const signup = await Signup.findOne({
+            activity: activityId,
+            user: userId
+        });
+        return signup.transform()
+    } catch (err) {
+        throw Signup.checkDuplication(err);
+    }
+}
+
+exports.DeleteUserActivity = async (userId, activityId) => {
+    try {
+        const signup = await Signup.deleteOne({
+            activity: activityId,
+            user: userId
+        });
+    } catch (err) {
+        throw Signup.checkDuplication(err);
+    }
+}
 exports.CheckGet = async (userData, signupData) => {
     if (userData.id !== signupData.user) {
-        const activityConcerned = await User.find({acitivity: signupData.activty});
+        const activityConcerned = await User.find({ acitivity: signupData.activty });
         if (userData.id !== activityConcerned.organiserId) {
             throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
         }
@@ -83,11 +105,11 @@ exports.UpdateSignup = async (userData, signup, newData) => {
         this.CheckGet(userData, signup);
         const newUserDetails = newData.userDetails;
         if (!signup.userDetails.acceptanceIndication) {
-            if (!newUserDetails.hoursCompleted|| newUserDetails.completionIndication || newUserDetails.rating) {
+            if (!newUserDetails.hoursCompleted || newUserDetails.completionIndication || newUserDetails.rating) {
                 throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
-            } 
+            }
         } else if (!signup.userDetails.completionIndication) {
-            if (newUserDetails.hoursCompleted|| newUserDetails.rating) {
+            if (newUserDetails.hoursCompleted || newUserDetails.rating) {
                 throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
             }
         }

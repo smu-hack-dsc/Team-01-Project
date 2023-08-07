@@ -1,5 +1,5 @@
 const {
-    CreateSignup,
+    CreateSignup, GetUserActivity, DeleteUserActivity,
     GetSignup, GetByUser, GetByActivity, CheckGet,
     UpdateSignup,
     RemoveSignup
@@ -54,6 +54,24 @@ exports.create = async (req, res, next) => {
     }
 };
 
+exports.getUserActivity = async(req, res, next) => {
+    try {
+      const response = await GetUserActivity(req.user.id, req.body.activityId);
+      return res.json(response);
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+exports.deleteUserActivity = async(req, res, next) => {
+    try {
+        await DeleteUserActivity(req.user.id, req.body.activityId)
+        return res.status(203).end();
+    } catch (error) {
+        next(error)
+    }
+}
+  
 
 // Update user info 
 exports.update = async (req, res, next) => {
