@@ -22,7 +22,7 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
         }
       } finally {
         if (user && user.role === 'user') {
-          navigate('/projectsignup')
+          navigate('/projectsignup', { state: { id } })
         } else if (user && user.role === 'volunteerOrg') {
           navigate('/voproject', { state: { id } })
         }
@@ -61,8 +61,8 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
       </div>
       {/* </div> */}
       <div className="self-end mt-auto pr-3 pt-3 lg:pb-[10%] sm:pb-[20%]">
-        <button className='bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none ' 
-                onClick={handleButtonClick}>
+        <button className='bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none '
+          onClick={handleButtonClick}>
           LEARN MORE
         </button>
       </div>

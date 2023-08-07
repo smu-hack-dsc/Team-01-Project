@@ -12,7 +12,6 @@ const UserSkillsInterestInput = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const role = location.state?.role;
-  console.log(role);
 
   const allInterests = [
     "elderly",

@@ -1,26 +1,69 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import api from '../api';
+import { useState, useEffect } from 'react';
 
-const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
+const ProjectSignup = () => {
   const navigate = useNavigate();
+  const [activityDetails, setActivityDetails] = useState([]);
+  const [registeringMsg, setRegisteringMsg] = useState('');
+
+  const location = useLocation();
+  const activityId = location.state?.id;
+  console.log(activityId)
+
+  useState(() => {
+    const fetchActivity = async () => {
+      try {
+        const response = await api.get(`activity/${activityId}`);
+        const profileData = await api.get(`/user/profile/${response.data.organiserId}`);
+        response.data.organisationName = profileData.data.name;
+        response.data.organisationDesc = profileData.data.description
+        setActivityDetails(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchActivity();
+  }, [])
+
+  const handleRegister = async () => {
+    try {
+      await api.post('signup/', {
+        activityId: activityId
+      })
+      setRegisteringMsg('Registered!')
+    } catch (error) {
+      if (error.response?.status === 500) {
+        setRegisteringMsg('Please try again later')
+      }
+      setRegisteringMsg('You have registered for this activity already');
+    }
+  }
 
   return (
     <div className='absolute top-28 mx-20 font-DMSans'>
       <div className="flex flex-row">
         <img
-            // src={imageUrl}
-            src={require("../resources/img/Project.png")}
-            alt="Project"
-            className="h-[200px] w-[200px] object-cover object-center rounded-lg"
-          />
-          <div className='flex flex-col justify-center ml-10 '>
-            <div className='flex flex-col flex-wrap justify-center items-center font-RecoletaAlt text-purple_4000C1 text-4xl font-semibold'>
-              Project Name (pls dont make it long)
-            </div>
-            <button className='bg-green-200 hover:bg-green-300 text-black font-semibold text-base px-3 py-2 rounded-full border-none w-28 mt-2' 
-            >
-              REGISTER
-            </button>
+          src={activityDetails.imageUrl}
+          // src={require("../resources/img/Project.png")}
+          alt="Project"
+          className="h-[200px] w-[200px] object-cover object-center rounded-lg"
+        />
+        <div className='flex flex-col justify-center ml-10 '>
+          <div className='flex flex-col flex-wrap justify-center items-center font-RecoletaAlt text-purple_4000C1 text-4xl font-semibold'>
+            {/* Project Name (pls dont make it long) */}
+            {activityDetails.activityName}
+          </div>
+          <button className='bg-green-200 hover:bg-green-300 text-black font-semibold text-base px-3 py-2 rounded-full border-none w-28 mt-2'
+            onClick={handleRegister}
+          >
+            REGISTER
+          </button>
+          <div className='pl-3 py-2'>
+            {registeringMsg}
+          </div>
         </div>
       </div>
 
@@ -28,15 +71,7 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
         Project Description
       </div>
       <div className='sm:text-sm'>
-        Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit.
-        Donec placerat volutpat magna,
-        sed ornare nunc auctor et.
-        Curabitur sed massa libero.
-        Nullam ut sem libero.
-        Nullam nec fermentum elit,
-        sed ullamcorper elit.
-        Curabitur tristique mollis.
+        {activityDetails.description}
       </div>
 
       <div className='flex flex-row justify-between lg:max-w-[60%] mb-10'>
@@ -45,7 +80,7 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
             Organisation
           </div>
           <div>
-            organisation name
+            {activityDetails.organisationName}
           </div>
         </div>
         <div className='flex flex-col'>
@@ -53,15 +88,24 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
             Date
           </div>
           <div>
-            date range
+            {`${new Date(activityDetails.beginDate).toLocaleDateString()} - ${new Date(activityDetails.endDate).toLocaleDateString()}`}
           </div>
         </div>
         <div className='flex flex-col'>
           <div className='mt-10 font-DMSans font-semibold text-2xl'>
             Required Skills
           </div>
-          <div>
-            skills
+          <div>{activityDetails.requiredSkills?.length ? (
+            <div>
+              <ul>
+                {activityDetails.requiredSkills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div>No required skills.</div>
+          )}
           </div>
         </div>
       </div>
@@ -69,18 +113,10 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
       <div className="border-t border-gray-300"></div>
 
       <div className='mt-10 font-semibold text-2xl'>
-        About [the Organisation] (replace w org name but if too hard nvr mind)
+        {`About ${activityDetails.organisationName}`}
       </div>
       <div className='sm:text-sm'>
-        Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit.
-        Donec placerat volutpat magna,
-        sed ornare nunc auctor et.
-        Curabitur sed massa libero.
-        Nullam ut sem libero.
-        Nullam nec fermentum elit,
-        sed ullamcorper elit.
-        Curabitur tristique mollis.
+        {activityDetails.organisationDesc}
       </div>
     </div>
   )
