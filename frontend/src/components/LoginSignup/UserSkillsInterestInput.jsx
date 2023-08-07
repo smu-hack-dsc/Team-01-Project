@@ -137,7 +137,7 @@ const UserSkillsInterestInput = () => {
             {/* <Button variant='purple' size='large'>
                 CREATE ACCOUNT
               </Button> */}
-            <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-gray-400 hover:bg-gray-300 text-white rounded-full text-base font-semibold">
+            <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full text-base font-semibold">
               CREATE ACCOUNT
             </button>
           </div>

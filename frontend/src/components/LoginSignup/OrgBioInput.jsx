@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
 
@@ -19,47 +19,42 @@ const OrgBioInput = () => {
     }
   };
 
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState("");
   const minRows = 4;
 
   const handleBioFocus = (e) => {
-    if (e.target.placeholder === 'Bio') {
-      e.target.placeholder = '';
+    if (e.target.placeholder === "Description") {
+      e.target.placeholder = "";
     }
   };
 
   const calculateTextareaRows = (text) => {
-    const lines = text.split('\n').length;
+    const lines = text.split("\n").length;
     return Math.max(minRows, lines);
   };
 
   return (
     <div>
       <form onSubmit={handleLogin}>
-      <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                onFocus={handleBioFocus}
-                required
-                placeholder='Bio'
-                rows={calculateTextareaRows(bio)} // Dynamically set the number of rows based on content
-                className="rounded-xl border border-black font-DMSans text-xl mx-10 py-10 px-12 md:px-20 lg:px-28 placeholder:text-gray-200 resize-none"
-              />
-              <div className="flex flex-row justify-between items-center">
-          <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-gray-400 hover:bg-gray-300 text-white rounded-full text-base font-semibold">
-            SKIP
-          </button>
+        <textarea
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+          onFocus={handleBioFocus}
+          required
+          placeholder="Description"
+          rows={calculateTextareaRows(bio)} // Dynamically set the number of rows based on content
+          className="-ml-1 w-full rounded-xl border border-black font-DMSans text-xl mx-10 py-5 px-6 md:px-20 lg:px-28 placeholder:text-gray-200 resize-none"
+        />
+        <div className="flex items-end mt-3">
           <div className="w-full flex justify-end items-center">
-            <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-gray-400 hover:bg-gray-300 text-white rounded-full text-base font-semibold">
+            <button class="px-4 py-2 justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full xs:text-sm md:text-base font-semibold">
               CREATE ORGANISATION
             </button>
           </div>
         </div>
-        </form>
+      </form>
     </div>
-    
-      
-  )
+  );
 };
 
 export default OrgBioInput;

@@ -83,18 +83,18 @@ const LoginInput = () => {
   };
 
   return (
-    <div class="w-3/5">
+    <div class="xs:w-[85%] sm:w-3/5">
       <form onSubmit={handleLogin} class=" flex flex-col justify-center items-center">
         <div class="w-full">
           <input
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onFocus={handleEmailFocus}
             onBlur={handleEmailBlur}
             required
             placeholder='Email'
-            class="w-full rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans xs:text-base sm:text-xl mb-4 xs:py-2 sm:py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         <div className="w-full">
@@ -106,7 +106,7 @@ const LoginInput = () => {
             onBlur={handlePasswordBlur}
             required
             placeholder='Password'
-            class="w-full justify-center rounded-xl border-[1px] border-black font-DMSans text-xl mb-4 py-4 px-5 placeholder:text-gray-200"
+            class="w-full rounded-xl border-[1px] border-black font-DMSans xs:text-base sm:text-xl mb-4 xs:py-2 sm:py-4 px-5 placeholder:text-gray-200"
           />
         </div>
         {isWrongCredentials ?
@@ -115,14 +115,14 @@ const LoginInput = () => {
           </div> : null}
 
         <div class="w-full flex justify-center my-4">
-          <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full px-8 text-base font-semibold">
+          <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full text-base font-semibold">
             LOGIN
           </button>
         </div>
 
-        <div>
+        <div className='font-DMSans xs:text-sm sm:text-base'>
           Don't have an account yet?{' '}
-          <Link to="/signup" class="font-DMSans font-bold text-purple_800CDB">
+          <Link to="/signup" class="font-DMSans xs:text-sm sm:text-base font-bold text-purple_800CDB">
             Sign Up
           </Link>
         </div>

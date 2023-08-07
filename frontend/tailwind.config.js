@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx,tsx}"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -15,7 +15,10 @@ module.exports = {
         green_C8F3D9: '#C8F3D9',
         yellow_FFDA7A: '#FFDA7A',
         yellow_FFF497: '#FFF497',
-      }
+      },
+      screens: {
+      'xs': '320px',
+      },
     },
   },
   plugins: [],
