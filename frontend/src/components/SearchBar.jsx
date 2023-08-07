@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { IonIcon } from '@ionic/react';
 import { search } from 'ionicons/icons';
 
-const SearchBar = () => {
+const SearchBar = ({ input, setInput }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleInputChange = (e) => {
-    setSearchText(e.target.value);
+    const value = e.target.value;
+    setSearchText(value);
+    setInput(value); // Set the search term in the parent component
   };
 
   const handleSearch = () => {
-    // implement search logic later
+    // implement additional search logic here if needed
     console.log('Search Text:', searchText);
   };
 
@@ -27,7 +29,7 @@ const SearchBar = () => {
         onClick={handleSearch}
         className="flex items-center justify-center ml-2 px-4 py-2 bg-purple_9663FC text-white rounded-lg"
       >
-        <IonIcon icon={ search } size="small"/>
+        <IonIcon icon={search} size="small" />
       </button>
     </div>
   );
