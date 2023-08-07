@@ -134,7 +134,7 @@ const Home = () => {
           <img
             src={require("../resources/img/FooterImg.png")}
             alt="FooterImg"
-            className="relative z-1"
+            className="relative z-1 w-full"
           />
         </div>
         <div className="absolute flex items-center w-1020 h-62.434 flex-col justify-center text-white text-center z-10">

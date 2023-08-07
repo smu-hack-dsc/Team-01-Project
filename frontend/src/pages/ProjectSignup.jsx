@@ -23,6 +23,7 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
             </button>
         </div>
       </div>
+
       <div className='mt-10 font-semibold text-2xl'>
         Project Description
       </div>
@@ -37,13 +38,14 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
         sed ullamcorper elit.
         Curabitur tristique mollis.
       </div>
-      <div className='flex flex-row justify-around'>
+
+      <div className='flex flex-row justify-between lg:max-w-[60%] mb-10'>
         <div className='flex flex-col'>
           <div className='mt-10 font-DMSans font-semibold text-2xl'>
-            Date
+            Organisation
           </div>
           <div>
-            date range
+            organisation name
           </div>
         </div>
         <div className='flex flex-col'>
@@ -54,6 +56,31 @@ const ProjectSignup= ({ id, activityName, description, imageUrl }) => {
             date range
           </div>
         </div>
+        <div className='flex flex-col'>
+          <div className='mt-10 font-DMSans font-semibold text-2xl'>
+            Required Skills
+          </div>
+          <div>
+            skills
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-gray-300"></div>
+
+      <div className='mt-10 font-semibold text-2xl'>
+        About [the Organisation] (replace w org name but if too hard nvr mind)
+      </div>
+      <div className='sm:text-sm'>
+        Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit.
+        Donec placerat volutpat magna,
+        sed ornare nunc auctor et.
+        Curabitur sed massa libero.
+        Nullam ut sem libero.
+        Nullam nec fermentum elit,
+        sed ullamcorper elit.
+        Curabitur tristique mollis.
       </div>
     </div>
   )
