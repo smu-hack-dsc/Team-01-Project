@@ -36,7 +36,7 @@ function Projects() {
   return (
     <div>
         <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
-          <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl pb-5">
+          <div className="text-purple_4000C1 font-RecoletaAlt font-semibold text-5xl pb-5">
             Projects
           </div>
           <div className="sm:w-4/5 lg:w-2/3 sm:mb-2 lg:mb-0">

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from 'pages/Home';
 import Projects from 'pages/Projects';
+import ProjectSignup from 'pages/ProjectSignup';
 import Community from 'pages/Community';
 import Profile from 'pages/Profile';
 import Login1 from 'components/LoginSignup/Login1';
@@ -165,6 +166,7 @@ const Navbar = () => {
         <Route path="/login" Component={Login1} />
         <Route path="/" Component={Home} />
         <Route path="/projects" Component={Projects} />
+        <Route path="/projectsignup" Component={ProjectSignup} />
         <Route path="/community" Component={Community} />
         <Route path="/profile" Component={Profile} />
         <Route path="/signup" Component={Signup1} />
