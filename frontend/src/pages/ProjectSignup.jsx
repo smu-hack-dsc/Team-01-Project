@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const ProjectSignup = () => {
   const navigate = useNavigate();
   const [activityDetails, setActivityDetails] = useState([]);
-  const [registeringMsg, setRegisteringMsg] = useState('');
+  const [isRegistered, setisRegistered] = useState(false);
 
   const location = useLocation();
   const activityId = location.state?.id;
@@ -29,19 +29,20 @@ const ProjectSignup = () => {
   }, [])
 
   const handleRegister = async () => {
-    try {
-      await api.post('signup/', {
-        activityId: activityId
-      })
-      setRegisteringMsg('Registered!')
-    } catch (error) {
-      if (error.response?.status === 500) {
-        setRegisteringMsg('You have registered for this activity already');
-      } else {
-        setRegisteringMsg('Please try again later')
-      }
-      console.log(error)
-    }
+    // try {
+    //   await api.post('signup/', {
+    //     activityId: activityId
+    //   })
+    //   setisRegistered(true);
+    // } catch (error) {
+    //   if (error.response?.status === 500) {
+    //     setisRegistered(true);
+    //   } else {
+    //     setisRegistered(false);
+    //   }
+    //   console.log(error)
+    // }
+    setisRegistered(!isRegistered);
   }
 
   return (
@@ -58,14 +59,11 @@ const ProjectSignup = () => {
             {/* Project Name (pls dont make it long) */}
             {activityDetails.activityName}
           </div>
-          <button className='bg-green-200 hover:bg-green-300 text-black font-semibold text-base px-3 py-2 rounded-full border-none w-28 mt-2'
+          <button className={`text-black font-semibold text-base px-3 py-2 ${isRegistered ? 'bg-red-300 hover:bg-red-400' : 'bg-green-200 hover:bg-green-300 '} rounded-full border-none mt-2 w-28`}
             onClick={handleRegister}
           >
-            REGISTER
+            {isRegistered ? "CANCEL" : "REGISTER"}
           </button>
-          <div className='pl-3 py-2'>
-            {registeringMsg}
-          </div>
         </div>
       </div>
 
