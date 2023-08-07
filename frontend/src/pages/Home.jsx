@@ -1,22 +1,22 @@
-import { Button } from 'components/Button';
-import Carousel from 'components/Carousel';
-import { useMedia } from 'react-use';
+import { Button } from "components/Button";
+import Carousel from "components/Carousel";
+import { useMedia } from "react-use";
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { IonIcon } from '@ionic/react';
-import { arrowForward } from 'ionicons/icons';
+import { useNavigate } from "react-router-dom";
+import { IonIcon } from "@ionic/react";
+import { arrowForward } from "ionicons/icons";
 // import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
-  const isLargeScreen = useMedia('(min-width: 1024px)');
-  const size1 = isLargeScreen ? 'large' : 'medium';
-  const size2 = isLargeScreen ? 'medium' : 'small';
-  const size3 = isLargeScreen ? 'large' : 'small';
+  const isLargeScreen = useMedia("(min-width: 1024px)");
+  const size1 = isLargeScreen ? "large" : "medium";
+  const size2 = isLargeScreen ? "medium" : "small";
+  const size3 = isLargeScreen ? "large" : "small";
 
-  const handleCauseClick = async () => {
-    navigate('/projects')
-  }
+  const handleProjectsClick = async () => {
+    navigate("/projects");
+  };
 
   return (
     // first section
@@ -32,9 +32,12 @@ const Home = () => {
           <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold sm:text-6xl lg:text-7xl">
             Giving hope through service.
             <div className="sm:pt-5 lg:pt-8">
-              <Button variant="green" size={size1}>
+              <button
+                className="font-DMSans md:text-2xl md:px-5 md:py-2 text-base px-3 py-2 text-black bg-green_C8F3D9 rounded-full"
+                onClick={handleProjectsClick}
+              >
                 BROWSE OPPORTUNITIES
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -54,7 +57,12 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size={size2}>BE A VOLUNTEER</Button>
+                <button
+                  className="bg-yellow_FFDA7A sm:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
+                  onClick={async () => navigate("/login")}
+                >
+                  BE A VOLUNTEER
+                </button>
               </div>
             </div>
             <div className="container lg:-mx-20 flex flex-col justify-center items-center pr-3">
@@ -64,7 +72,12 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size={size2}>EXPLORE PROJECTS</Button>
+                <button
+                  className="bg-yellow_FFDA7A sm:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
+                  onClick={async () => navigate("/projects")}
+                >
+                  EXPLORE PROJECTS
+                </button>
               </div>
             </div>
             <div className="container mx-auto flex flex-col justify-center items-center">
@@ -74,7 +87,12 @@ const Home = () => {
                 className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
-                <Button variant="yellow" size={size2}>POST OPPORTUNITIES</Button>
+                <button
+                  className="bg-yellow_FFDA7A sm:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
+                  onClick={async () => navigate("/community")}
+                >
+                  POST OPPORTUNITIES
+                </button>
               </div>
             </div>
           </div>
@@ -90,73 +108,71 @@ const Home = () => {
       {/* third section -- not done */}
       {/* put the yellow design things in the bg */}
       <div className="flex justify-center items-start flex-row mt-85 flex-shrink-0 bg-yellow_FFDA7A overflow-hidden">
-        <div className='flex sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt sm:text-3xl lg:text-5xl sm:py-5 lg:py-8'>
+        <div className="flex sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt sm:text-3xl lg:text-5xl sm:py-5 lg:py-8">
           Explore these Causes
           <img
             src={require("../resources/img/CurlyArrow.png")}
             alt="Curly Arrow"
-            className='sm:w-1/2 lg:w-3/5 ml-24 mt-2 -rotate-6'
-          >
-          </img>
-
+            className="sm:w-1/2 lg:w-3/5 ml-24 mt-2 -rotate-6"
+          ></img>
         </div>
-        <div className='flex flex-row items-center'>
-          <div className='flex flex-col items-start sm:py-5 lg:py-8 sm:pl-0 lg:pl-10'>
-            <div className='sm:h-24 lg:h-40 w-full rounded-l-full bg-yellow_FFF497 sm:-mt-16 lg:-mt-28 mb-2' />
+        <div className="flex flex-row items-center">
+          <div className="flex flex-col items-start sm:py-5 lg:py-8 sm:pl-0 lg:pl-10">
+            <div className="sm:h-24 lg:h-40 w-full rounded-l-full bg-yellow_FFF497 sm:-mt-16 lg:-mt-28 mb-2" />
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
+              onClick={handleProjectsClick}
             >
               CAUSE 1
             </button>
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               CAUSE 2
             </button>
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               CAUSE 3
             </button>
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               CAUSE 4
             </button>
-            <div className='sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mb-24 lg:-mb-40 mt-2' />
+            <div className="sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mb-24 lg:-mb-40 mt-2" />
           </div>
-          <div className='flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10'>
-            <div className='sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mt-24 lg:-mt-40 mb-2' />
+          <div className="flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10">
+            <div className="sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mt-24 lg:-mt-40 mb-2" />
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               CAUSE 5
             </button>
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               CAUSE 6
             </button>
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               CAUSE 7
             </button>
             <button
               className="flex flex-row items-center my-1 sm:px-1 lg:px-6 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-              onClick={handleCauseClick}
-              >
+              onClick={handleProjectsClick}
+            >
               DISCOVER MORE
               <IonIcon icon={arrowForward} size={size3}></IonIcon>
             </button>
-            <div className='sm:h-24 lg:h-40 w-full rounded-r-full bg-yellow_FFF497 sm:-mb-16 lg:-mb-28 mt-2' />
+            <div className="sm:h-24 lg:h-40 w-full rounded-r-full bg-yellow_FFF497 sm:-mb-16 lg:-mb-28 mt-2" />
           </div>
         </div>
       </div>
@@ -180,9 +196,12 @@ const Home = () => {
             There’s a lot more we can do, together.
           </div>
           <div className="z-3 mt-4">
-            <Button variant="yellow" size={size1}>
+            <button
+              className=" bg-yellow_FFDA7A font-DMSans text-black font-semibold rounded-full py-2 px-4"
+              onClick={async () => navigate("/login")}
+            >
               SIGN UP NOW
-            </Button>
+            </button>
           </div>
         </div>
       </div>

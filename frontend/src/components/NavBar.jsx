@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Home from 'pages/Home';
-import Projects from 'pages/Projects';
-import ProjectSignup from 'pages/ProjectSignup';
-import Community from 'pages/Community';
-import Profile from 'pages/Profile';
-import Login1 from 'components/LoginSignup/Login1';
-import Signup1 from 'components/LoginSignup/Signup1';
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Home from "pages/Home";
+import Projects from "pages/Projects";
+import ProjectSignup from "pages/ProjectSignup";
+import Community from "pages/Community";
+import Profile from "pages/Profile";
+import Login1 from "components/LoginSignup/Login1";
+import Signup1 from "components/LoginSignup/Signup1";
 // import Signup2 from 'components/LoginSignup/Signup2';
-import Signup3 from 'components/LoginSignup/Signup3';
-import { IonIcon } from '@ionic/react';
-import { menuOutline } from 'ionicons/icons';
-import VOProfile from 'pages/VOProfile';
-import VOProject from 'pages/VOProject';
-import CommunityTag from 'pages/CommunityTag';
+import Signup3 from "components/LoginSignup/Signup3";
+import { IonIcon } from "@ionic/react";
+import { menuOutline } from "ionicons/icons";
+import VOProfile from "pages/VOProfile";
+import VOProject from "pages/VOProject";
+import CommunityTag from "pages/CommunityTag";
 
 const Navbar = () => {
   // const location = useLocation();
@@ -30,10 +30,10 @@ const Navbar = () => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setMenuOpen(false);
     }
-  };  
+  };
 
   const checkLoginStatus = async () => {
-    setIsLoggedIn(localStorage.getItem('token'));
+    setIsLoggedIn(localStorage.getItem("token"));
   };
 
   useEffect(() => {
@@ -42,13 +42,13 @@ const Navbar = () => {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.addEventListener('click', handleClickOutsideMenu);
+      document.addEventListener("click", handleClickOutsideMenu);
     } else {
-      document.removeEventListener('click', handleClickOutsideMenu);
+      document.removeEventListener("click", handleClickOutsideMenu);
     }
 
     return () => {
-      document.removeEventListener('click', handleClickOutsideMenu);
+      document.removeEventListener("click", handleClickOutsideMenu);
     };
   }, [isMenuOpen]);
 
@@ -59,7 +59,9 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-black font-bold text-3xl ml-10">Logo</span>
+                <span className="text-black font-bold text-3xl ml-10">
+                  WillingHearts
+                </span>
               </div>
             </div>
             <div className="hidden md:block ml-auto">
@@ -178,7 +180,7 @@ const Navbar = () => {
         <Route path="/voprofile" Component={VOProfile} />
         <Route path="/voproject" Component={VOProject} />
       </Routes>
-    </Router >
+    </Router>
   );
 };
 
