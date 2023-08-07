@@ -10,16 +10,18 @@ const { VOLUNTEERORG, USER } = require('../../utils/constants');
 // then it will have the controller.load method execute first
 app.param('signupId', controller.load); // PENDING
 
-app.route('/')
-    .get(Authorize(USER), controller.getUserActivity)
-    .post(Authorize(USER), controller.create)
-    .delete(Authorize(USER), controller.deleteUserActivity); // WORKING
 
 app.route('/user')
     .get(Authorize(USER), controller.getUnderUser); // WORKING
 
 app.route('/activity')
     .post(Authorize(VOLUNTEERORG), controller.getUnderActivity); // WORKING
+
+app.route('/activity/:activityId')
+    .get(Authorize(USER), controller.getUserActivity)
+    .post(Authorize(USER), controller.create)
+    .delete(Authorize(USER), controller.deleteUserActivity); // WORKING
+
 
 app.route('/:signupId')
     .get(Authorize(), controller.get) // WORKING

@@ -47,7 +47,7 @@ exports.getUnderActivity = async (req, res, next) => {
 // Create a signup 
 exports.create = async (req, res, next) => {
     try {
-        const response = await CreateSignup({userId: req.user.id, activityId: req.body.activityId});
+        const response = await CreateSignup({userId: req.user.id, activityId: req.params.activityId});
         return res.status(CREATED).json(response);
     } catch (error) {
         return next(error);
@@ -56,7 +56,7 @@ exports.create = async (req, res, next) => {
 
 exports.getUserActivity = async(req, res, next) => {
     try {
-      const response = await GetUserActivity(req.user.id, req.body.activityId);
+      const response = await GetUserActivity(req.user.id, req.params.activityId);
       return res.json(response);
     } catch (error) {
       return next(error);
@@ -65,7 +65,7 @@ exports.getUserActivity = async(req, res, next) => {
 
 exports.deleteUserActivity = async(req, res, next) => {
     try {
-        await DeleteUserActivity(req.user.id, req.body.activityId)
+        await DeleteUserActivity(req.user.id, req.params.activityId)
         return res.status(203).end();
     } catch (error) {
         next(error)
