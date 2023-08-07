@@ -25,17 +25,17 @@ const HeaderRow = ({ onChange, isChecked }) => {
   `;
 
   return (
-    <div className={headerStyles}>
+    <div className="flex items-center justify-between w-[880px] h-[50px] flex-shrink-0 rounded-md bg-gray-300 mt-5 px-20">
       <input
         type="checkbox"
         className="form-checkbox h-5 w-5 text-indigo-600 rounded-6 transition duration-150 ease-in-out"
         onChange={onChange}
         checked={isChecked}
       />
-      <div className={textStyles}>Name</div>
-      <div className={textStyles}>Skills/Interests</div>
-      <div className={textStyles}>Availability</div>
-      <div className={textStyles}>Date Applied</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Name</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Skills/Interests</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Availability</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Date Applied</div>
     </div>
   );
 };
@@ -65,17 +65,17 @@ const ContainerRow = ({ isChecked, onCheckboxChange }) => {
   `;
 
   return (
-    <div className={containerStyles}>
+    <div className="flex items-center justify-between w-880 h-50 flex-shrink-0 rounded-md border border-gray-300 bg-white mt-0 px-20">
       <input
         type="checkbox"
         className="container-checkbox form-checkbox h-5 w-5 text-indigo-600 rounded-6 transition duration-150 ease-in-out"
         onChange={onCheckboxChange}
         checked={isChecked}
       />
-      <div className={textStyles}>Name</div>
-      <div className={textStyles}>Skills/Interests</div>
-      <div className={textStyles}>Availability</div>
-      <div className={textStyles}>Date Applied</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Name</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Skills/Interests</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Availability</div>
+      <div className="text-black font-dm-sans text-14 font-semibold">Date Applied</div>
     </div>
   );
 };

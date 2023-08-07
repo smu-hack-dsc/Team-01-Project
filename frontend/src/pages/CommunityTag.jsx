@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { IonIcon } from '@ionic/react';
 import { image } from 'ionicons/icons';
 
-function CommunityTag() {
+const CommunityTag = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [interest, setInterest] = useState(null);

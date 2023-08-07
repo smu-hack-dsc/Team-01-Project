@@ -53,9 +53,10 @@ function Projects() {
             }}/>
           </div>
           <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
-            {projectData.map((project) => (
+            {projectData.map((project, index) => (
               <ProjectCard
-                key={project._id}
+                key={index}
+                id={project._id}
                 activityName = {project.activityName}
                 description = {project.description}
                 imageUrl = {project.imageInfo?.imagePath}

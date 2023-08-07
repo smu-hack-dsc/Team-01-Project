@@ -65,7 +65,11 @@ const userSchema = mongoose.Schema(
             imagePath: {
                 type: String,
             },
-        }
+        },
+        communities :[{
+            type: String,
+            enum: INTERESTS
+        }]
     },
     {
         timestamps: true
@@ -121,7 +125,7 @@ userSchema.method({
 
         // to ensure dateOfBirth recorded for user only
         if (this.role === 'user') {
-            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'description', 'imageInfo', 'imageUrl'];
+            const fields = ['id', 'name', 'email', 'dateOfBirth', 'role', 'skills', 'interests', 'description', 'imageInfo', 'communities', 'imageUrl'];
             fields.forEach((field) => {
                 transformed[field] = this[field];
             });

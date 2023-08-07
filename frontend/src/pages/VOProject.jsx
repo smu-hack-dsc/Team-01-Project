@@ -1,12 +1,21 @@
 // import React, { useState, useEffect } from "react";
 // import api from '../api';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
 import VOSignupRow from 'components/VOSignupRow';
 // import Filter from "components/Filter";
 
-function VOProject() {
+const VOProject = () => {
+  const location = useLocation();
+
+  //get the project that was selected
+  const projectId = location.state?.id;
+  if (projectId) {
+    console.log(projectId)
+  } else {
+    console.log('missing')
+  }
 
   return (
     <div>

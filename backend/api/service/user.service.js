@@ -59,7 +59,8 @@ exports.CreateUser = async (userData, imageData) => {
                 description: userData.description,
                 imageInfo: {
                     imageName: pictureName,
-                }
+                },
+                communities: userData.communities
             });
         } else {
             user = new User({
@@ -114,7 +115,7 @@ exports.UpdateUser = async (user, newData, imageData) => {
         let updateData = {};
 
         if (user.role === 'user') {
-            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests', 'description'];
+            const fields = ['name', 'email', 'dateOfBirth', 'skills', 'interests', 'description', 'communities'];
             fields.forEach((field) => {
                 updateData[field] = !newData[field] ? user[field] : newData[field];
             });

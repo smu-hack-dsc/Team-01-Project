@@ -12,7 +12,7 @@ const CarouselCard = ({activityName, description, imageUrl}) => (
       className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
     />
     <div className="flex justify-between p-2 h-[72px]">
-      <div className="flex flex-col justify-center text-black font-DMSans text-xl font-semibold ml-1">
+      <div className="flex flex-col justify-center text-black font-DMSans text-xl font-semibold ml-1 line-clamp-1">
         {/* Project Name */}
         {activityName}
       </div>
@@ -21,13 +21,14 @@ const CarouselCard = ({activityName, description, imageUrl}) => (
       </div>
     </div>
     <div className="flex flex-col justify-start h-20 text-black font-DMSans text-sm font-normal p-2 ml-1">
-      <p>
-        {(description.split(" ").length >= 10) ? 
+      <p className='line-clamp-3'>
+        {/* {(description.split(" ").length >= 10) ? 
         (
         <> {description.split(" ").slice(0, 10).join(" ") + ' ...'}
         </>): (<>
-        {description}</>)}
+        {description}</>)} */}
         {/* short description */}
+        {description}
       </p>
     </div>
     <div className="pl-2 pt-1">
