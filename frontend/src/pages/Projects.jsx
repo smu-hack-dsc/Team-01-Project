@@ -59,6 +59,7 @@ function Projects() {
                 id={project._id}
                 activityName = {project.activityName}
                 description = {project.description}
+                organiser = {project.organiserId}
                 imageUrl = {project.imageInfo?.imagePath}
                 onLearnMoreClick = {handleLearnMoreClick}
               />

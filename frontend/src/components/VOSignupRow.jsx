@@ -1,136 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/css";
+import api from '../api'
 
-const HeaderRow = ({ onChange, isChecked }) => {
-  const headerStyles = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 880px;
-  height: 50px;
-  flex-shrink: 0;
-  border-radius: 4px;
-  background: #F5F5F7;
-  margin-top: 5px;
-  padding: 0 20px;
-  `;
+const VOSignupRow = ({toAccept, handleDone}) => {
+  //get all the signups
+  const [signupData, setSignupData] = useState([]);
+  const fetchSignups = async () => {
+    try {
+      const response = await api.post('/signup/activity');
+      const updatedSignups = await Promise.all(
+        response.data.map(async (signup) => {
+          const profileData = await api.get(`/user/profile/${signup.user}`);
+          return {
+            ...signupData,
+            username: profileData.data.name,
+            skills: profileData.data.skills,
+            check: false         
+          };
+        })
+      );
+      setSignupData(response.data);
+    } catch (error) {
+      console.log('error signup', error);
+    }
+  }
+  fetchSignups();
 
-  const textStyles = css`
-  color: #000;
-  font-family: DM Sans;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  `;
 
-  return (
-    <div className="flex items-center justify-between w-[880px] h-[50px] flex-shrink-0 rounded-md bg-gray-300 mt-5 px-20">
-      <input
-        type="checkbox"
-        className="form-checkbox h-5 w-5 text-indigo-600 rounded-6 transition duration-150 ease-in-out"
-        onChange={onChange}
-        checked={isChecked}
-      />
-      <div className="text-black font-dm-sans text-14 font-semibold">Name</div>
-      <div className="text-black font-dm-sans text-14 font-semibold">Skills/Interests</div>
-      <div className="text-black font-dm-sans text-14 font-semibold">Availability</div>
-      <div className="text-black font-dm-sans text-14 font-semibold">Date Applied</div>
-    </div>
-  );
-};
-
-const ContainerRow = ({ isChecked, onCheckboxChange }) => {
-  const containerStyles = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 880px;
-  height: 50px;
-  flex-shrink: 0;
-  border-radius: 4px;
-  border: 1px solid #F5F5F7;
-  background: #FFF;
-  margin-top: 0px;
-  padding: 0 20px;
-  `;
-
-  const textStyles = css`
-  color: #000;
-  font-family: DM Sans;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  `;
-
-  return (
-    <div className="flex items-center justify-between w-880 h-50 flex-shrink-0 rounded-md border border-gray-300 bg-white mt-0 px-20">
-      <input
-        type="checkbox"
-        className="container-checkbox form-checkbox h-5 w-5 text-indigo-600 rounded-6 transition duration-150 ease-in-out"
-        onChange={onCheckboxChange}
-        checked={isChecked}
-      />
-      <div className="text-black font-dm-sans text-14 font-semibold">Name</div>
-      <div className="text-black font-dm-sans text-14 font-semibold">Skills/Interests</div>
-      <div className="text-black font-dm-sans text-14 font-semibold">Availability</div>
-      <div className="text-black font-dm-sans text-14 font-semibold">Date Applied</div>
-    </div>
-  );
-};
-
-const VOSignupRow = () => {
   const [headerCheckboxChecked, setHeaderCheckboxChecked] = useState(false);
-  const [containerCheckboxChecked1, setContainerCheckboxChecked1] =
-    useState(false);
-  const [containerCheckboxChecked2, setContainerCheckboxChecked2] =
-    useState(false);
+    
 
   const handleHeaderCheckboxChange = () => {
     setHeaderCheckboxChecked(!headerCheckboxChecked);
-    setContainerCheckboxChecked1(!headerCheckboxChecked);
-    setContainerCheckboxChecked2(!headerCheckboxChecked);
+    //go through all the accept and set as the opposite
   };
 
-  const handleContainerCheckboxChange1 = (event) => {
-    setContainerCheckboxChecked1(event.target.checked);
-    if (!event.target.checked) {
-      setHeaderCheckboxChecked(false);
-    } else {
-      setHeaderCheckboxChecked(
-        containerCheckboxChecked2 || event.target.checked
-      );
-    }
+  const handleIndivCheck = (event) => {
+    event.check = (!(event.check))
   };
 
-  const handleContainerCheckboxChange2 = (event) => {
-    setContainerCheckboxChecked2(event.target.checked);
-    if (!event.target.checked) {
-      setHeaderCheckboxChecked(false);
-    } else {
-      setHeaderCheckboxChecked(
-        containerCheckboxChecked1 || event.target.checked
-      );
-    }
-  };
+  if (toAccept) {
+    //do the updating
 
+    handleDone(false);
+  }
+  
   return (
     <div>
-      <HeaderRow
-        onChange={handleHeaderCheckboxChange}
-        isChecked={
-          containerCheckboxChecked1 && containerCheckboxChecked2
-        }
-      />
-      <ContainerRow
-        onCheckboxChange={handleContainerCheckboxChange1}
-        isChecked={containerCheckboxChecked1}
-      />
-      <ContainerRow
-        onCheckboxChange={handleContainerCheckboxChange2}
-        isChecked={containerCheckboxChecked2}
-      />
+      {/* header row */}
+      <div className="flex items-center justify-between w-full h-[50px] flex-shrink-0 rounded-t-md bg-gray-300 mt-5 px-5">
+        <input
+          type="checkbox"
+          className="form-checkbox h-5 w-5 text-indigo-600 rounded-6 transition duration-150 ease-in-out"
+          onChange={handleHeaderCheckboxChange}
+          checked={headerCheckboxChecked}
+        />
+        <div className="text-black font-dm-sans text-14 font-semibold truncate">Name</div>
+        <div className="text-black font-dm-sans text-14 font-semibold truncate">Skills</div>
+        <div className="text-black font-dm-sans text-14 font-semibold truncate">Date Applied</div>
+      </div>
+
+      {/* extra rows for each signup */}
+      {signupData.map((signup) => {
+      <div className="flex items-center justify-between w-full h-[50px] flex-shrink-0 border border-gray-300 bg-white mt-0 px-5">
+        <input
+          type="checkbox"
+          className="container-checkbox form-checkbox h-5 w-5 text-indigo-600 rounded-6 transition duration-150 ease-in-out"
+          onChange={handleIndivCheck}
+          checked={signup.check}
+        />
+        <div className="text-black font-dm-sans text-14 font-semibold truncate">{signupData.username}</div>
+        <div className="text-black font-dm-sans text-14 font-semibold truncate">{signupData.skills}</div>
+        <div className="text-black font-dm-sans text-14 font-semibold truncate">{signupData.createdAt}</div>
+      </div>
+
+      })
+
+      }
     </div>
   );
 };
