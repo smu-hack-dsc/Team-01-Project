@@ -2,17 +2,21 @@ import { Button } from 'components/Button';
 import Carousel from 'components/Carousel';
 import { useMedia } from 'react-use';
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IonIcon } from '@ionic/react';
 import { arrowForward } from 'ionicons/icons';
 // import { useLocation } from "react-router-dom";
 
 const Home = () => {
-
+  const navigate = useNavigate();
   const isLargeScreen = useMedia('(min-width: 1024px)');
-
   const size1 = isLargeScreen ? 'large' : 'medium';
   const size2 = isLargeScreen ? 'medium' : 'small';
+  const size3 = isLargeScreen ? 'large' : 'small';
+
+  const handleCauseClick = async () => {
+    navigate('/projects')
+  }
 
   return (
     // first section
@@ -79,49 +83,82 @@ const Home = () => {
       <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
         Trending Projects
       </div>
-      <div className="mt-67 mb-10">
+      <div className="mt-7 mb-10">
         <Carousel />
       </div>
 
       {/* third section -- not done */}
       {/* put the yellow design things in the bg */}
-      <div className="flex justify-center items-start flex-row mt-85 flex-shrink-0 bg-yellow_FFDA7A">
-        <div className='flex sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt sm:text-3xl lg:text-4xl sm:py-5 lg:py-8'>
+      <div className="flex justify-center items-start flex-row mt-85 flex-shrink-0 bg-yellow_FFDA7A overflow-hidden">
+        <div className='flex sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt sm:text-3xl lg:text-5xl sm:py-5 lg:py-8'>
           Explore these Causes
           <img
             src={require("../resources/img/CurlyArrow.png")}
             alt="Curly Arrow"
             className='sm:w-1/2 lg:w-3/5 ml-24 mt-2 -rotate-6'
           >
-
           </img>
+
         </div>
-        <div className='flex flex-col items-start sm:py-5 lg:py-8 sm:pl-10 lg:pl-40'>
-          <button
-            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-          >
-            CAUSE 1
-          </button>
-          <button
-            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+        <div className='flex flex-row items-center'>
+          <div className='flex flex-col items-start sm:py-5 lg:py-8 sm:pl-0 lg:pl-10'>
+            <div className='sm:h-24 lg:h-40 w-full rounded-l-full bg-yellow_FFF497 sm:-mt-16 lg:-mt-28 mb-2' />
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
             >
-            CAUSE 2
-          </button>
-          <button
-            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-            >
-            CAUSE 3
-          </button>
-          <button
-            className="my-2 px-10 sm:py-4 lg:py-5 bg-white text-black rounded-3xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
-            >
-            CAUSE 4
-          </button>
+              CAUSE 1
+            </button>
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              CAUSE 2
+            </button>
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              CAUSE 3
+            </button>
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              CAUSE 4
+            </button>
+            <div className='sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mb-24 lg:-mb-40 mt-2' />
+          </div>
+          <div className='flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10'>
+            <div className='sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mt-24 lg:-mt-40 mb-2' />
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              CAUSE 5
+            </button>
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              CAUSE 6
+            </button>
+            <button
+              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              CAUSE 7
+            </button>
+            <button
+              className="flex flex-row items-center my-1 sm:px-1 lg:px-6 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              onClick={handleCauseClick}
+              >
+              DISCOVER MORE
+              <IonIcon icon={arrowForward} size={size3}></IonIcon>
+            </button>
+            <div className='sm:h-24 lg:h-40 w-full rounded-r-full bg-yellow_FFF497 sm:-mb-16 lg:-mb-28 mt-2' />
+          </div>
         </div>
-        <Link className='flex flex-row items-center font-DMSans font-semibold sm:text-sm lg:text-xl sm:ml-4 lg:ml-6 sm:mt-36 lg:mt-44' to="/projects">
-          DISCOVER MORE
-          <IonIcon icon={arrowForward} size="large"></IonIcon>
-        </Link>
       </div>
 
       {/* last section */}
