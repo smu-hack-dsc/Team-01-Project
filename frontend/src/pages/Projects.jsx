@@ -8,19 +8,10 @@ import api from "../api";
 import "reactjs-popup/dist/index.css";
 
 function Projects() {
-  const [showPopup, setShowPopup] = useState(false);
+  const [projectData, setProjectData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleLearnMoreClick = () => {
-    setShowPopup(true);
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
-  const [projectData, setProjectData] = useState([]);
-
+  
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -34,20 +25,6 @@ function Projects() {
     fetchProjects();
   }, []);
 
-  const testData = [
-    "Apple",
-    "Banana",
-    "Cherry",
-    "Date",
-    "Grape",
-    "Kiwi",
-    "Lemon",
-    "Mango",
-    "Orange",
-    "Peach",
-    "Pear",
-    "Strawberry",
-  ];
 
   return (
     <div>
@@ -86,7 +63,6 @@ function Projects() {
                 description={project.description}
                 organiser={project.organiserId}
                 imageUrl={project.imageInfo?.imagePath}
-                onLearnMoreClick={handleLearnMoreClick}
               />
             ))}
         </div>
