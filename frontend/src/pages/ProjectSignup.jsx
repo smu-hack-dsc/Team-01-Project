@@ -36,9 +36,11 @@ const ProjectSignup = () => {
       setRegisteringMsg('Registered!')
     } catch (error) {
       if (error.response?.status === 500) {
+        setRegisteringMsg('You have registered for this activity already');
+      } else {
         setRegisteringMsg('Please try again later')
       }
-      setRegisteringMsg('You have registered for this activity already');
+      console.log(error)
     }
   }
 
