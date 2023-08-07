@@ -106,7 +106,8 @@ return (
         <div className='mt-10 font-DMSans font-semibold text-2xl'>
           Required Skills
         </div>
-        <div>{activityDetails.requiredSkills?.length ? (
+        <div>
+          {activityDetails.requiredSkills?.length ? (
           <div>
             <ul>
               {activityDetails.requiredSkills.map((skill, index) => (

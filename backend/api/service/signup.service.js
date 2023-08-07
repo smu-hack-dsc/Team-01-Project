@@ -3,6 +3,7 @@ const { VALIDATION_ERROR, BAD_REQUEST, VOLUNTEERORG, INVALID_CREDENTIALS, UNAUTH
 
 const Activity = require('../models/activity.model');
 const Signup = require('../models/signup.model');
+const User = require('../models/user.model');
 
 const mongoose = require('mongoose');
 
@@ -44,17 +45,19 @@ exports.DeleteUserActivity = async (userId, activityId) => {
         throw Signup.checkDuplication(err);
     }
 }
-exports.CheckGet = async (userData, signupData) => {
-    if (userData.id !== signupData.user) {
-        const activityConcerned = await User.find({ acitivity: signupData.activty });
-        if (userData.id !== activityConcerned.organiserId) {
-            throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
-        }
-    }
+// exports.CheckGet = async (userData, signupData) => {
+//     // get the information on whether is the volunteerOrg or the volunteer
+//     if (userData.id !== signupData.user) {
+//         const activityConcerned = await Activity.find({ id: signupData.activty });
+//         console.log(activityConcerned);
+//         if (userData.id !== activityConcerned.organiserId) {
+//             throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
+//         }
+//     }
 
-    return signupData;
+//     return signupData;
 
-};
+// };
 
 // Get signup by the user id provided (giving back all the activities that user signed up for)
 exports.GetByUser = async (userInfo) => {
@@ -102,20 +105,9 @@ exports.GetByActivity = async (activityId) => {
 // Update the signup information (for example when you have a successful application)
 exports.UpdateSignup = async (userData, signup, newData) => {
     try {
-        this.CheckGet(userData, signup);
-        const newUserDetails = newData.userDetails;
-        if (!signup.userDetails.acceptanceIndication) {
-            if (!newUserDetails.hoursCompleted || newUserDetails.completionIndication || newUserDetails.rating) {
-                throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
-            }
-        } else if (!signup.userDetails.completionIndication) {
-            if (newUserDetails.hoursCompleted || newUserDetails.rating) {
-                throw new APIError({ message: VALIDATION_ERROR, errorCode: BAD_REQUEST });
-            }
-        }
-
         const updateData = Object.assign(signup, newData);
         const saved = await updateData.save();
+        console.log(saved);
         return saved.transform();
     } catch (err) {
         throw Signup.checkDuplication(err);

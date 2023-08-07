@@ -94,6 +94,7 @@ exports.GetActivitiesAfterToday = async (req) => {
                 const command = new GetObjectCommand(getObjectParams);
                 const url = await getSignedUrl(s3, command, { expiresIn: 60 });
                 activity.imageInfo.imagePath = url;
+                activity.transform()
             }
         }
 
@@ -107,18 +108,19 @@ exports.GetActivitiesByVo = async (organiserId) => {
     try {
         const organiserIdString = new mongoose.Types.ObjectId(organiserId);
         const activities = await Activity.find({ organiserId: organiserIdString });
-        activities.forEach(async (activity) => {
-            const getObjectParams = {
-                Bucket: bucketName,
-                Key: activity.imageInfo.imageName,
-            };
+        for (const activity of activities) {
+            if (activity.imageInfo) {
+                const getObjectParams = {
+                    Bucket: bucketName,
+                    Key: activity.imageInfo.imageName,
+                };
 
-            const command = new GetObjectCommand(getObjectParams);
-            const url = await getSignedUrl(s3, command, { expiresIn: 60 });
-            activity.imageUrl = url;
-            console.log(imageUrl);
-            activity.transform();
-        });
+                const command = new GetObjectCommand(getObjectParams);
+                const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+                activity.imageInfo.imagePath = url;
+                activity.transform()
+            }
+        }
         return activities;
     } catch (err) {
         throw Activity.checkDuplication(err);

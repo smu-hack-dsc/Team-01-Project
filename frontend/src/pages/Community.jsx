@@ -67,8 +67,7 @@ function Community() {
         {/* add an extra bool to fetch the users communities. if fetch returns 0 or null,
         display "Explore and participate in active volunteering communities. You aren't part of any communities right now.
         or smth similar" */}
-        {isLoggedIn ? "display user's communities" 
-                    : "Explore and participate in active volunteering communities."}
+        Explore and participate in active volunteering communities.
         {/* **for logged in users** Your communities */}
         {/* i want to put scrollable clickable images here like ig story */}
         {/* <div>
@@ -78,7 +77,7 @@ function Community() {
         </div> */}
       </div>
 
-      <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between">
+      <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between pb-20">
         {allInterests.map((interest) => (
           <TagCard
             title={interest.title}

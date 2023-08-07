@@ -17,7 +17,7 @@ exports.load = async (req, res, next, id) => {
 // Return information of the signup
 exports.get = async (req, res) => {
     try {
-        const response = await CheckGet(req.user, req.locals.signup);
+        const response = await GetSignup(req.locals.signup.id);
         return res.json(response);
     } catch (error) {
         return next(error);
@@ -37,7 +37,7 @@ exports.getUnderUser = async (req, res, next) => {
 // Return information of signups under an activity
 exports.getUnderActivity = async (req, res, next) => {
     try {
-        const response = await GetByActivity(req.user, req.body.activityId);
+        const response = await GetByActivity(req.body.activityId);
         return res.json(response);
     } catch (error) {
         return next(error);

@@ -13,22 +13,50 @@ function Projects() {
 
   
   useEffect(() => {
-    const fetchProjects = async () => {
+
+    const fetchProjects = async (userId, role) => {
       try {
-        const response = await api.get("/activity/");
-        setProjectData(response.data);
+        if (role === 'volunteerOrg') {
+          const response = await api.get(`activity/vo/${userId}`);
+          setProjectData(response.data);
+        } else {
+          const response = await api.get('/activity/');
+          setProjectData(response.data);
+        }
       } catch (error) {
-        console.log("Error fetching projects data: ", error);
-      }
+        console.log('Error fetching projects data: ', error);
+      } 
+    };
+
+    const fetchProfile = async () => {
+      try {
+        const profileResponse = await api.get('/user/profile');
+
+        if (profileResponse) {
+          await fetchProjects(profileResponse.data.id, profileResponse.data.role);
+          // return {userId: profileResponse.data.id, userRole: profileResponse.data.role}
+        }
+      } catch (error) {
+        console.log('Error fetching profile data: ', error);
+      } 
     };
 
     fetchProjects();
+    fetchProfile();
+
+    // const fetchData = async () => {
+    //   await fetchProfile();
+      // fetchProjects();
+    // }
+
+    // fetchProfile().then(() => {fetchProjects()}).catch((err) => {console.log(err)});
+    // fetchData();
   }, []);
 
 
   return (
     <div>
-      <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
+      <div className="absolute top-20 left-0 w-full flex flex-col justify-start items-center pt-5 mb-20">
         <div className="text-purple_4000C1 font-RecoletaAlt font-semibold text-5xl pb-5">
           Projects
         </div>

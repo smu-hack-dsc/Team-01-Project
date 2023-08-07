@@ -10,13 +10,12 @@ import VOApprovedRow from 'components/VOApprovedRow'
 const VOProject = () => {
   const location = useLocation();
   const [projectData, setProjectData] = useState([]);
-  const [toAccept, setToAccept] = useState(false);
 
   //get the project that was selected
   const projectId = location.state?.id;
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchProject = async () => {
       try {
         const response = await api.get(`/activity/${projectId}`);
         setProjectData(response.data);
@@ -25,17 +24,9 @@ const VOProject = () => {
       }
     }
 
-    fetchProjects();
+    fetchProject();
   }, [])
 
-  const handleAccept = () => {
-    //logic to change all the userDetails.acceptanceIndication into true
-    setToAccept(true);
-  }
-
-  const handleDone = () => {
-    setToAccept(false);
-  }
 
   return (
     <div>
@@ -44,25 +35,14 @@ const VOProject = () => {
           <div className="flex flex-col mr-10 w-1/4">
             {/* left col */}
             <img
-              // src={require("../resources/img/ChristmasActivity.png")}
               src={projectData.imageUrl}
-              alt="Food Bank"
+              alt={projectData.activityName}
               className="rounded-md mb-15"
             />
             <div className="text-black font-DM font-semibold sm:text-xl lg:text-2xl mt-3 mb-5">
               {projectData.activityName}
-              {/* This Christmas, Change the Present */}
             </div>
             <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
-              {/* Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit.
-                Donec placerat volutpat magna,
-                sed ornare nunc auctor et.
-                Curabitur sed massa libero.
-                Nullam ut sem libero.
-                Nullam nec fermentum elit,
-                sed ullamcorper elit.
-                Curabitur tristique mollis. */}
               {projectData.description}
             </div>
           </div>
@@ -78,22 +58,18 @@ const VOProject = () => {
                   {/* <Filter categorySubcategories={{
                   "Recent": null,
                 }} /> */}
-                  <button className="bg-yellow-300 hover:bg-yellow-400 text-black flex flex-col justify-center flex-shrink-0 text-center font-DMSans rounded-full border-none font-inherit whitespace-nowrap p-2"
-                    onClick={handleAccept}>
-                    Accept
-                  </button>
                 </div>
               </div>
-              <VOSignupRow 
-                toAccept={toAccept}
-                handleDone = {handleDone}/>
+              <VOSignupRow
+                projectData={projectData}/>
             </div>
 
             <div className="mt-20">
               <div className="mt-15 flex justify-between items-center text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                 Approved Signups
               </div>
-              <VOApprovedRow />
+              <VOApprovedRow
+                projectData={projectData} />
             </div>
           </div>
         </div>
