@@ -60,7 +60,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <span className="text-black font-bold text-3xl ml-10">
-                  WillingHearts
+                  Logo
                 </span>
               </div>
             </div>
@@ -69,28 +69,28 @@ const Navbar = () => {
                 <NavLink
                   exact
                   to="/"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
                   Home
                 </NavLink>
                 <NavLink
                   to="/projects"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
                   Projects
                 </NavLink>
                 <NavLink
                   to="/community"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
                   Community
                 </NavLink>
                 <NavLink
                   to="/profile"
-                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium text-xl"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md font-medium text-xl"
                   activeClassName="bg-gray-200"
                 >
                   {isLoggedIn ? "Profile" : "Login"}

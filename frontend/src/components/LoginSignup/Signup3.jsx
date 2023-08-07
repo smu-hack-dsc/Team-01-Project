@@ -11,11 +11,11 @@ const Signup3 = () => {
         {userType === "user" ? (
           <>
             <div className="flex text-black text-center font-RecoletaAlt text-3xl font-bold pb-3 pt-12">
-              Please select your skills and interests.
+              Almost there!
             </div>
             <div className="flex justify-center items-center max-w-[400px] whitespace-normal -mb-1 text-gray-600 text-center font-DMSans text-lg">
-              This will help us find the best projects for you. Don't worry, you
-              can always change this later.
+              Please select some of your interests and skills. This will help us
+              find the best projects for you.
             </div>
             <div className="flex justify-center items-center py-12">
               <UserSkillsInterestInput />
