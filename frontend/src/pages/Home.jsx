@@ -3,7 +3,8 @@ import Carousel from 'components/Carousel';
 import { useMedia } from 'react-use';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-
+import { IonIcon } from '@ionic/react';
+import { arrowForward } from 'ionicons/icons';
 // import { useLocation } from "react-router-dom";
 
 const Home = () => {
@@ -117,13 +118,10 @@ const Home = () => {
             CAUSE 4
           </button>
         </div>
-        <div className='flex flex-col font-DMSans font-semibold sm:text-sm lg:text-xl sm:ml-4 lg:ml-6 sm:mt-36 lg:mt-40'>
-          <Link>
-            DISCOVER MORE
-          </Link>
-          {/* put an arrow here and try to add the moving animation */}
-          arrow here
-        </div>
+        <Link className='flex flex-row items-center font-DMSans font-semibold sm:text-sm lg:text-xl sm:ml-4 lg:ml-6 sm:mt-36 lg:mt-44' to="/projects">
+          DISCOVER MORE
+          <IonIcon icon={arrowForward} size="large"></IonIcon>
+        </Link>
       </div>
 
       {/* last section */}
