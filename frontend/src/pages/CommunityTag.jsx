@@ -65,7 +65,7 @@ const CommunityTag = () => {
           {/* left side */}
           <div className="flex w-1/3">
             <img
-              src={require("../resources/img/Project.png")}
+              src={require("../resources/img/Billboard.png")}
               //   src = {imageUrl}
               alt="Project"
               className="sm:h-40 object-cover rounded-lg justify-center align-center"
