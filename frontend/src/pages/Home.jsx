@@ -106,7 +106,7 @@ const Home = () => {
       {/* third section -- not done */}
       {/* put the yellow design things in the bg */}
       <div className="flex justify-center items-start flex-row mt-85 flex-shrink-0 bg-yellow_FFDA7A overflow-hidden">
-        <div className="flex xs:w-[170px] sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt xs:text-2xl sm:text-3xl lg:text-5xl xs:py-3 sm:py-5 lg:py-8">
+        <div className="flex xs:w-[170px] sm:w-[250px] lg:w-[300px] xl:w-[500px] flex-col justify-center items-start mt-67 font-RecoletaAlt xs:text-2xl sm:text-3xl lg:text-5xl xs:py-3 sm:py-5 lg:py-8">
           Explore these Causes
           <img
             src={require("../resources/img/CurlyArrow.png")}

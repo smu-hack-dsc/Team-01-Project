@@ -145,12 +145,15 @@ function Profile() {
                 {/* Tay Si Yu */}
               </div>
               <div className="flex flex-col">
-                <div className="flex flex-row justify-between justify-items-start font-DM text-black font-semibold">
+                <div className="flex flex-col justify-between justify-items-startfont-DM text-black font-semibold mb-4">
                   {userPostsData?.length ? (
                     <div>{userPostsData.length} posts</div>
                   ) : (
                     <div>0 Posts</div>
                   )}
+                  {profileData.role !== "user" ? (
+                    <div>{projectData.length} projects</div>
+                  ) : null}
                 </div>
                 <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
                   {profileData.description}
@@ -207,7 +210,8 @@ function Profile() {
                     <div className="flex-flex-col">
                       <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                         My Posts
-                      </div><div className="grid grid-cols-2 gap-4 mt-5 h-[400px] overflow-y-scroll scroll-smooth snap-y">
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 mt-5 h-[600px] overflow-y-scroll scroll-smooth snap-y">
                         {userPostsData.map((post, index) => (
                           <div
                             key={index}
@@ -215,7 +219,9 @@ function Profile() {
                           >
                             <div>
                               <div className="flex items-center mb-2">
-                                <span className="text-lg font-bold">{post.postTitle}</span>
+                                <span className="text-lg font-bold">
+                                  {post.postTitle}
+                                </span>
                               </div>
                               <p className="mb-2">{post.postContent}</p>
 
@@ -239,8 +245,12 @@ function Profile() {
                               />
                             )}
                             <div className="flex justify-between">
-                              <button className="text-purple_9663FC">Like</button>
-                              <button className="text-purple_9663FC">Comment</button>
+                              <button className="text-purple_9663FC">
+                                Like
+                              </button>
+                              <button className="text-purple_9663FC">
+                                Comment
+                              </button>
                             </div>
                           </div>
                         ))}
@@ -258,7 +268,7 @@ function Profile() {
                           <Link to="/createproject">CREATE NEW PROJECT</Link>
                         </button>
                       </div>
-                      <div className="flex items-center w-full xs:ml-[1%] sm:ml-0 md:ml-[1%] lg:ml-[3%]">
+                      <div className="grid mt-5 h-[400px] w-full overflow-y-scroll scroll-smooth snap-y">
                         <Grid container spacing={2}>
                           {projectData.map((project, index) => (
                             <Grid key={index} item xs={12} sm={6}>
@@ -273,6 +283,54 @@ function Profile() {
                             </Grid>
                           ))}
                         </Grid>
+                      </div>
+                      <div className="w-full border-t border-gray-300 my-5"></div>
+                      <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
+                        My Posts
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 mt-5 h-[400px] overflow-y-scroll scroll-smooth snap-y">
+                        {userPostsData.map((post, index) => (
+                          <div
+                            key={index}
+                            className="p-4 border border-gray-300 rounded-md flex flex-col justify-between font-DMSans"
+                          >
+                            <div>
+                              <div className="flex items-center mb-2">
+                                <span className="text-lg font-bold">
+                                  {post.postTitle}
+                                </span>
+                              </div>
+                              <p className="mb-2">{post.postContent}</p>
+
+                              {/* tags */}
+                              <div className="mb-2">
+                                {post.tags.map((tag, idx) => (
+                                  <span
+                                    key={idx}
+                                    className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
+                                  >
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            {post.imageInfo && (
+                              <img
+                                className="max-h-56 rounded-md mb-2"
+                                src={post.imageInfo.imagePath}
+                                alt="Post"
+                              />
+                            )}
+                            <div className="flex justify-between">
+                              <button className="text-purple_9663FC">
+                                Like
+                              </button>
+                              <button className="text-purple_9663FC">
+                                Comment
+                              </button>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </>
