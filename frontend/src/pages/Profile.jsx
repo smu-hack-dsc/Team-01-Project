@@ -10,6 +10,7 @@ import ProfilePost from "components/ProfilePost";
 function Profile() {
   const [profileData, setProfileData] = useState([]);
   const [userPostsData, setUserPostsData] = useState([]);
+  const [userProjectData, setUserProjectData] = useState([]);
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -44,26 +45,47 @@ function Profile() {
       try {
         const response = await api.get("/user/profile");
         setProfileData(response.data);
+
+        if (response.data.role === 'volunteerOrg') {
+          const projectResponse = await api.get(`activity/vo/${response.data.id}`);
+          const project = projectResponse.data;
+          setUserProjectData([project]); // Assuming setUserProjectData expects an array
+          console.log('project', project);
+        }
       } catch (error) {
         console.log("Error fetching profile data: ", error);
-
         if (error.response && error.response.status === 401) {
           navigate("/login");
         }
       }
     };
 
+
     const fetchPosts = async () => {
       try {
         const response = await api.get("/post/myposts");
         setUserPostsData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log("Error fetching post data: ", error);
       }
     };
 
+    // const fetchActivity = async() => {
+    //   try {
+    //     console.log(profileData.id);
+    //     const response = await api.get(`activity/vo/${profileData.id}`);
+    //     setUserProjectData(response.data);
+    //     console.log(response.data);
+    //   } catch (error) {
+    //     console.log('Error fetching project data: ', error);
+    //   }
+
+    // }
+
     fetchProfile();
     fetchPosts();
+    // fetchActivity();
   }, [navigate]);
 
   return (

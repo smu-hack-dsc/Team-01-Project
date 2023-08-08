@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import Axios from 'axios';
+import api from "../api"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CarouselCard from "components/CarouselCard";
@@ -16,25 +16,29 @@ const Carousel = () => {
   const sliderRef = React.useRef(null);
 
   const carouselSettings = {
-    dots: true, 
-    infinite: true, 
-    speed: 500, 
-    slidesToShow: slidesToShow, 
-    slidesToScroll: 1, 
-    prevArrow: <></>, 
-    nextArrow: <></>, 
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: 1,
+    prevArrow: <></>,
+    nextArrow: <></>,
   };
 
   const [projectData, setProjectData] = useState([])
 
   useEffect(() => {
-    Axios.get("http://localhost:4001/activity/")
-      .then((response) => {
+
+    const fetchProject = async () => {
+      try {
+        const response = await api.get('/activity/');
         setProjectData(response.data);
-      })
-      .catch((error) => {
-        console.log('Error fetching projects data: ', error);
-      });
+      } catch (error) {
+        console.log('Error fetching project carousel: ', error);
+      }
+    }
+
+    fetchProject();
   }, []);
 
   return (
