@@ -40,3 +40,22 @@ Users can post their thoughts on a community page and interact with others
 
 #### Find us live!
 https://main.d2x6l17ovqqryi.amplifyapp.com/
+
+#### Set up Local Directories
+Clone this repository or download the files to a local directory. Open a terminal session and navigate to the path of this repository/codebase.
+
+#### Set up Frontend Services
+```
+npm install
+```
+```
+npm start
+```
+
+#### Set up Backend Services
+```
+npm install
+```
+```
+npm run dev
+```
