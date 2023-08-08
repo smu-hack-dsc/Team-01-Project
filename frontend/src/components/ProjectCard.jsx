@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import { useMedia } from "react-use";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import { IonIcon } from "@ionic/react";
-import { image } from "ionicons/icons";
-import { Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const ProjectCard = ({ id, activityName, description, imageUrl }) => {
+  const isLargeScreen = useMedia("(min-width: 1024px)");
+
   const navigate = useNavigate();
   const handleButtonClick = async () => {
     // get information about the user using token
@@ -38,12 +38,12 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
     }
   };
   return (
-    <Card sx={{ maxWidth: 345, height: 350 }}>
+    <Card sx={{ maxWidth: 350, height: 350 }}>
       <CardMedia sx={{ height: 150 }} image={imageUrl} title="Project" />
       <CardContent sx={{ height: 140 }}>
         <Typography
           gutterBottom
-          variant="h5"
+          variant={isLargeScreen ? "h5" : "body1"}
           component="div"
           sx={{ fontFamily: "DMSans, sans-serif", fontWeight: 600}}
         >
@@ -52,15 +52,13 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
         <Typography
           variant="body2"
           color="text.secondary"
-          className="line-clamp-4 overflow-hidden text-ellipsis"
+          className="line-clamp-3 overflow-hidden text-ellipsis"
           sx={{ fontFamily: "DMSans, sans-serif" }}
         >
           {description}
         </Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-start" }}>
-        {/* <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button> */}
         <button
           className="bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none "
           onClick={handleButtonClick}

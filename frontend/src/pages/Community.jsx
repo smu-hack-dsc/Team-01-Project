@@ -61,34 +61,33 @@ function Community() {
   ];
 
   return (
-    <div className="absolute top-20">
-      <div className="left-0 w-full h-full flex flex-col justify-start items-center pt-5">
-        <div className="flex flex-row sm:w-4/5 lg:w-2/3">
-          <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl pb-5">
-            Community
-          </div>
-          <div className="ml-10 grow">
-            <SearchBar input={communityData.title} setInput={setSearchTerm} />
+    <div className="absolute top-16 overflow-x-clip w-[95vw] font-DMSans">
+      <div className="hidden md:flex flex-col h-screen absolute border-gray-300 border-r-2 text-white w-[16%] lg:min-w-[170px] md:min-w-[148px] mx-auto">
+        <div className="p-4 text-black mt-8">
+          <div className="font-semibold md:text-base lg:text-xl">COMMUNITIES</div>
+          <div className="flex flex-col sm:w-4/5 lg:w-2/3 justify-between">
+            {allInterests
+              // .filter((interest) =>
+              //   interest.title.toLowerCase().includes(searchTerm.toLowerCase())
+              // )
+              .map((interest) => (
+                <TagCard title={interest.title} handleTag={handleTag} />
+              ))}
           </div>
         </div>
       </div>
 
-      {/* put user's communities here */}
-      <div className="flex flex-col sm:ml-[11%] lg:ml-[17.2%] items-start sm:w-4/5 lg:w-2/3 pb-2 font-DMSans text-gray-600">
-        {/* add an extra bool to fetch the users communities. if fetch returns 0 or null,
-        display "Explore and participate in active volunteering communities. You aren't part of any communities right now.
-        or smth similar" */}
-        Explore and participate in active volunteering communities.
-        {/* **for logged in users** Your communities */}
-        {/* i want to put scrollable clickable images here like ig story */}
-        {/* <div>
-          {allInterests.map((interest) => (
-            interest.title
-          ))} 
-        </div> */}
-      </div>
-
-      <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between pb-20">
+      <div className="md:ml-[7%] w-screen flex flex-col justify-start items-center pt-7">
+        <div className="flex flex-col justify-start items-end sm:w-[84%] md:w-[70%] pt-7">
+          <div className="flex justify-center xs:items-center  xs:flex-col md:flex-row w-full pb-5">
+            <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl">
+              Community
+            </div>
+            <div className="md:ml-10 grow">
+              <SearchBar input={communityData.title} setInput={setSearchTerm} />
+            </div>
+          </div>
+          {/* <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between pb-20">
         {allInterests
           .filter((interest) =>
             interest.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -100,8 +99,10 @@ function Community() {
               handleTag={handleTag}
             />
           ))}
+        </div>
+      </div> */}
+        </div>
       </div>
-      {/* <CommunitiesPost /> */}
     </div>
   );
 }

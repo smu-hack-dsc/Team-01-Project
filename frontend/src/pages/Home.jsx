@@ -10,8 +10,6 @@ import { arrowForward } from "ionicons/icons";
 const Home = () => {
   const navigate = useNavigate();
   const isLargeScreen = useMedia("(min-width: 1024px)");
-  const size1 = isLargeScreen ? "large" : "medium";
-  const size2 = isLargeScreen ? "medium" : "small";
   const size3 = isLargeScreen ? "large" : "small";
 
   const handleProjectsClick = async () => {

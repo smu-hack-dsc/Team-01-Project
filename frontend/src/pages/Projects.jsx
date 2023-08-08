@@ -61,13 +61,13 @@ function Projects() {
         <div className="text-purple_4000C1 font-RecoletaAlt font-semibold text-5xl pb-5">
           Projects
         </div>
-        <div className="sm:w-4/5 lg:w-2/3 sm:mb-2 lg:mb-0">
+        <div className="xs:w-4/5 lg:w-2/3 lg:mb-0">
           <SearchBar
             input={projectData.activityName}
             setInput={setSearchTerm}
           />
         </div>
-        <div className="lg:mt-2 mb-4">
+        <div className="mt-2 mb-4">
           <Filter
             categorySubcategories={{
               "My Interests": ["interest1", "interest2", "interest3"],
@@ -77,7 +77,7 @@ function Projects() {
             }}
           />
         </div>
-        <div className="flex items-center w-4/5 md:ml-[1%] lg:ml-[3%]">
+        <div className="flex items-center w-4/5 xs:ml-[1%] sm:ml-0 md:ml-[1%] lg:ml-[3%]">
           <Grid container spacing={3}>
             {projectData
               .filter((project) =>
