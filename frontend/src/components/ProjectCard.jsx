@@ -38,46 +38,35 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
     }
   };
   return (
-    // <div className="flex flex-col sm:w-1/3 lg:w-1/4 sm:h-[23%] lg:h-[40%] bg-gray-100 rounded-lg mt-4 sm:mb-5 lg:mb-0 mx-2 grow pb-24">
-    //   <img
-    //     src={imageUrl}
-    //     alt="Project"
-    //     className="w-full max-h-[150px] object-cover rounded-t-lg"
-    //   />
-    //   <div className="flex flex-row justify-between min-h-[20%] mx-4 sm:my-2 lg:my-3  ">
-    //     <div className="w-2/3 flex flex-col justify-center text-black font-DMSans text-wrap sm:text-xl lg:text-2xl font-semibold">
-    //       <p className="line-clamp-2">{activityName}</p>
-    //     </div>
-    //     <div className="w-1/6 flex flex-col justify-center">
-    //       <IonIcon icon={image} size="large"></IonIcon>
-    //     </div>
-    //   </div>
-    //   <div className="flex flex-col min-h-[30%] whitespace-normal justify-start text-black font-DMSans text-sm font-normal mx-4 mt-1">
-    //     <p class="line-clamp-5">{description}</p>
-    //   </div>
-    //   <div className="self-end mt-auto pr-3 pt-3 lg:pb-[10%] sm:pb-[20%]">
-    //     <button
-    //       className="bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none "
-    //       onClick={handleButtonClick}
-    //     >
-    //       LEARN MORE
-    //     </button>
-    //   </div>
-    // </div>
-
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} image={imageUrl} title="Project" />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+    <Card sx={{ maxWidth: 345, height: 350 }}>
+      <CardMedia sx={{ height: 150 }} image={imageUrl} title="Project" />
+      <CardContent sx={{ height: 140 }}>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          sx={{ fontFamily: "DMSans, sans-serif", fontWeight: 600}}
+        >
           {activityName}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          className="line-clamp-4 overflow-hidden text-ellipsis"
+          sx={{ fontFamily: "DMSans, sans-serif" }}
+        >
           {description}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{ display: "flex", justifyContent: "flex-start" }}>
+        {/* <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button> */}
+        <button
+          className="bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none "
+          onClick={handleButtonClick}
+        >
+          LEARN MORE
+        </button>
       </CardActions>
     </Card>
   );

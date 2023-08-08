@@ -77,7 +77,7 @@ function Projects() {
             }}
           />
         </div>
-        <div className="flex items-center xs:mx-10 lg:mx-16">
+        <div className="flex items-center w-4/5 md:ml-[1%] lg:ml-[3%]">
           <Grid container spacing={3}>
             {projectData
               .filter((project) =>
