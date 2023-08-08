@@ -43,16 +43,17 @@ const CommunitiesPost = ({ tag }) => {
   const handlePostSubmit = async (e) => {
     e.preventDefault();
     // logic to handle the post submission and add it to the posts state
+    console.log(selectedInterests);
     const updatedInterests =
-      selectedInterests.length === 0 ? ["general"] : selectedInterests;
+      selectedInterests.length === 0 || selectedInterests[0] == undefined ? ["general"] : selectedInterests;
     const formData = new FormData();
     formData.append("postTitle", postTitle);
     formData.append("postContent", postContent);
-    // (updatedInterests).map((interest) => {
-    //   if (interest) {
-    //     formData.append('categories', interest);
-    //   }
-    // })
+    updatedInterests.forEach((interest) => {
+      if (interest) {
+        formData.append('tags', interest);
+      }
+    });
     if (fileInputRef.current?.files[0]) {
       formData.append("image", fileInputRef.current.files[0]);
     }

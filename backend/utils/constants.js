@@ -16,7 +16,7 @@ module.exports = {
     VOLUNTEERORG: 'volunteerOrg',
     ROLES: ['user', 'volunteerOrg'],
     SKILLS: ['english', 'chinese', 'malay', 'hindi', 'teaching', 'caregiving', 'cooking', 'driving'],
-    INTERESTS: ['general', 'elderly', 'environment', 'children', 'tutoring', 'animals'],
+    INTERESTS: ['general', 'elderly', 'environment', 'children', 'tutoring', 'animals', 'food', 'gender'],
     
     //Messages
     NO_RECORD_FOUND: 'No record found for given details',

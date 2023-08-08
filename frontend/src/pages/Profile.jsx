@@ -204,48 +204,47 @@ function Profile() {
               <div className="flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center">
                 {profileData.role === "user" ? (
                   <>
-                    <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
-                      My Posts
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 mt-5">
-                      {userPostsData.map((post, index) => (
-                        <div
-                          key={index}
-                          className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
-                        >
-                          <div className="flex items-center mb-2">
-                            <span className="text-lg font-bold">
-                              {post.postTitle}
-                            </span>
-                          </div>
-                          <p className="mb-2">{post.postContent}</p>
+                    <div className="flex-flex-col">
+                      <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
+                        My Posts
+                      </div><div className="grid grid-cols-2 gap-4 mt-5 h-[400px] overflow-y-scroll scroll-smooth snap-y">
+                        {userPostsData.map((post, index) => (
+                          <div
+                            key={index}
+                            className="p-4 border border-gray-300 rounded-md flex flex-col justify-between font-DMSans"
+                          >
+                            <div>
+                              <div className="flex items-center mb-2">
+                                <span className="text-lg font-bold">{post.postTitle}</span>
+                              </div>
+                              <p className="mb-2">{post.postContent}</p>
 
-                          {/* tags */}
-                          <div className="mb-2">
-                            {post.tags.map((tag, idx) => (
-                              <span
-                                key={idx}
-                                className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
-                              >
-                                #{tag}
-                              </span>
-                            ))}
+                              {/* tags */}
+                              <div className="mb-2">
+                                {post.tags.map((tag, idx) => (
+                                  <span
+                                    key={idx}
+                                    className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
+                                  >
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            {post.imageInfo && (
+                              <img
+                                className="max-h-56 rounded-md mb-2"
+                                src={post.imageInfo.imagePath}
+                                alt="Post"
+                              />
+                            )}
+                            <div className="flex justify-between">
+                              <button className="text-purple_9663FC">Like</button>
+                              <button className="text-purple_9663FC">Comment</button>
+                            </div>
                           </div>
-                          {post.imageInfo && (
-                            <img
-                              className="max-h-56 rounded-md mb-2"
-                              src={post.imageInfo.imagePath}
-                              alt="Post"
-                            />
-                          )}
-                          <div className="flex justify-between">
-                            <button className="text-purple_9663FC">Like</button>
-                            <button className="text-purple_9663FC">
-                              Comment
-                            </button>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </>
                 ) : (
