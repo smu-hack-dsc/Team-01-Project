@@ -60,9 +60,16 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <span className="text-black font-bold text-3xl ml-10">
-                  Logo
-                </span>
+                {/* <span className="text-black font-bold text-3xl ml-10"> */}
+                  <div className="flex flex-row font-bold text-3xl ml-10 items-center">
+                    <img
+                      alt="Logo"
+                      src="https://t4.ftcdn.net/jpg/00/91/49/33/360_F_91493381_VstY88w5zvUIr2EMR4AtiuwTKRgJDnzZ.jpg"
+                      className="h-[10%] w-[10%]"
+                    />
+                    <div>GivingHearts</div>
+                  </div>
+                {/* </span> */}
               </div>
             </div>
             <div className="hidden md:block ml-auto">

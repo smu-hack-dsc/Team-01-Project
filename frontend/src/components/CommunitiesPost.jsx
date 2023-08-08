@@ -20,8 +20,6 @@ const CommunitiesPost = ({ tag }) => {
     "children",
     "tutoring",
     "animals",
-    "gender",
-    "food",
   ];
 
   // image adding logic
