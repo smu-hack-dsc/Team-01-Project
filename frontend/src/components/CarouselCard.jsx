@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { useMedia } from "react-use";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-import { IonIcon } from "@ionic/react";
-import { image } from "ionicons/icons";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
 
 const CarouselCard = ({ id, activityName, description, imageUrl }) => {
+  const isLargeScreen = useMedia("(min-width: 1024px)");
+
   const navigate = useNavigate();
   const handleButtonClick = async () => {
     // get information about the user using token
@@ -30,44 +36,36 @@ const CarouselCard = ({ id, activityName, description, imageUrl }) => {
       navigate("/login");
     }
   };
-
   return (
-    <div className="flex flex-col w-48 sm:w-60 bg-gray-100 rounded-lg mt-4 mx-auto flex-shrink-0 pb-4">
-      <img
-        // src={require("../resources/img/Project.png")}
-        src={imageUrl}
-        alt="Project"
-        className="w-full h-32 sm:h-40 object-cover rounded-t-lg"
-      />
-      <div className="flex justify-between p-2 h-[72px]">
-        <div className="flex flex-col justify-center text-black font-DMSans text-xl font-semibold ml-1 line-clamp-1">
-          {/* Project Name */}
+    <Card sx={{ maxWidth: 250, height: 250 }}>
+      <CardMedia sx={{ height: 100 }} image={imageUrl} title="Project" />
+      <CardContent sx={{ height: 105 }}>
+        <Typography
+          gutterBottom
+          variant={isLargeScreen ? "body1" : "body2"}
+          component="div"
+          sx={{ fontFamily: "DMSans, sans-serif", fontWeight: 600 }}
+        >
           {activityName}
-        </div>
-        <div className="flex flex-col justify-center text-black font-DMSans text-sm font-semibold">
-          <IonIcon icon={image} size="large" />
-        </div>
-      </div>
-      <div className="flex flex-col justify-start h-20 text-black font-DMSans text-sm font-normal p-2 ml-1">
-        <p className="line-clamp-3">
-          {/* {(description.split(" ").length >= 10) ? 
-        (
-        <> {description.split(" ").slice(0, 10).join(" ") + ' ...'}
-        </>): (<>
-        {description}</>)} */}
-          {/* short description */}
+        </Typography>
+        <Typography
+          variant={isLargeScreen ? "body2" : "caption"}
+          color="text.secondary"
+          className="line-clamp-3 overflow-hidden text-ellipsis"
+          sx={{ fontFamily: "DMSans, sans-serif" }}
+        >
           {description}
-        </p>
-      </div>
-      <div className="pl-2 pt-1">
+        </Typography>
+      </CardContent>
+      <CardActions sx={{ display: "flex", justifyContent: "flex-start" }}>
         <button
-          className="bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none "
+          className="bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold xs:text-sm xs:px-2 xs:py-1 rounded-full border-none "
           onClick={handleButtonClick}
         >
           LEARN MORE
         </button>
-      </div>
-    </div>
+      </CardActions>
+    </Card>
   );
 };
 

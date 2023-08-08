@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useMedia } from "react-use";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
-import { IonIcon } from "@ionic/react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";

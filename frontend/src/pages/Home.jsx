@@ -26,12 +26,12 @@ const Home = () => {
           alt="Billboard"
           className="w-full h-full"
         />
-        <div className="absolute top-7 left-20 w-auto h-full flex flex-col justify-center items-start p-4">
-          <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold sm:text-6xl lg:text-7xl">
+        <div className="absolute top-7 left-16 w-auto h-full flex flex-col justify-center items-start xs:p-2 md:p-4">
+          <div className="text-white text-shadow-lg font-RecoletaAlt font-semibold xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
             Giving hope through service.
-            <div className="sm:pt-5 lg:pt-8">
+            <div className="xs:pt-2 lg:pt-8">
               <button
-                className="font-DMSans md:text-2xl md:px-5 md:py-2 text-base px-3 py-2 text-black bg-green_C8F3D9 rounded-full"
+                className="font-DMSans xs:text-base md:text-2xl md:px-5 md:py-2 text-base xs:px-3 xs:py-1 text-black bg-green_C8F3D9 rounded-full"
                 onClick={handleProjectsClick}
               >
                 BROWSE OPPORTUNITIES
@@ -42,9 +42,9 @@ const Home = () => {
       </div>
 
       {/* second section */}
-      <div className="w-full h-500 flex justify-center bg-purple_9663FC">
-        <div className="flex flex-col items-center top-1/2 left-1/2 w-3/4 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 -mt-8 z-10">
-          <div className="mt-67 text-black text-center font-RecoletaAlt font-semibold text-4xl sm:p-5 lg:p-8">
+      <div className="hidden md:flex w-full h-500 justify-center bg-purple_9663FC">
+        <div className="flex flex-col items-center top-1/2 left-1/2 w-3/4 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 xs:-mt-4 sm:-mt-8 z-10">
+          <div className="mt-67 text-black text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:5xl xs:p-3 sm:p-5 lg:p-8">
             All-in-one Volunteering
           </div>
           <div className="flex flex-row justify-end items-center w-full px-auto mr-3">
@@ -52,14 +52,14 @@ const Home = () => {
               <img
                 src={require("../resources/img/Team.png")}
                 alt="Team"
-                className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
+                className="xs:h-2/5 xs:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
                 <button
-                  className="bg-yellow_FFDA7A sm:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
+                  className="bg-yellow_FFDA7A xs:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
                   onClick={async () => navigate("/login")}
                 >
-                  BE A VOLUNTEER
+                  VOLUNTEER
                 </button>
               </div>
             </div>
@@ -67,11 +67,11 @@ const Home = () => {
               <img
                 src={require("../resources/img/Briefing.png")}
                 alt="Briefing"
-                className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
+                className="xs:h-2/5 xs:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
                 <button
-                  className="bg-yellow_FFDA7A sm:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
+                  className="bg-yellow_FFDA7A xs:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
                   onClick={async () => navigate("/projects")}
                 >
                   EXPLORE PROJECTS
@@ -82,11 +82,11 @@ const Home = () => {
               <img
                 src={require("../resources/img/Post.png")}
                 alt="Post"
-                className="lg:h-2/5 lg:w-2/5 sm:h-2/5 sm:w-2/5"
+                className="xs:h-2/5 xs:w-2/5"
               />
               <div className="lg:mt-5 sm:mt-3">
                 <button
-                  className="bg-yellow_FFDA7A sm:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
+                  className="bg-yellow_FFDA7A xs:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
                   onClick={async () => navigate("/community")}
                 >
                   POST OPPORTUNITIES
@@ -96,54 +96,62 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold text-5xl sm:p-5 lg:p-8">
+      <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:5xl xs:p-3 sm:p-5 lg:p-8">
         Trending Projects
       </div>
-      <div className="mt-7 mb-10">
+      <div className="flex flex-col ml-auto -mt-2 mb-10">
         <Carousel />
       </div>
 
       {/* third section -- not done */}
       {/* put the yellow design things in the bg */}
       <div className="flex justify-center items-start flex-row mt-85 flex-shrink-0 bg-yellow_FFDA7A overflow-hidden">
-        <div className="flex sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt sm:text-3xl lg:text-5xl sm:py-5 lg:py-8">
+        <div className="flex xs:w-[170px] sm:w-[250px] lg:w-[300px] flex-col justify-center items-start mt-67 font-RecoletaAlt xs:text-2xl sm:text-3xl lg:text-5xl xs:py-3 sm:py-5 lg:py-8">
           Explore these Causes
           <img
             src={require("../resources/img/CurlyArrow.png")}
             alt="Curly Arrow"
-            className="sm:w-1/2 lg:w-3/5 ml-24 mt-2 -rotate-6"
+            className="xs:w-1/3 sm:w-1/2 lg:w-3/5 xs:ml-20 sm:ml-24 mt-2 -rotate-6"
           ></img>
         </div>
         <div className="flex flex-row items-center">
           <div className="flex flex-col items-start sm:py-5 lg:py-8 sm:pl-0 lg:pl-10">
             <div className="sm:h-24 lg:h-40 w-full rounded-l-full bg-yellow_FFF497 sm:-mt-16 lg:-mt-28 mb-2" />
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
               onClick={handleProjectsClick}
             >
               CAUSE 1
             </button>
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
               onClick={handleProjectsClick}
             >
               CAUSE 2
             </button>
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
               onClick={handleProjectsClick}
             >
               CAUSE 3
             </button>
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
               onClick={handleProjectsClick}
             >
               CAUSE 4
             </button>
+            <button
+              className="xs:flex sm:hidden flex-row items-center mt-2 mb-1 text-black rounded-2xl hover:text-gray-600 font-DMSans font-semibold text-sm"
+              onClick={handleProjectsClick}
+            >
+              DISCOVER MORE
+              <IonIcon icon={arrowForward} size={size3}></IonIcon>
+            </button>
             <div className="sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mb-24 lg:-mb-40 mt-2" />
           </div>
-          <div className="flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10">
+
+          <div className="hidden sm:flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10">
             <div className="sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mt-24 lg:-mt-40 mb-2" />
             <button
               className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
@@ -187,15 +195,15 @@ const Home = () => {
           />
         </div>
         <div className="absolute flex items-center w-1020 h-62.434 flex-col justify-center text-white text-center z-10">
-          <div className="font-RecoletaAlt text-4xl lg:text-5xl z-3">
+          <div className="font-RecoletaAlt xs:text-2xl sm:text-3xl md:text-4xl lg:5xl z-3">
             You can make a difference today!
           </div>
-          <div className="font-DMSans text-xl lg:text-2xl z-3">
+          <div className="font-DMSans text-xl xs:text-base sm:text-xl lg:text-2xl z-3">
             There’s a lot more we can do, together.
           </div>
           <div className="z-3 mt-4">
             <button
-              className=" bg-yellow_FFDA7A font-DMSans text-black font-semibold rounded-full py-2 px-4"
+              className=" bg-yellow_FFDA7A font-DMSans text-black font-semibold rounded-full xs:text-sm sm:text-base xs:py-1 xs:px-2 sm:py-2 sm:px-4"
               onClick={async () => navigate("/login")}
             >
               SIGN UP NOW

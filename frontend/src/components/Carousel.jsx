@@ -9,8 +9,9 @@ import { useMedia } from 'react-use';
 const Carousel = () => {
 
   const isLargeScreen = useMedia('(min-width: 1224px)');
+  const isSmScreen = useMedia('(min-width: 740px)');
 
-  const slidesToShow = isLargeScreen ? 5 : 3;
+  const slidesToShow = isLargeScreen ? 5 : isSmScreen ? 3 : 2;
 
   const sliderRef = React.useRef(null);
 
@@ -37,27 +38,20 @@ const Carousel = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center">
-      <Slider {...carouselSettings} ref={sliderRef}>
+    <div>
+      <Slider {...carouselSettings}>
         {projectData.map((project) => (
-          <CarouselCard 
+          <CarouselCard
+            key={project._id}
             id={project._id}
-            activityName = {project.activityName}
-            description = {project.description}
-            imageUrl = {project.imageInfo?.imagePath}
+            activityName={project.activityName}
+            description={project.description}
+            imageUrl={project.imageInfo?.imagePath}
           />
         ))}
-
-        {/* <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard /> */}
       </Slider>
     </div>
   );
 };
 
 export default Carousel;
-
