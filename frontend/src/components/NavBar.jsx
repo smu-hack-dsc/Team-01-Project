@@ -16,7 +16,8 @@ import { menuOutline } from "ionicons/icons";
 import VOProfile from "pages/VOProfile";
 import VOProject from "pages/VOProject";
 import CommunityTag from "pages/CommunityTag";
-
+import TempPage from "pages/TempPage"
+;
 const Navbar = () => {
   // const location = useLocation();
   const menuRef = useRef();
@@ -67,6 +68,14 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block ml-auto">
               <div className="flex space-x-4">
+              <NavLink
+                  exact
+                  to="/temp"
+                  className="text-black hover:bg-gray-200 px-3 py-2 rounded-md font-medium text-xl"
+                  activeClassName="bg-gray-200"
+                >
+                  Temp
+                </NavLink>
                 <NavLink
                   exact
                   to="/"
@@ -181,6 +190,7 @@ const Navbar = () => {
         {/* to reroute once edited */}
         <Route path="/voprofile" Component={VOProfile} />
         <Route path="/voproject" Component={VOProject} />
+        <Route path="/temp" Component={TempPage} />
       </Routes>
     </Router>
   );

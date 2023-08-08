@@ -6,6 +6,7 @@ import Filter from "components/Filter";
 import Popup from "reactjs-popup";
 import api from "../api";
 import "reactjs-popup/dist/index.css";
+import { Grid } from "@mui/material";
 
 function Projects() {
   const [projectData, setProjectData] = useState([]);
@@ -66,7 +67,7 @@ function Projects() {
             setInput={setSearchTerm}
           />
         </div>
-        <div className="lg:mt-2 -mb-2">
+        <div className="lg:mt-2 mb-4">
           <Filter
             categorySubcategories={{
               "My Interests": ["interest1", "interest2", "interest3"],
@@ -76,23 +77,27 @@ function Projects() {
             }}
           />
         </div>
-        <div className="flex flex-wrap justify-center content-start sm:w-4/5 lg:w-2/3 mt-4">
-          {projectData
-            .filter((project) =>
-              project.activityName
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase())
-            )
-            .map((project, index) => (
-              <ProjectCard
-                key={index}
-                id={project._id}
-                activityName={project.activityName}
-                description={project.description}
-                organiser={project.organiserId}
-                imageUrl={project.imageInfo?.imagePath}
-              />
-            ))}
+        <div className="flex items-center xs:mx-10 lg:mx-16">
+          <Grid container spacing={3}>
+            {projectData
+              .filter((project) =>
+                project.activityName
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase())
+              )
+              .map((project, index) => (
+                <Grid key={index} item xs={12} sm={6} md={4}>
+                  <ProjectCard
+                    key={index}
+                    id={project._id}
+                    activityName={project.activityName}
+                    description={project.description}
+                    organiser={project.organiserId}
+                    imageUrl={project.imageInfo?.imagePath}
+                  />
+                </Grid>
+              ))}
+          </Grid>
         </div>
       </div>
     </div>
