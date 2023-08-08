@@ -80,7 +80,7 @@ function Community() {
       <div className="md:ml-[7%] w-screen flex flex-col justify-start items-center pt-7">
         <div className="flex flex-col justify-start items-end sm:w-[84%] md:w-[70%] pt-7">
           <div className="flex justify-center xs:items-center  xs:flex-col md:flex-row w-full pb-5">
-            <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl">
+            <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl xs:mb-5 md:mb-0">
               Community
             </div>
             <div className="md:ml-10 grow">

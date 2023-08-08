@@ -59,7 +59,7 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "flex-start" }}>
         <button
-          className="bg-green-200 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none "
+          className="bg-green_C8F3D9 hover:bg-green-300 text-black font-DMSans font-semibold text-base px-3 py-2 rounded-full border-none "
           onClick={handleButtonClick}
         >
           LEARN MORE

@@ -52,10 +52,10 @@ const VOApprovedRow = ({ projectData }) => {
             key={index}
             className="flex items-center justify-around w-full min-h-[50px] flex-shrink-0 border border-gray-300 bg-white mt-0 px-5"
           >
-            <div className="text-black w-1/3 font-dm-sans text-14 font-semibold truncate">
+            <div className="text-black w-1/3 font-dm-sans text-14 truncate">
               {signup.username}
             </div>
-            <div className="text-black w-1/3 font-dm-sans text-14 font-semibold">
+            <div className="text-black w-1/3 font-dm-sans text-14">
               {signup.skills?.length ? (
                 <div>
                   <ul>
@@ -68,7 +68,7 @@ const VOApprovedRow = ({ projectData }) => {
                 <div>No required skills.</div>
               )}
             </div>
-            <div className="text-black w-1/3 font-dm-sans text-14 font-semibold truncate">
+            <div className="text-black w-1/3 font-dm-sans text-14 truncate">
               {`${new Date(signup.createdAt).toLocaleDateString()}`}
             </div>
           </div>

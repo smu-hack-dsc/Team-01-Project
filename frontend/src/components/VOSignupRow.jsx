@@ -81,7 +81,7 @@ const VOSignupRow = ({ projectData, toAccept, handleDone }) => {
   return (
     <div>
       {/* header row */}
-      <div className="flex items-center justify-around w-full h-[50px] flex-shrink-0 rounded-t-md bg-gray-300 mt-5 px-5">
+      <div className="flex items-center justify-around w-full h-[50px] flex-shrink-0 rounded-t-md bg-gray-300 mt-5 px-5 font-DMSans">
         <input
           type="checkbox"
           className="form-checkbox h-5 w-1/4 text-indigo-600 rounded-6 transition duration-150 ease-in-out px-8"
@@ -107,10 +107,10 @@ const VOSignupRow = ({ projectData, toAccept, handleDone }) => {
               onChange={() => handleIndivCheck(signup._id)}
               checked={checkSelected(signup._id)}
             />
-            <div className="text-black w-1/4 font-dm-sans text-14 font-semibold truncate">
+            <div className="text-black w-1/4 font-dm-sans text-14 truncate">
               {signup.username}
             </div>
-            <div className="text-black w-1/4 font-dm-sans text-14 font-semibold">
+            <div className="text-black w-1/4 font-dm-sans text-14">
               {signup.skills?.length ? (
                 <div>
                   <ul>
@@ -123,16 +123,16 @@ const VOSignupRow = ({ projectData, toAccept, handleDone }) => {
                 <div>No required skills.</div>
               )}
             </div>
-            <div className="text-black w-1/4 font-dm-sans text-14 font-semibold truncate">
+            <div className="text-black w-1/4 font-dm-sans text-14 truncate">
               {`${new Date(signup.createdAt).toLocaleDateString()}`}
             </div>
           </div>
         )
       })}
       <div className="flex flex-row justify-end mt-5">
-      <button className="bg-yellow-300 hover:bg-yellow-400 text-black flex flex-col justify-center flex-shrink-0 text-center font-DMSans rounded-full border-none font-inherit whitespace-nowrap p-2"
+      <button className="bg-yellow-300 hover:bg-yellow-400 text-black flex flex-col justify-center flex-shrink-0 text-center font-DMSans rounded-full border-none font-inherit whitespace-nowrap py-2 px-4 font-semibold"
         onClick={updateAccept}>
-        Accept
+        ACCEPT
       </button>
 
       </div>

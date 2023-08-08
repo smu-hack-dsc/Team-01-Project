@@ -31,7 +31,7 @@ const Home = () => {
             Giving hope through service.
             <div className="xs:pt-2 lg:pt-8">
               <button
-                className="font-DMSans xs:text-base md:text-2xl md:px-5 md:py-2 text-base xs:px-3 xs:py-1 text-black bg-green_C8F3D9 rounded-full"
+                className="font-DMSans xs:text-base md:text-2xl md:px-5 md:py-2 text-base xs:px-3 xs:py-1 text-black bg-green_C8F3D9 hover:bg-green-300 rounded-full"
                 onClick={handleProjectsClick}
               >
                 BROWSE OPPORTUNITIES

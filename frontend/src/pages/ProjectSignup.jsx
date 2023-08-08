@@ -57,7 +57,7 @@ const ProjectSignup = () => {
 
 
 return (
-  <div className='absolute top-28 mx-20 font-DMSans'>
+  <div className='absolute top-28 xs:mx-10 sm:mx-20 font-DMSans'>
     <div className="flex flex-row">
       <img
         src={activityDetails.imageUrl}
@@ -65,8 +65,8 @@ return (
         alt="Project"
         className="h-[200px] w-[200px] object-cover object-center rounded-lg"
       />
-      <div className='flex flex-col justify-center ml-10 '>
-        <div className='flex flex-col flex-wrap justify-center items-center font-RecoletaAlt text-purple_4000C1 text-4xl font-semibold'>
+      <div className='flex flex-col justify-center xs:ml-4 sm:ml-10 '>
+        <div className='flex flex-col flex-wrap justify-center items-center font-RecoletaAlt text-purple_4000C1 xs:text-3xl sm:text-4xl font-semibold'>
           {/* Project Name (pls dont make it long) */}
           {activityDetails.activityName}
         </div>
@@ -85,7 +85,7 @@ return (
       {activityDetails.description}
     </div>
 
-    <div className='flex flex-row justify-between lg:max-w-[60%] mb-10'>
+    <div className='flex xs:flex-col sm:flex-row justify-between lg:max-w-[60%] mb-10'>
       <div className='flex flex-col'>
         <div className='mt-10 font-DMSans font-semibold text-2xl'>
           Organisation

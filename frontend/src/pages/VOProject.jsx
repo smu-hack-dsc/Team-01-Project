@@ -34,16 +34,16 @@ const VOProject = () => {
 
   return (
     <div>
-      <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
-        <div className="flex flex-row sm:w-4/5">
-          <div className="flex flex-col mr-10 w-1/4">
+      <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5 font-DMSans">
+        <div className="flex xs:flex-col sm:flex-row w-4/5">
+          <div className="flex flex-col sm:mr-10 sm:w-1/4">
             {/* left col */}
             <img
               src={projectData.imageUrl}
               alt={projectData.activityName}
               className="rounded-md mb-15"
             />
-            <div className="text-black font-DM font-semibold sm:text-xl lg:text-2xl mt-3 mb-5">
+            <div className="text-black font-DM font-semibold xs:text-xl lg:text-2xl mt-3 mb-5">
               {projectData.activityName}
             </div>
             <div className="text-opacity-40 font-DM sm:text-10px lg:text-15px mb-10">
@@ -52,23 +52,20 @@ const VOProject = () => {
           </div>
 
           {/* right side */}
-          <div className="flex flex-col w-3/4">
+          <div className="flex flex-col sm:w-3/4">
             <div className="w-full flex flex-col">
               <div className="mt-15">
                 <div className="flex justify-between items-center">
                   <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                     Pending Signups
                   </div>
-                  {/* <Filter categorySubcategories={{
-                  "Recent": null,
-                }} /> */}
                 </div>
               </div>
               <VOSignupRow
                 projectData={projectData}/>
             </div>
 
-            <div className="mt-20">
+            <div className="xs:mt-10 sm:mt-20">
               <div className="mt-15 flex justify-between items-center text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                 Approved Signups
               </div>
