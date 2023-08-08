@@ -1,7 +1,10 @@
 import axios from 'axios';
+// require("dotenv").config();
+
 
 const api = axios.create({
-    baseURL: 'http://localhost:4001/',
+    baseURL: 'http://54.254.196.169:4001/',
+    // baseURL: process.env.REACT_APP_BASE_URL
 });
 
 // Add a request interceptor

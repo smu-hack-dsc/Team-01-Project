@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CommunitiesPost from "components/CommunitiesPost";
+import api from '../api';
 import SearchBar from "components/SearchBar";
 import TagCard from "components/TagCard";
 import { useNavigate, Link } from "react-router-dom";
@@ -25,6 +25,28 @@ function Community() {
 
   useEffect(() => {
     checkLoginStatus();
+
+    const fetchCommunityData = async () => {
+      try {
+        const response = await api.get('/post/');
+        console.log(response.data);
+        const updatedPosts = await Promise.all(
+          response.data.map(async (post) => {
+            const profileData = await api.get(`/user/profile/${post.user}`);
+            // console.log(profileData.data)
+            return {
+              ...post,
+              username: profileData.data.name,
+              userPictUrl: profileData.data.imageUrl,
+            };
+          })
+        );
+        setCommunityData(updatedPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchCommunityData();
   }, []);
 
   const allInterests = [
@@ -87,20 +109,47 @@ function Community() {
               <SearchBar input={communityData.title} setInput={setSearchTerm} />
             </div>
           </div>
-          {/* <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between pb-20">
-        {allInterests
-          .filter((interest) =>
-            interest.title.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((interest) => (
-            <TagCard
-              title={interest.title}
-              description={interest.description}
-              handleTag={handleTag}
-            />
+          {communityData.map((post, index) => (
+            <div
+              key={index}
+              className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
+            >
+              <div className="flex items-center mb-2">
+                <img
+                  className="w-8 h-8 rounded-full mr-2"
+                  src={post.userPictUrl}
+                  alt="User"
+                />
+                <span className="text-lg font-bold">{post.postTitle}</span>
+                <span className="text-gray-500 ml-2">{post.username}</span>
+              </div>
+              <p className="mb-2">{post.postContent}</p>
+
+              {/* tags */}
+              <div className="mb-2">
+                {post.tags.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+              {post.imageInfo && (
+                <img
+                  className="max-h-56 rounded-md mb-2"
+                  src={post.imageInfo.imagePath}
+                  alt="Post"
+                />
+              )}
+              <div className="flex justify-between">
+                <button className="text-purple_9663FC">Like</button>
+                <button className="text-purple_9663FC">Comment</button>
+              </div>
+            </div>
           ))}
-        </div>
-      </div> */}
+
         </div>
       </div>
     </div>
