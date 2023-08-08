@@ -18,8 +18,8 @@ app.route('/activity')
     .post(Authorize(VOLUNTEERORG), controller.getUnderActivity); // WORKING
 
 app.route('/activity/:activityId')
-    .get(Authorize(USER), controller.getUserActivity)
-    .post(Authorize(USER), controller.create)
+    .get(Authorize(USER), controller.getUserActivity) // WORKING
+    .post(Authorize(USER), controller.create) // WORKING
     .delete(Authorize(USER), controller.deleteUserActivity); // WORKING
 
 

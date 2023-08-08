@@ -54,6 +54,7 @@ exports.create = async (req, res, next) => {
     }
 };
 
+// Get the signup with the user id and activity id
 exports.getUserActivity = async(req, res, next) => {
     try {
       const response = await GetUserActivity(req.user.id, req.params.activityId);
@@ -63,6 +64,7 @@ exports.getUserActivity = async(req, res, next) => {
     }
   }
 
+// Delete the signup with the user id and activity id
 exports.deleteUserActivity = async(req, res, next) => {
     try {
         await DeleteUserActivity(req.user.id, req.params.activityId)

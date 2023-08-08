@@ -61,29 +61,7 @@ exports.update = async (req, res, next) => {
     }
 };
 
-// Filter by skills required for the user
-// exports.filterUserSkills = async (req, res, next) => {
-//     try {
-//         const user = req.user;
-
-//         const response = await MatchActivitiesBySkills(user.skills);
-//         return res.json(response);
-//     } catch (error) {
-//         return next(error);
-//     }
-// }
-
-// Filter the shown activities by the user's interests
-// exports.filterUserInterests = async (req, res, next) => {
-//     try {
-//         const user = req.user;
-//         const response = await MatchActivitiesByInterests(user.interests);
-//         return res.json(response);
-//     } catch (error) {
-//         return next(error);
-//     }
-// }
-
+// To match the activities by their filter
 exports.filterFunc = async (req, res, next) => {
     try {
         const filterOptions = req.body;

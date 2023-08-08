@@ -6,7 +6,6 @@ module.exports = {
     ACCEPTED: 202,
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
-    PAYMENT_REQUIRED: 402,
     FORBIDDEN: 403,
     NOT_FOUND: 404,
     INTERNAL_SERVER_ERROR: 500,
@@ -18,10 +17,7 @@ module.exports = {
     ROLES: ['user', 'volunteerOrg'],
     SKILLS: ['english', 'chinese', 'malay', 'hindi', 'teaching', 'caregiving', 'cooking', 'driving'],
     INTERESTS: ['general', 'elderly', 'environment', 'children', 'tutoring', 'animals'],
-    // BADGES: ["Completed 10 Hours", "Completed 20 Hours", "Completed 30 Hours", "Completed 40 Hours", "Completed 50 Hours", 
-    //         "Completed 60 Hours", " Completed 70 Hours", "Completed 80 Hours", "Completed 90 Hours", "Completed 100 Hours", 
-    //         "Completed 150 Hours", "Completed 200 Hours"],
-
+    
     //Messages
     NO_RECORD_FOUND: 'No record found for given details',
     VALIDATION_ERROR: 'Validation Error',

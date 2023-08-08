@@ -12,7 +12,7 @@ app.route('/')
     .get(controller.getLatest); // WORKING
 
 app.route('/communities')
-    .post(controller.communitiesFilter) // PENDING
+    .post(controller.communitiesFilter) // WORKING
 
 app.route('/myposts')
     .get(Authorize(), controller.getByUser); // WORKING

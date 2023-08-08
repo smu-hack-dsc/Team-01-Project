@@ -5,15 +5,7 @@ const {
   RemoveUser
 } = require('../service/user.service');
 
-// const { Handler } = require('../../middleware/error');
 const { CREATED } = require('../../utils/constants');
-
-// Load the user information into req.locals for use in the next thing
-// exports.load = async (req, res, next, id) => {
-//   const user = await GetUser(id);
-//   req.locals = { user };
-//   return next();
-// };
 
 // Return information of the user 
 exports.get = async (req, res, next) => {
@@ -46,6 +38,7 @@ exports.create = async (req, res, next) => {
   }
 };
 
+// Get the user by their id
 exports.getById = async (req, res, next) => {
   try {
     const response = await GetUser(req.params.uid);
@@ -54,21 +47,6 @@ exports.getById = async (req, res, next) => {
     return next(error);
   }
 }
-// exports.findImage = async(req, res, next) => {
-//   try {
-//     return res.sendFile(req.body.imagePath);
-//   } catch (error) {
-//     return next(error);
-//   }
-// }
-// exports.findEmail = async (req, res, next) => {
-//   try {
-//     const response = await FindUserEmail(req.body);
-//     return res.json(response);
-//   } catch (error) {
-//     return next(error);
-//   }
-// }
 
 // Update user info 
 exports.update = async (req, res, next) => {

@@ -77,12 +77,6 @@ exports.GetActivitiesAfterToday = async (req) => {
         const today = new Date();
         const activities = await Activity.find({
             endDate: { $gte: today }
-            // $expr: {
-            //     $and: [
-            //         { $setIsSubset: ["$requiredSkills", req.user.skills] },
-            //         { $setIsSubset: ["$categories", req.user.interests] }
-            //     ]
-            // }
         });
         for (const activity of activities) {
             if (activity.imageInfo) {
@@ -159,7 +153,7 @@ exports.MatchByFilters = async (options) => {
 
         const command = new GetObjectCommand(getObjectParams);
         const url = await getSignedUrl(s3, command, { expiresIn: 60 });
-        activity.imageUrl = url;
+        activity.imageInfo.imagePath = url;
         activity.transform();
     });
     return activities;
@@ -170,7 +164,7 @@ exports.MatchByFilters = async (options) => {
 // Update
 exports.UpdateActivity = async (activityData, userData, newData, imageData) => {
     try {
-        if (activity.organiserId !== userData.id) {
+        if (activityData.organiserId !== userData.id) {
             throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
         }
 

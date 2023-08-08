@@ -1,8 +1,8 @@
 const express = require('express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const { version } = require('../package.json');
-// import { version } from "../../package.json";
+
+require("dotenv").config();
 
 app = express();
 
@@ -21,7 +21,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:4001",
+        url: `${process.env.BASE_URL}`,
       },
     ], 
     securityDefinitions: {

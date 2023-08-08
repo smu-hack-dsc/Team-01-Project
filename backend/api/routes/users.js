@@ -32,6 +32,6 @@ app.route('/profile')
     .delete(Authorize(), controller.remove); // WORKING
 
 app.route('/profile/:uid')
-    .get(controller.getById);
+    .get(controller.getById); // WORKING
 
 module.exports = app;

@@ -3,7 +3,7 @@ const { CreatePost, GetPost,
         GetPostsByUser, GetPostsByLatest, CommunityPosts,
         RemovePost } = require("../service/post.service");
 
-
+// Create a new post
 exports.create = async (req, res, next) => {
     try {
         const response = await CreatePost(req.user, req.body, req.files?.image);
@@ -34,6 +34,7 @@ exports.getByUser = async (req, res, next) => {
     }
 }
 
+// Get all the posts with a community tag
 exports.communitiesFilter = async (req, res, next) => {
     try {
         const response = await CommunityPosts(req.body.tags);

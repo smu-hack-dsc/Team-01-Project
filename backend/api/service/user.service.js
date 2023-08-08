@@ -83,15 +83,6 @@ exports.CreateUser = async (userData, imageData) => {
     }
 };
 
-// exports.FindUserEmail = async(email) => {
-//     try {
-//         const foundUser = User.findOne({email: email});
-//         if (!foundUser) return true;
-//         return false;
-//     } catch (error) {
-//         throw User.checkDuplication(err);
-//     }
-// }
 // Get user by id
 exports.GetUser = async (id) => {
     const user = await User.get(id);
