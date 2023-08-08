@@ -12,7 +12,7 @@ import { Grid } from "@mui/material";
 function Profile() {
   const [profileData, setProfileData] = useState([]);
   const [userPostsData, setUserPostsData] = useState([]);
-  const [userProjectData, setUserProjectData] = useState([]);
+  const [projectData, setProjectData] = useState([]);
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -48,11 +48,14 @@ function Profile() {
         const response = await api.get("/user/profile");
         setProfileData(response.data);
 
-        if (response.data.role === 'volunteerOrg') {
-          const projectResponse = await api.get(`activity/vo/${response.data.id}`);
+        if (response.data.role === "volunteerOrg") {
+          const projectResponse = await api.get(
+            `activity/vo/${response.data.id}`
+          );
           const project = projectResponse.data;
-          setUserProjectData([project]); // Assuming setUserProjectData expects an array
-          console.log('project', project);
+          setProjectData([project]); // Assuming setUserProjectData expects an array
+          fetchProjects(response.data.id, response.data.role);
+          console.log("project", project);
         }
       } catch (error) {
         console.log("Error fetching profile data: ", error);
@@ -62,7 +65,6 @@ function Profile() {
       }
     };
 
-
     const fetchPosts = async () => {
       try {
         const response = await api.get("/post/myposts");
@@ -70,6 +72,20 @@ function Profile() {
         console.log(response.data);
       } catch (error) {
         console.log("Error fetching post data: ", error);
+      }
+    };
+
+    const fetchProjects = async (userId, role) => {
+      try {
+        if (role === "volunteerOrg") {
+          const response = await api.get(`activity/vo/${userId}`);
+          setProjectData(response.data);
+        } else {
+          const response = await api.get("/activity/");
+          setProjectData(response.data);
+        }
+      } catch (error) {
+        console.log("Error fetching projects data: ", error);
       }
     };
 
@@ -198,7 +214,9 @@ function Profile() {
                           className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
                         >
                           <div className="flex items-center mb-2">
-                            <span className="text-lg font-bold">{post.postTitle}</span>
+                            <span className="text-lg font-bold">
+                              {post.postTitle}
+                            </span>
                           </div>
                           <p className="mb-2">{post.postContent}</p>
 
@@ -222,7 +240,9 @@ function Profile() {
                           )}
                           <div className="flex justify-between">
                             <button className="text-purple_9663FC">Like</button>
-                            <button className="text-purple_9663FC">Comment</button>
+                            <button className="text-purple_9663FC">
+                              Comment
+                            </button>
                           </div>
                         </div>
                       ))}
@@ -230,20 +250,19 @@ function Profile() {
                   </>
                 ) : (
                   <>
-                  <div className="flex flex-col w-full">
-                    <div className="flex-row">
-                    <div className="text-purple_4000C1 font-RecoletaAlt font-semibold xs:text-3xl md:text-4xl xs:mb-4">
-                      My Projects
-                    </div>
-                    <button className="bg-yellow_FFDA7A hover:bg-yellow-400 xs:text-sm px-3 py-1 text-black rounded-full border-none font-semibold font-inherit md:text-base font-DMSans whitespace-nowrap">
-                      <Link to="/createproject">CREATE NEW PROJECT</Link>
-                    </button>
-                    </div>
-                    <div className="flex items-center w-full xs:ml-[1%] sm:ml-0 md:ml-[1%] lg:ml-[3%]">
-                      <Grid container spacing={2}>
-                        {userProjectData
-                          .map((project, index) => (
-                            <Grid key={index} item xs={12} sm={6} md={4}>
+                    <div className="flex flex-col w-full">
+                      <div className="flex-row">
+                        <div className="text-purple_4000C1 font-RecoletaAlt font-semibold xs:text-3xl md:text-4xl xs:mb-4">
+                          My Projects
+                        </div>
+                        <button className="bg-yellow_FFDA7A hover:bg-yellow-400 xs:text-sm px-3 py-1 text-black rounded-full border-none font-semibold font-inherit md:text-base font-DMSans whitespace-nowrap mb-2">
+                          <Link to="/createproject">CREATE NEW PROJECT</Link>
+                        </button>
+                      </div>
+                      <div className="flex items-center w-full xs:ml-[1%] sm:ml-0 md:ml-[1%] lg:ml-[3%]">
+                        <Grid container spacing={2}>
+                          {projectData.map((project, index) => (
+                            <Grid key={index} item xs={12} sm={6}>
                               <ProjectCard
                                 key={index}
                                 id={project._id}
@@ -254,8 +273,8 @@ function Profile() {
                               />
                             </Grid>
                           ))}
-                      </Grid>
-                    </div>
+                        </Grid>
+                      </div>
                     </div>
                   </>
                 )}
