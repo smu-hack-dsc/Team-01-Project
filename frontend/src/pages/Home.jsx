@@ -1,7 +1,7 @@
-import { Button } from "components/Button";
+// import { Button } from "components/Button";
 import Carousel from "components/Carousel";
 import { useMedia } from "react-use";
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { arrowForward } from "ionicons/icons";

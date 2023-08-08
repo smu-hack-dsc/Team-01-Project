@@ -1,8 +1,3 @@
-import React from "react";
-import { Button } from "components/Button";
-import { IonIcon } from "@ionic/react";
-import { image } from "ionicons/icons";
-
 const TagCard = ({ title, handleTag }) => {
   const handleSelect = (interest) => {
     handleTag(interest);

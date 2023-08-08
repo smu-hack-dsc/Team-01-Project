@@ -3,7 +3,7 @@ import SearchBar from "components/SearchBar";
 // import { useMedia } from 'react-use';
 import ProjectCard from "components/ProjectCard";
 import Filter from "components/Filter";
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
 import api from "../api";
 import "reactjs-popup/dist/index.css";
 import { Grid } from "@mui/material";

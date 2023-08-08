@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import api from '../api';
 import { useNavigate, Link } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
-import { Button } from 'components/Button';
+// import { Button } from 'components/Button';
 import Filter from "components/Filter";
 import { IonIcon } from '@ionic/react';
 import { person } from 'ionicons/icons';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from '../api';
 import { useNavigate, useLocation } from "react-router-dom";
 // import ProfilePost from "components/ProfilePost";
-import { Button } from 'components/Button';
+// import { Button } from 'components/Button';
 import VOSignupRow from 'components/VOSignupRow';
 import VOApprovedRow from 'components/VOApprovedRow'
 // import Filter from "components/Filter";
