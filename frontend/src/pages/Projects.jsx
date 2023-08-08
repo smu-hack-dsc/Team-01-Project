@@ -86,7 +86,7 @@ function Projects() {
                   .includes(searchTerm.toLowerCase())
               )
               .map((project, index) => (
-                <Grid key={index} item xs={12} sm={6} md={4}>
+                <Grid key={index} item xs={12} sm={6} md={4} xl={3}>
                   <ProjectCard
                     key={index}
                     id={project._id}
