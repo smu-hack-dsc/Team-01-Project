@@ -6,6 +6,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { person } from "ionicons/icons";
 import ProfilePost from "components/ProfilePost";
+import ProjectCard from "components/ProjectCard";
+import { Grid } from "@mui/material";
 
 function Profile() {
   const [profileData, setProfileData] = useState([]);
@@ -150,7 +152,6 @@ function Profile() {
                     </React.Fragment>
                   ))}
               </div>
-              {/* <div className="text-opacity-40 font-DM text-15px font-normal">Youth Education, Environment Conservation</div> */}
 
               <div className="text-black font-DM font-semibold mt-3">
                 Location
@@ -176,12 +177,6 @@ function Profile() {
                   className="flex flex-row items-center justify-center font-DMSans font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 text-sm mt-4 w-[85px]"
                   onClick={handleLogout}
                 >
-                  {/* <img
-                    src={require("../resources/img/Logout.png")}
-                    alt="Logout"
-                    onClick={handleLogout}
-                    className="w-4 h-4"
-                  /> */}
                   LOGOUT
                 </button>
               </div>
@@ -196,27 +191,75 @@ function Profile() {
                     <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                       My Posts
                     </div>
-                    <div></div>
+                    <div className="grid grid-cols-2 gap-2 mt-5">
+                      {userPostsData.map((post, index) => (
+                        <div
+                          key={index}
+                          className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
+                        >
+                          <div className="flex items-center mb-2">
+                            <span className="text-lg font-bold">{post.postTitle}</span>
+                          </div>
+                          <p className="mb-2">{post.postContent}</p>
+
+                          {/* tags */}
+                          <div className="mb-2">
+                            {post.tags.map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                          {post.imageInfo && (
+                            <img
+                              className="max-h-56 rounded-md mb-2"
+                              src={post.imageInfo.imagePath}
+                              alt="Post"
+                            />
+                          )}
+                          <div className="flex justify-between">
+                            <button className="text-purple_9663FC">Like</button>
+                            <button className="text-purple_9663FC">Comment</button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </>
                 ) : (
                   <>
+                  <div className="flex flex-col w-full">
+                    <div className="flex-row">
                     <div className="text-purple_4000C1 font-RecoletaAlt font-semibold xs:text-3xl md:text-4xl xs:mb-4">
                       My Projects
                     </div>
                     <button className="bg-yellow_FFDA7A hover:bg-yellow-400 xs:text-sm px-3 py-1 text-black rounded-full border-none font-semibold font-inherit md:text-base font-DMSans whitespace-nowrap">
                       <Link to="/createproject">CREATE NEW PROJECT</Link>
                     </button>
+                    </div>
+                    <div className="flex items-center w-full xs:ml-[1%] sm:ml-0 md:ml-[1%] lg:ml-[3%]">
+                      <Grid container spacing={2}>
+                        {userProjectData
+                          .map((project, index) => (
+                            <Grid key={index} item xs={12} sm={6} md={4}>
+                              <ProjectCard
+                                key={index}
+                                id={project._id}
+                                activityName={project.activityName}
+                                description={project.description}
+                                organiser={project.organiserId}
+                                imageUrl={project.imageInfo?.imagePath}
+                              />
+                            </Grid>
+                          ))}
+                      </Grid>
+                    </div>
+                    </div>
                   </>
                 )}
               </div>
-            </div>
-            <div className="grid grid-cols-2 gap-2 mt-5">
-              {/* {userPostsData.map((post) => (
-                <ProfilePost
-                  key={post._id}
-                  imageUrl={post.imageInfo?.imagePath}
-                />
-              ))} */}
             </div>
           </div>
         </div>
