@@ -38,7 +38,7 @@ exports.CreateUser = async (userData, imageData) => {
             pictureName = `${Date.now()}-${imageData.name}`;
             const params = {
                 Bucket: bucketName,
-                Key: imageData.pictureName,
+                Key: pictureName,
                 Body: imageData.data.buffer,
                 ContentType: imageData.mimetype,
             };

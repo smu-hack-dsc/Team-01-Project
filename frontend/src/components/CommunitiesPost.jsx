@@ -39,7 +39,11 @@ const CommunitiesPost = ({ tag }) => {
     const formData = new FormData();
     formData.append('postTitle', postTitle);
     formData.append('postContent', postContent);
-    formData.append('tags', updatedInterests);
+    // (updatedInterests).map((interest) => {
+    //   if (interest) {
+    //     formData.append('categories', interest);
+    //   }
+    // })
     if (fileInputRef.current?.files[0]) { 
       formData.append('image', fileInputRef.current.files[0]);
     }

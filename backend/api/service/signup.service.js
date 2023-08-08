@@ -45,19 +45,6 @@ exports.DeleteUserActivity = async (userId, activityId) => {
         throw Signup.checkDuplication(err);
     }
 }
-// exports.CheckGet = async (userData, signupData) => {
-//     // get the information on whether is the volunteerOrg or the volunteer
-//     if (userData.id !== signupData.user) {
-//         const activityConcerned = await Activity.find({ id: signupData.activty });
-//         console.log(activityConcerned);
-//         if (userData.id !== activityConcerned.organiserId) {
-//             throw new APIError({ message: INVALID_CREDENTIALS, errorCode: UNAUTHORIZED });
-//         }
-//     }
-
-//     return signupData;
-
-// };
 
 // Get signup by the user id provided (giving back all the activities that user signed up for)
 exports.GetByUser = async (userInfo) => {

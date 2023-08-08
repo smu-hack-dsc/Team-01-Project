@@ -9,12 +9,16 @@ import VOApprovedRow from 'components/VOApprovedRow'
 
 const VOProject = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [projectData, setProjectData] = useState([]);
 
   //get the project that was selected
   const projectId = location.state?.id;
 
   useEffect(() => {
+    if (!projectId) {
+      navigate('/projects');
+    }
     const fetchProject = async () => {
       try {
         const response = await api.get(`/activity/${projectId}`);

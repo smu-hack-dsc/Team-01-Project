@@ -31,8 +31,8 @@ exports.CreateActivity = async (userData, activityData, imageData) => {
             pictureName = `${Date.now()}-${imageData.name}`;
             const params = {
                 Bucket: bucketName,
-                Key: imageData.pictureName,
-                Body: imageData.buffer,
+                Key: pictureName,
+                Body: imageData.data.buffer,
                 ContentType: imageData.mimetype,
             };
             const command = new PutObjectCommand(params);

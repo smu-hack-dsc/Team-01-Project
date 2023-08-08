@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import api from '../api';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ProfilePost from "components/ProfilePost";
 import { Button } from 'components/Button';
 import Filter from "components/Filter";
@@ -184,9 +184,11 @@ function Profile() {
                     <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                       My Activities
                     </div>
-                    <Button variant="yellow" size="small">
+                    <button className="bg-yellow_FFDA7A hover:bg-yellow-400 text-sm px-3 py-1 text-black rounded-full border-none font-inherit whitespace-nowrap">
+                      <Link to="/createproject">
                       Create New Activity
-                    </Button>
+                      </Link>
+                    </button>
                   </>
                 )}
               </div>
