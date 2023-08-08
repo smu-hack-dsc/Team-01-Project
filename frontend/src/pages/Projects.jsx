@@ -11,34 +11,35 @@ function Projects() {
   const [projectData, setProjectData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  
   useEffect(() => {
-
     const fetchProjects = async (userId, role) => {
       try {
-        if (role === 'volunteerOrg') {
+        if (role === "volunteerOrg") {
           const response = await api.get(`activity/vo/${userId}`);
           setProjectData(response.data);
         } else {
-          const response = await api.get('/activity/');
+          const response = await api.get("/activity/");
           setProjectData(response.data);
         }
       } catch (error) {
-        console.log('Error fetching projects data: ', error);
-      } 
+        console.log("Error fetching projects data: ", error);
+      }
     };
 
     const fetchProfile = async () => {
       try {
-        const profileResponse = await api.get('/user/profile');
+        const profileResponse = await api.get("/user/profile");
 
         if (profileResponse) {
-          await fetchProjects(profileResponse.data.id, profileResponse.data.role);
+          await fetchProjects(
+            profileResponse.data.id,
+            profileResponse.data.role
+          );
           // return {userId: profileResponse.data.id, userRole: profileResponse.data.role}
         }
       } catch (error) {
-        console.log('Error fetching profile data: ', error);
-      } 
+        console.log("Error fetching profile data: ", error);
+      }
     };
 
     fetchProjects();
@@ -46,13 +47,12 @@ function Projects() {
 
     // const fetchData = async () => {
     //   await fetchProfile();
-      // fetchProjects();
+    // fetchProjects();
     // }
 
     // fetchProfile().then(() => {fetchProjects()}).catch((err) => {console.log(err)});
     // fetchData();
   }, []);
-
 
   return (
     <div>

@@ -5,49 +5,60 @@ import TagCard from "components/TagCard";
 import { useNavigate, Link } from "react-router-dom";
 
 function Community() {
-  const [getInterest, setGetInterest] = useState('');
+  const [getInterest, setGetInterest] = useState("");
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [communityData, setCommunityData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleCommunity = (c) => {
+    navigate("/posts", { state: { c } });
+  };
+
+  const handleTag = (interest) => {
+    navigate("/posts", { state: { interest } });
+  };
 
   const checkLoginStatus = async () => {
-    setIsLoggedIn(localStorage.getItem('token'));
+    setIsLoggedIn(localStorage.getItem("token"));
   };
 
   useEffect(() => {
     checkLoginStatus();
   }, []);
 
-  const allInterests = [{
-    title: 'general',
-    description: 'Where all general discussions take place, covering a wide range of topics and interests within the community'
-  },
-  {
-    title: 'elderly',
-    description: 'A space for volunteers aiming to make a positive impact on the lives of the elderly in the community, discussing ways to support and assist them'
-  },
-  {
-    title: 'environment',
-    description: 'Dedicated to volunteers who are passionate about making a difference to the environment, sharing ideas and initiatives for a greener and sustainable future'
-  }, {
-    title: 'children',
-    description: 'Focused on the well-being and development of children, discussing ways to create a nurturing and supportive environment for the younger generation'
-  }, {
-    title: 'tutoring',
-    description: 'A platform for tutoring enthusiasts to exchange knowledge and strategies, helping each other become more effective educators and mentors'
-  }, {
-    title: 'animals',
-    description: 'Devoted to discussions about animal welfare, rescue efforts, and promoting compassion and care for our furry and feathered friends'
-  }];
-
-  const tempCommunities = ["community1", "community2", "community3"];
-
-  const handleCommunity = (c) => {
-    navigate('/posts', {state: {c}});
-  }
-
-  const handleTag = (interest) => {
-    navigate('/posts', {state: {interest}});
-  }
+  const allInterests = [
+    {
+      title: "general",
+      description:
+        "Where all general discussions take place, covering a wide range of topics and interests within the community",
+    },
+    {
+      title: "elderly",
+      description:
+        "A space for volunteers aiming to make a positive impact on the lives of the elderly in the community, discussing ways to support and assist them",
+    },
+    {
+      title: "environment",
+      description:
+        "Dedicated to volunteers who are passionate about making a difference to the environment, sharing ideas and initiatives for a greener and sustainable future",
+    },
+    {
+      title: "children",
+      description:
+        "Focused on the well-being and development of children, discussing ways to create a nurturing and supportive environment for the younger generation",
+    },
+    {
+      title: "tutoring",
+      description:
+        "A platform for tutoring enthusiasts to exchange knowledge and strategies, helping each other become more effective educators and mentors",
+    },
+    {
+      title: "animals",
+      description:
+        "Devoted to discussions about animal welfare, rescue efforts, and promoting compassion and care for our furry and feathered friends",
+    },
+  ];
 
   return (
     <div className="absolute top-20">
@@ -57,7 +68,7 @@ function Community() {
             Community
           </div>
           <div className="ml-10 grow">
-            <SearchBar />
+            <SearchBar input={communityData.title} setInput={setSearchTerm} />
           </div>
         </div>
       </div>
@@ -78,17 +89,19 @@ function Community() {
       </div>
 
       <div className="flex flex-wrap mx-auto sm:w-4/5 lg:w-2/3 justify-between pb-20">
-        {allInterests.map((interest) => (
-          <TagCard
-            title={interest.title}
-            description={interest.description}
-            handleTag={handleTag}
-          />
-        ))
-        }
+        {allInterests
+          .filter((interest) =>
+            interest.title.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((interest) => (
+            <TagCard
+              title={interest.title}
+              description={interest.description}
+              handleTag={handleTag}
+            />
+          ))}
       </div>
       {/* <CommunitiesPost /> */}
-    
     </div>
   );
 }
