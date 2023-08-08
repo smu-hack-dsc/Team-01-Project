@@ -44,7 +44,7 @@ const Home = () => {
       {/* second section */}
       <div className="hidden md:flex w-full h-500 justify-center bg-purple_9663FC">
         <div className="flex flex-col items-center top-1/2 left-1/2 w-3/4 h-486 flex-shrink-0 rounded-lg bg-white pb-8 mb-8 xs:-mt-4 sm:-mt-8 z-10">
-          <div className="mt-67 text-black text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:5xl xs:p-3 sm:p-5 lg:p-8">
+          <div className="mt-67 text-black text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xs:p-3 sm:p-5 lg:p-8">
             All-in-one Volunteering
           </div>
           <div className="flex flex-row justify-end items-center w-full px-auto mr-3">
@@ -96,7 +96,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:5xl xs:p-3 sm:p-5 lg:p-8">
+      <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xs:p-3 sm:p-5 lg:p-8">
         Trending Projects
       </div>
       <div className="flex flex-col ml-auto -mt-2 mb-10">
@@ -195,7 +195,7 @@ const Home = () => {
           />
         </div>
         <div className="absolute flex items-center w-1020 h-62.434 flex-col justify-center text-white text-center z-10">
-          <div className="font-RecoletaAlt xs:text-2xl sm:text-3xl md:text-4xl lg:5xl z-3">
+          <div className="font-RecoletaAlt xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl z-3">
             You can make a difference today!
           </div>
           <div className="font-DMSans text-xl xs:text-base sm:text-xl lg:text-2xl z-3">
