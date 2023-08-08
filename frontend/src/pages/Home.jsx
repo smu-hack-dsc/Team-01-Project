@@ -118,28 +118,28 @@ const Home = () => {
           <div className="flex flex-col items-start sm:py-5 lg:py-8 sm:pl-0 lg:pl-10">
             <div className="sm:h-24 lg:h-40 w-full rounded-l-full bg-yellow_FFF497 sm:-mt-16 lg:-mt-28 mb-2" />
             <button
-              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 xs:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 1
+              ELDERLY
             </button>
             <button
-              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 xs:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 2
+              ENVIRONMENT
             </button>
             <button
-              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 xs:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 3
+              CHILDREN
             </button>
             <button
-              className="my-1 xs:px-8 sm:px-10 lg:px-20 xs:py-2 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 xs:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold xs:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 4
+              TUTORING
             </button>
             <button
               className="xs:flex sm:hidden flex-row items-center mt-2 mb-1 text-black rounded-2xl hover:text-gray-600 font-DMSans font-semibold text-sm"
@@ -154,25 +154,25 @@ const Home = () => {
           <div className="hidden sm:flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10">
             <div className="sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mt-24 lg:-mt-40 mb-2" />
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 5
+              ANIMALS
             </button>
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 6
+              GENDER
             </button>
             <button
-              className="my-1 sm:px-10 lg:px-20 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
               onClick={handleProjectsClick}
             >
-              CAUSE 7
+              FOOD
             </button>
             <button
-              className="flex flex-row items-center my-1 sm:px-1 lg:px-6 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
               onClick={handleProjectsClick}
             >
               DISCOVER MORE

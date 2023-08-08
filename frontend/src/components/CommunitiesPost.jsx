@@ -1,20 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"
-import api from '../api';
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 import SearchBar from "./SearchBar";
 
 const CommunitiesPost = ({ tag }) => {
   const tagArray = (tag) => {
     return [tag.title];
-  }
+  };
   const [posts, setPosts] = useState([]);
-  const [postTitle, setPostTitle] = useState('');
-  const [postContent, setPostContent] = useState('');
+  const [postTitle, setPostTitle] = useState("");
+  const [postContent, setPostContent] = useState("");
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const allInterests = ['elderly', 'environment', 'children', 'tutoring', 'animals'];
+  const allInterests = [
+    "elderly",
+    "environment",
+    "children",
+    "tutoring",
+    "animals",
+    "gender",
+    "food",
+  ];
 
   // image adding logic
   const fileInputRef = useRef(null);
@@ -28,30 +36,33 @@ const CommunitiesPost = ({ tag }) => {
   };
 
   const handleInterestDelete = (interest) => {
-    const updatedInterests = selectedInterests.filter((selectInterest) => selectInterest !== interest);
+    const updatedInterests = selectedInterests.filter(
+      (selectInterest) => selectInterest !== interest
+    );
     setSelectedInterests(updatedInterests);
-  }
+  };
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
     // logic to handle the post submission and add it to the posts state
-    const updatedInterests = selectedInterests.length === 0 ? ['general'] : selectedInterests;
+    const updatedInterests =
+      selectedInterests.length === 0 ? ["general"] : selectedInterests;
     const formData = new FormData();
-    formData.append('postTitle', postTitle);
-    formData.append('postContent', postContent);
+    formData.append("postTitle", postTitle);
+    formData.append("postContent", postContent);
     // (updatedInterests).map((interest) => {
     //   if (interest) {
     //     formData.append('categories', interest);
     //   }
     // })
-    if (fileInputRef.current?.files[0]) { 
-      formData.append('image', fileInputRef.current.files[0]);
+    if (fileInputRef.current?.files[0]) {
+      formData.append("image", fileInputRef.current.files[0]);
     }
     let response;
     try {
-      response = await api.post('/post/', formData);
+      response = await api.post("/post/", formData);
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
     } finally {
       // Ensure form reset even if the API call fails
       // setPostTitle('');
@@ -59,13 +70,11 @@ const CommunitiesPost = ({ tag }) => {
       // setSelectedInterests([]);
       window.location.reload();
     }
-
   };
 
   useEffect(() => {
-
-    if (localStorage.getItem('token')) {
-      console.log(localStorage.getItem('token'))
+    if (localStorage.getItem("token")) {
+      console.log(localStorage.getItem("token"));
       setIsLoggedIn(true);
     }
 
@@ -73,13 +82,13 @@ const CommunitiesPost = ({ tag }) => {
 
     const fetchPosts = async () => {
       try {
-        const response = await api.post('/post/communities', {
-          tags: tagArray(tag)
+        const response = await api.post("/post/communities", {
+          tags: tagArray(tag),
         });
         const updatedPosts = await Promise.all(
           response.data.map(async (post) => {
             const profileData = await api.get(`/user/profile/${post.user}`);
-            console.log(profileData)
+            console.log(profileData);
             return {
               ...post,
               username: profileData.data.name,
@@ -89,19 +98,18 @@ const CommunitiesPost = ({ tag }) => {
         );
         setPosts(updatedPosts);
       } catch (error) {
-        console.log('Error fetching post data: ', error);
+        console.log("Error fetching post data: ", error);
       }
-    }
+    };
 
     fetchPosts();
-  }, [tag])
-
+  }, [tag]);
 
   return (
     <div className="container mx-2">
       {/* post input/creation --> need to check if user is logged in before you show this! */}
       <div className="p-4 border border-gray-300 rounded-md mb-4">
-        {isLoggedIn ?
+        {isLoggedIn ? (
           <form onSubmit={handlePostSubmit}>
             {/* input fields for tags and image upload */}
             <input
@@ -109,7 +117,7 @@ const CommunitiesPost = ({ tag }) => {
               value={postTitle}
               onChange={(e) => setPostTitle(e.target.value)}
               required
-              placeholder='Title'
+              placeholder="Title"
               class="w-full rounded-md border border-gray-300 font-DMSans px-3 py-1 mb-2 placeholder:text-gray-300"
             />
             <textarea
@@ -124,27 +132,31 @@ const CommunitiesPost = ({ tag }) => {
             <div className="flex flex-wrap w-full py-2">
               tags:
               {allInterests.map((interest) => {
-                return (
-                  !selectedInterests.includes(interest) ?
-                    <button className="block text-black border-[1px] border-gray-300 px-1 mx-1 rounded-md text-base font-medium"
-                      onClick={() => handleInterestAdd(interest)}
-                      type="button">
-                      {interest}
-                    </button> :
-                    <button className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 mx-1 rounded-md text-base font-medium"
-                      onClick={() => handleInterestDelete(interest)}
-                      type="button">
-                      {interest}
-                    </button>)
+                return !selectedInterests.includes(interest) ? (
+                  <button
+                    className="block text-black border-[1px] border-gray-300 px-1 mx-1 rounded-md text-base font-medium"
+                    onClick={() => handleInterestAdd(interest)}
+                    type="button"
+                  >
+                    {interest}
+                  </button>
+                ) : (
+                  <button
+                    className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 mx-1 rounded-md text-base font-medium"
+                    onClick={() => handleInterestDelete(interest)}
+                    type="button"
+                  >
+                    {interest}
+                  </button>
+                );
               })}
-
             </div>
             <div className="flex flex-row justify-between pt-1">
               <input
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
               />
               <label>
                 <button
@@ -155,16 +167,14 @@ const CommunitiesPost = ({ tag }) => {
                   Upload pictures
                 </button>
               </label>
-              <button
-                className="px-4 py-2 bg-purple_9663FC text-white rounded-md hover:bg-purple-500 font-DMSans"
-              >
+              <button className="px-4 py-2 bg-purple_9663FC text-white rounded-md hover:bg-purple-500 font-DMSans">
                 Post
               </button>
             </div>
-          </form> :
+          </form>
+        ) : (
           <div>Login to post something!</div>
-
-        }
+        )}
       </div>
 
       {/* post */}

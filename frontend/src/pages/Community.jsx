@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from '../api';
+import api from "../api";
 import SearchBar from "components/SearchBar";
 import TagCard from "components/TagCard";
 import { useNavigate, Link } from "react-router-dom";
@@ -28,7 +28,7 @@ function Community() {
 
     const fetchCommunityData = async () => {
       try {
-        const response = await api.get('/post/');
+        const response = await api.get("/post/");
         console.log(response.data);
         const updatedPosts = await Promise.all(
           response.data.map(async (post) => {
@@ -45,7 +45,7 @@ function Community() {
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchCommunityData();
   }, []);
 
@@ -80,13 +80,25 @@ function Community() {
       description:
         "Devoted to discussions about animal welfare, rescue efforts, and promoting compassion and care for our furry and feathered friends",
     },
+    {
+      title: "gender",
+      description:
+        "A safe and inclusive online space designed to foster open conversations and thoughtful discussions about gender-related topics and projects",
+    },
+    {
+      title: "food",
+      description:
+        "Devoted to discussions about food security, food sharing, sustainable recipes, and other similar topics related to all things food",
+    },
   ];
 
   return (
     <div className="absolute top-16 overflow-x-clip w-[95vw] font-DMSans">
       <div className="hidden md:flex flex-col h-screen absolute border-gray-300 border-r-2 text-white w-[16%] lg:min-w-[170px] md:min-w-[148px] mx-auto">
         <div className="p-4 text-black mt-8">
-          <div className="font-semibold md:text-base lg:text-xl">COMMUNITIES</div>
+          <div className="font-semibold md:text-base lg:text-xl">
+            COMMUNITIES
+          </div>
           <div className="flex flex-col sm:w-4/5 lg:w-2/3 justify-between">
             {allInterests
               // .filter((interest) =>
@@ -109,47 +121,50 @@ function Community() {
               <SearchBar input={communityData.title} setInput={setSearchTerm} />
             </div>
           </div>
-          {communityData.map((post, index) => (
-            <div
-              key={index}
-              className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
-            >
-              <div className="flex items-center mb-2">
-                <img
-                  className="w-8 h-8 rounded-full mr-2"
-                  src={post.userPictUrl}
-                  alt="User"
-                />
-                <span className="text-lg font-bold">{post.postTitle}</span>
-                <span className="text-gray-500 ml-2">{post.username}</span>
-              </div>
-              <p className="mb-2">{post.postContent}</p>
+          {communityData
+            .filter((post) =>
+              post.postTitle.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            .map((post, index) => (
+              <div
+                key={index}
+                className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
+              >
+                <div className="flex items-center mb-2">
+                  <img
+                    className="w-8 h-8 rounded-full mr-2"
+                    src={post.userPictUrl}
+                    alt="User"
+                  />
+                  <span className="text-lg font-bold">{post.postTitle}</span>
+                  <span className="text-gray-500 ml-2">{post.username}</span>
+                </div>
+                <p className="mb-2">{post.postContent}</p>
 
-              {/* tags */}
-              <div className="mb-2">
-                {post.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+                {/* tags */}
+                <div className="mb-2">
+                  {post.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-block py-1 text-gray-500 rounded-md mr-2 text-sm"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                {post.imageInfo && (
+                  <img
+                    className="max-h-56 rounded-md mb-2"
+                    src={post.imageInfo.imagePath}
+                    alt="Post"
+                  />
+                )}
+                <div className="flex justify-between">
+                  <button className="text-purple_9663FC">Like</button>
+                  <button className="text-purple_9663FC">Comment</button>
+                </div>
               </div>
-              {post.imageInfo && (
-                <img
-                  className="max-h-56 rounded-md mb-2"
-                  src={post.imageInfo.imagePath}
-                  alt="Post"
-                />
-              )}
-              <div className="flex justify-between">
-                <button className="text-purple_9663FC">Like</button>
-                <button className="text-purple_9663FC">Comment</button>
-              </div>
-            </div>
-          ))}
-
+            ))}
         </div>
       </div>
     </div>
