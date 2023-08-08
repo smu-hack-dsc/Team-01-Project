@@ -17,7 +17,11 @@ const Signup1 = () => {
       <div class="absolute left-0 w-screen h-screen flex flex-col justify-start items-center pt-5 overflow-x-hidden">
         {/* Conditionally render the image on the left for large screens */}
         {/* replace this w image or better ui later */}
-        <div class="hidden lg:block absolute left-0 w-1/2 h-full bg-blue-500 z-0" />
+        <img
+          src={require("../../resources/img/LoginScreen.png")}
+          alt="GivingHands"
+          className="hidden lg:block absolute left-0 w-1/2 h-full z-0 object-cover"
+        /> 
         <div class="flex relative justify-center items-center my-auto lg:left-1/4 lg:w-[55vw] xs:w-[90vw] flex-col z-2">
           <div class="flex text-black text-center font-RecoletaAlt text-3xl font-bold pb-3 pt-12">
             Nice to meet you!
