@@ -35,3 +35,8 @@ Users can post their thoughts on a community page and interact with others
 | ----------------------------------------------------- | --------------------------------------------- | ---------------------------------------------
 | <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/cf6de398-3582-4152-9739-7d2658a9c48c" width="200px"> | <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/150fbc36-7daf-47e1-a7b8-e3df6c100083" width="200px"> | <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/60926adc-c7d4-4156-aab8-467ca7c48406" width="200px">
 
+
+## Getting Started
+
+#### Find us live!
+https://main.d2x6l17ovqqryi.amplifyapp.com/
