@@ -79,9 +79,6 @@ const CommunityTag = () => {
                 <div className="flex justify-center text-black font-DMSans text-xl font-semibold ml-1">
                   {interest?.title.toUpperCase()}
                 </div>
-                <div className="flex flex-col justify-center text-black font-DMSans text-sm font-semibold">
-                  <IonIcon icon={image} size="large" />
-                </div>
               </div>
               <div className="flex flex-col h-1/3 justify-start text-black font-DMSans text-sm font-normal p-2 ml-1">
                 <p>{interest?.description}</p>
