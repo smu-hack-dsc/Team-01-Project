@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import api from "../api"
+import api from "../api";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CarouselCard from "components/CarouselCard";
-import { useMedia } from 'react-use';
+import { useMedia } from "react-use";
 
 const Carousel = () => {
+  const isXlScreen = useMedia("(min-width: 1800px)");
+  const isLargeScreen = useMedia("(min-width: 1224px)");
+  const isSmScreen = useMedia("(min-width: 740px)");
 
-  const isLargeScreen = useMedia('(min-width: 1224px)');
-  const isSmScreen = useMedia('(min-width: 740px)');
-
-  const slidesToShow = isLargeScreen ? 5 : isSmScreen ? 3 : 2;
+  const slidesToShow = isXlScreen ? 7 : isLargeScreen ? 5 : isSmScreen ? 3 : 2;
 
   const sliderRef = React.useRef(null);
 
@@ -25,18 +25,17 @@ const Carousel = () => {
     nextArrow: <></>,
   };
 
-  const [projectData, setProjectData] = useState([])
+  const [projectData, setProjectData] = useState([]);
 
   useEffect(() => {
-
     const fetchProject = async () => {
       try {
-        const response = await api.get('/activity/');
+        const response = await api.get("/activity/");
         setProjectData(response.data);
       } catch (error) {
-        console.log('Error fetching project carousel: ', error);
+        console.log("Error fetching project carousel: ", error);
       }
-    }
+    };
 
     fetchProject();
   }, []);
