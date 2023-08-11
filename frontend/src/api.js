@@ -1,23 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
 // require("dotenv").config();
 
-
 const api = axios.create({
-    baseURL: "https://tree-5a0z.onrender.com"
+  // baseURL: "https://tree-5a0zt.onrender.com"
+  baseURL: "http://54.254.196.169:4001/",
 });
 
 // Add a request interceptor
 api.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => {
-        Promise.reject(error)
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
 );
 
 // Add a response interceptor
@@ -29,4 +29,4 @@ api.interceptors.request.use(
 //     }
 // )
 
-export default api
+export default api;

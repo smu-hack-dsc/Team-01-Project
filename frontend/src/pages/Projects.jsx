@@ -15,17 +15,18 @@ function Projects() {
   useEffect(() => {
     const fetchProjects = async (userId, role) => {
       try {
+        let response;
         if (role === "volunteerOrg") {
-          const response = await api.get(`activity/vo/${userId}`);
-          setProjectData(response.data);
+          response = await api.get(`activity/vo/${userId}`);
         } else {
-          const response = await api.get("/activity/");
-          setProjectData(response.data);
+          response = await api.get("/activity/");
         }
+        setProjectData(response.data);
       } catch (error) {
         console.log("Error fetching projects data: ", error);
+        // Notify the user about the error
       }
-    };
+    };    
 
     const fetchProfile = async () => {
       try {

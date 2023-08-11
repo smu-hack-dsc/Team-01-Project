@@ -52,8 +52,65 @@ const ProjectCreate = () => {
     }
   };
 
+  // const handleRegister = async (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("activityName", projectName);
+
+  //   selectedSkills.forEach((skill) => {
+  //     if (skill) {
+  //       formData.append("requiredSkills", skill);
+  //     }
+  //   });
+
+  //   selectedInterests.forEach((interest) => {
+  //     if (interest) {
+  //       formData.append("categories", interest);
+  //     }
+  //   });
+
+  //   formData.append("beginDate", startDate);
+  //   formData.append("endDate", endDate);
+  //   formData.append("description", projectDesc);
+
+  //   if (fileInputRef.current?.files[0]) {
+  //     formData.append("image", fileInputRef.current.files[0]);
+  //   }
+
+  //   try {
+  //     const response = await api.post("/activity", formData);
+  //     navigate("/voproject", { state: { id: response.data.id } });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+
+  //   console.log("done");
+  // };
+
   const handleRegister = async (event) => {
     event.preventDefault();
+
+    if (!projectName) {
+      alert("Please fill in a project name before submitting.");
+      return;
+    }
+
+    if (!startDate || !endDate) {
+      alert("Please fill in a project date range before submitting.");
+      return;
+    }
+
+    if (!projectDesc) {
+      alert("Please fill in a project description before submitting.");
+      return;
+    }
+
+    if (!fileInputRef.current?.files[0]) {
+      alert("Please upload a photo before submitting.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("activityName", projectName);
 
@@ -76,7 +133,6 @@ const ProjectCreate = () => {
     if (fileInputRef.current?.files[0]) {
       formData.append("image", fileInputRef.current.files[0]);
     }
-
     try {
       const response = await api.post("/activity", formData);
       navigate("/voproject", { state: { id: response.data.id } });
@@ -84,8 +140,6 @@ const ProjectCreate = () => {
     } catch (error) {
       console.log(error);
     }
-
-    console.log("done");
   };
 
   const handleSkillAdd = (skill) => {
@@ -161,86 +215,86 @@ const ProjectCreate = () => {
         <div className="mb-10">
           <div className="flex xs:flex-col md:flex-row justify-between ">
             <div className="flex flex-row justify-between min-w-[250px]">
-            <div className="flex flex-col">
-              <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mx-2 mb-2">
-                Start Date
+              <div className="flex flex-col">
+                <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mx-2 mb-2">
+                  Start Date
+                </div>
+                <div>
+                  <DatePicker
+                    className="w-[100%] rounded-xl border-[1px] border-black font-DMSans xs:text-base sm:text-xl mb-4 xs:py-2 sm:py-4 px-5 placeholder:text-gray-200"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    placeholderText={"Start Date"}
+                  />
+                </div>
               </div>
-              <div>
-                <DatePicker
-                  className="w-[100%] rounded-xl border-[1px] border-black font-DMSans xs:text-base sm:text-xl mb-4 xs:py-2 sm:py-4 px-5 placeholder:text-gray-200"
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  placeholderText={"Start Date"}
-                />
+              <div className="flex flex-col mx-2">
+                <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mb-2">
+                  End Date
+                </div>
+                <div>
+                  <DatePicker
+                    className="w-[100%] rounded-xl border-[1px] border-black font-DMSans xs:text-base sm:text-xl mb-4 xs:py-2 sm:py-4 px-5 placeholder:text-gray-200"
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    placeholderText={"End Date"}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col mx-2">
-              <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mb-2">
-                End Date
-              </div>
-              <div>
-                <DatePicker
-                  className="w-[100%] rounded-xl border-[1px] border-black font-DMSans xs:text-base sm:text-xl mb-4 xs:py-2 sm:py-4 px-5 placeholder:text-gray-200"
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
-                  placeholderText={"End Date"}
-                />
-              </div>
-            </div>
             </div>
             <div className="flex xs:flex-col md:flex-row">
-            <div className="flex flex-col md:mr-2">
-              <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mb-2">
-                Required Skills
+              <div className="flex flex-col md:mr-2">
+                <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mb-2">
+                  Required Skills
+                </div>
+                <div className="flex flex-wrap">
+                  {allSkills.map((skill) => {
+                    return !selectedSkills.includes(skill) ? (
+                      <button
+                        className="block text-black border-[1px] border-gray-300 px-1 m-0.5 rounded-md text-base font-medium"
+                        onClick={() => handleSkillAdd(skill)}
+                        type="button"
+                      >
+                        {skill}
+                      </button>
+                    ) : (
+                      <button
+                        className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 m-0.5 rounded-md text-base font-medium"
+                        onClick={() => handleSkillDelete(skill)}
+                        type="button"
+                      >
+                        {skill}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="flex flex-wrap">
-                {allSkills.map((skill) => {
-                  return !selectedSkills.includes(skill) ? (
-                    <button
-                      className="block text-black border-[1px] border-gray-300 px-1 m-0.5 rounded-md text-base font-medium"
-                      onClick={() => handleSkillAdd(skill)}
-                      type="button"
-                    >
-                      {skill}
-                    </button>
-                  ) : (
-                    <button
-                      className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 m-0.5 rounded-md text-base font-medium"
-                      onClick={() => handleSkillDelete(skill)}
-                      type="button"
-                    >
-                      {skill}
-                    </button>
-                  );
-                })}
+              <div className="flex flex-col">
+                <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mb-2">
+                  Relevant Categories
+                </div>
+                <div className="flex flex-wrap">
+                  {allInterests.map((interest) => {
+                    return !selectedInterests.includes(interest) ? (
+                      <button
+                        className="block text-black border-[1px] border-gray-300 px-1 m-0.5 rounded-md text-base font-medium"
+                        onClick={() => handleInterestAdd(interest)}
+                        type="button"
+                      >
+                        {interest}
+                      </button>
+                    ) : (
+                      <button
+                        className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 m-0.5 rounded-md text-base font-medium"
+                        onClick={() => handleInterestDelete(interest)}
+                        type="button"
+                      >
+                        {interest}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col">
-              <div className="mt-10 font-DMSans font-semibold xs:text-xl lg:text-2xl mb-2">
-                Relevant Categories
-              </div>
-              <div className="flex flex-wrap">
-                {allInterests.map((interest) => {
-                  return !selectedInterests.includes(interest) ? (
-                    <button
-                      className="block text-black border-[1px] border-gray-300 px-1 m-0.5 rounded-md text-base font-medium"
-                      onClick={() => handleInterestAdd(interest)}
-                      type="button"
-                    >
-                      {interest}
-                    </button>
-                  ) : (
-                    <button
-                      className="block text-white border-[1px] border-purple-500 bg-purple-500 px-1 m-0.5 rounded-md text-base font-medium"
-                      onClick={() => handleInterestDelete(interest)}
-                      type="button"
-                    >
-                      {interest}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
             </div>
           </div>
         </div>

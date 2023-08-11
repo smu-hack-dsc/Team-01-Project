@@ -131,10 +131,11 @@ function Profile() {
 
                   <label>
                     <button
-                      className="flex justify-center items-center p-6 text-black font-DM font-semibold rounded-md mb-15 bg-gray-200"
+                      className="flex flex-col justify-center items-center p-6 text-black font-DM font-semibold rounded-md mb-15 bg-gray-200 h-[100px] w-[100px]"
                       onClick={handleButtonClick}
                     >
                       <IonIcon icon={person} size="large"></IonIcon>
+                      <div className="text-sm font-DMSans font-normal">Upload</div>
                     </button>
                   </label>
                 </>
