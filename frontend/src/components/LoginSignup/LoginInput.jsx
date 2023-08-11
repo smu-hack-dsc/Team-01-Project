@@ -13,23 +13,6 @@ const LoginInput = () => {
   const [isWrongCredentials, setIsWrongCredentials] = useState(false);
   const navigate = useNavigate();
 
-  
-// const storeTokenInLocalStorage = (token, expirationTime) => {
-//   // Store the token in local storage
-//   localStorage.setItem('token', token);
-
-//   // Schedule the removal of the token when it expires
-//   const expirationTimestamp = new Date(expirationTime).getTime();
-//   const currentTime = new Date().getTime();
-//   const timeUntilExpiration = expirationTimestamp - currentTime;
-
-//   setTimeout(() => {
-//     // Remove the token from local storage after it expires
-//     localStorage.removeItem('token');
-//     // You can also handle any other necessary actions after the token expires here
-//   }, timeUntilExpiration);
-// };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     // Perform login logic here (e.g., API call to authenticate user)
@@ -115,7 +98,7 @@ const LoginInput = () => {
           </div> : null}
 
         <div class="w-full flex justify-center my-4">
-          <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full text-base font-semibold">
+          <button class="flex flex-col px-4 py-2 w-full justify-center items-center flex-shrink-0 bg-purple-500 hover:bg-purple-400 text-white rounded-full text-base font-semibold font-DMSans">
             LOGIN
           </button>
         </div>

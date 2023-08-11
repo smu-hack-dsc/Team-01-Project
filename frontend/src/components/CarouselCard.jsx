@@ -38,7 +38,13 @@ const CarouselCard = ({ id, activityName, description, imageUrl }) => {
   };
   return (
     <Card sx={{ maxWidth: 250, height: 250 }}>
-      <CardMedia sx={{ height: 100 }} image={imageUrl} title="Project" />
+      <CardMedia
+        component="img"
+        sx={{ height: 100 }}
+        loading="lazy"
+        image={imageUrl}
+        title="Project"
+      />
       <CardContent sx={{ height: 105 }}>
         <Typography
           gutterBottom

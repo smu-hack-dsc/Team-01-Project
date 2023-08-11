@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "components/SearchBar";
 // import { useMedia } from 'react-use';
 import ProjectCard from "components/ProjectCard";
-import Filter from "components/Filter";
+// import Filter from "components/Filter";
 // import Popup from "reactjs-popup";
 import api from "../api";
 import "reactjs-popup/dist/index.css";
@@ -61,22 +61,12 @@ function Projects() {
         <div className="text-purple_4000C1 font-RecoletaAlt font-semibold text-5xl pb-5">
           Projects
         </div>
-        <div className="xs:w-4/5 lg:w-2/3 mb-4">
+        <div className="xs:w-4/5 lg:w-2/3 mb-6">
           <SearchBar
             input={projectData.activityName}
             setInput={setSearchTerm}
           />
         </div>
-        {/* <div className="mt-2 mb-4">
-          <Filter
-            categorySubcategories={{
-              "My Interests": ["interest1", "interest2", "interest3"],
-              Cause: ["cause1", "cause2", "cause3"],
-              VO: ["vo1", "vo2", "vo3"],
-              Skill: ["skill1", "skill2", "skill3"],
-            }}
-          />
-        </div> */}
         <div className="flex items-center w-4/5 xs:ml-[1%] sm:ml-0 md:ml-[1%] lg:ml-[3%]">
           <Grid container spacing={3}>
             {projectData

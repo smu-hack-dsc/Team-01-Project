@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import api from "../api";
 import SearchBar from "components/SearchBar";
 import TagCard from "components/TagCard";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CommunitiesPost from "components/CommunitiesPost";
 
 function Community() {
   const [getInterest, setGetInterest] = useState("");
@@ -80,47 +81,36 @@ function Community() {
       description:
         "Devoted to discussions about animal welfare, rescue efforts, and promoting compassion and care for our furry and feathered friends",
     },
-    {
-      title: "gender",
-      description:
-        "A safe and inclusive online space designed to foster open conversations and thoughtful discussions about gender-related topics and projects",
-    },
-    {
-      title: "food",
-      description:
-        "Devoted to discussions about food security, food sharing, sustainable recipes, and other similar topics related to all things food",
-    },
   ];
 
   return (
-    <div className="absolute top-16 overflow-x-clip w-[95vw] font-DMSans">
-      <div className="hidden md:flex flex-col h-screen absolute border-gray-300 border-r-2 text-white w-[16%] lg:min-w-[170px] md:min-w-[148px] mx-auto">
+    <div className="absolute top-20 overflow-x-clip w-[95vw] font-DMSans">
+      <div className="hidden md:flex flex-col h-screen fixed border-gray-300 border-r-2 text-white w-[16%] lg:min-w-[170px] md:min-w-[148px] mx-auto -mt-4">
         <div className="p-4 text-black mt-8">
-          <div className="font-semibold md:text-base lg:text-xl">
+          <div className="font-semibold md:text-base lg:text-xl -pt-5">
             COMMUNITIES
           </div>
           <div className="flex flex-col sm:w-4/5 lg:w-2/3 justify-between">
-            {allInterests
-              // .filter((interest) =>
-              //   interest.title.toLowerCase().includes(searchTerm.toLowerCase())
-              // )
-              .map((interest) => (
-                <TagCard title={interest.title} handleTag={handleTag} />
-              ))}
+            {allInterests.map((interest) => (
+              <TagCard title={interest.title} handleTag={handleTag} />
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="md:ml-[7%] w-screen flex flex-col justify-start items-center pt-7">
-        <div className="flex flex-col justify-start items-end sm:w-[84%] md:w-[70%] pt-7">
+      <div className="md:ml-[7%] w-screen flex flex-col justify-start items-center pt-5">
+        <div className="flex flex-col justify-start items-end sm:w-[84%] md:w-[70%]">
           <div className="flex justify-center xs:items-center  xs:flex-col md:flex-row w-full pb-5">
             <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl xs:mb-5 md:mb-0">
               Community
             </div>
-            <div className="md:ml-10 grow">
+            <div className="xs:w-4/5 -mb-4 lg:w-2/3 md:ml-10 ">
               <SearchBar input={communityData.title} setInput={setSearchTerm} />
             </div>
           </div>
+          {/* <div className="flex w-full">
+            <CommunitiesPost tag={"general"} />
+          </div> */}
           {communityData
             .filter((post) =>
               post.postTitle.toLowerCase().includes(searchTerm.toLowerCase())
@@ -128,7 +118,7 @@ function Community() {
             .map((post, index) => (
               <div
                 key={index}
-                className="p-4 border border-gray-300 rounded-md mb-4 mt-4 font-DMSans w-full"
+                className="xs:w-4/5 md:w-full p-4 border border-gray-300 rounded-md mx-auto mt-4 font-DMSans"
               >
                 <div className="flex items-center mb-2">
                   <img

@@ -38,13 +38,19 @@ const ProjectCard = ({ id, activityName, description, imageUrl }) => {
   };
   return (
     <Card sx={{ maxWidth: 350, height: 350 }}>
-      <CardMedia sx={{ height: 150 }} image={imageUrl} title="Project" />
+      <CardMedia
+        component="img"
+        sx={{ height: 150 }}
+        loading="lazy"
+        image={imageUrl}
+        title="Project"
+      />
       <CardContent sx={{ height: 140 }}>
         <Typography
           gutterBottom
           variant={isLargeScreen ? "h5" : "body1"}
           component="div"
-          sx={{ fontFamily: "DMSans, sans-serif", fontWeight: 600}}
+          sx={{ fontFamily: "DMSans, sans-serif", fontWeight: 600 }}
         >
           {activityName}
         </Typography>

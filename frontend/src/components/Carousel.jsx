@@ -13,14 +13,14 @@ const Carousel = () => {
 
   const slidesToShow = isXlScreen ? 7 : isLargeScreen ? 5 : isSmScreen ? 3 : 2;
 
-  const sliderRef = React.useRef(null);
+  // const sliderRef = React.useRef(null);
 
   const carouselSettings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: slidesToShow,
-    slidesToScroll: 1,
+    slidesToScroll: slidesToShow,
     prevArrow: <></>,
     nextArrow: <></>,
   };

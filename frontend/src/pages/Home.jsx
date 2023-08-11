@@ -59,7 +59,7 @@ const Home = () => {
                   className="bg-yellow_FFDA7A xs:text-sm sm: p-2 text-base px-3 py-2 lg:text-lg hover:bg-yellow-400 rounded-full font-semibold"
                   onClick={async () => navigate("/login")}
                 >
-                  VOLUNTEER
+                  BE A VOLUNTEER
                 </button>
               </div>
             </div>
@@ -99,7 +99,7 @@ const Home = () => {
       <div className="flex w-1514 flex-col justify-center items-center mt-67 flex-shrink-0 text-purple_4000C1 text-center font-RecoletaAlt font-semibold xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xs:p-3 sm:p-5 lg:p-8">
         Trending Projects
       </div>
-      <div className="flex flex-col ml-auto -mt-2 mb-10">
+      <div className="flex flex-col mx-auto -mt-2 mb-10">
         <Carousel />
       </div>
 
@@ -154,25 +154,25 @@ const Home = () => {
           <div className="hidden sm:flex flex-col items-start sm:py-5 lg:py-8 sm:pl-3 lg:pl-10">
             <div className="sm:h-24 lg:h-40 w-full rounded-full bg-yellow_FFF497 sm:-mt-24 lg:-mt-40 mb-2" />
             <button
-              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
               ANIMALS
             </button>
             <button
-              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
               GENDER
             </button>
             <button
-              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
               FOOD
             </button>
             <button
-              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl w-[240px]"
+              className="flex flex-row justify-center items-center my-1 sm:py-4 lg:py-5 bg-white text-black rounded-2xl hover:bg-gray-200 font-DMSans font-semibold sm:text-sm lg:text-xl xs:w-[150px] md:w-[240px]"
               onClick={handleProjectsClick}
             >
               DISCOVER MORE

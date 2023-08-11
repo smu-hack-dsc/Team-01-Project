@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import CommunitiesPost from "components/CommunitiesPost";
-import SearchBar from "components/SearchBar";
+// import SearchBar from "components/SearchBar";
 import { useNavigate, useLocation } from "react-router-dom";
-import { IonIcon } from "@ionic/react";
-import { image } from "ionicons/icons";
+// import { IonIcon } from "@ionic/react";
+// import { image } from "ionicons/icons";
 
 const CommunityTag = () => {
   const navigate = useNavigate();

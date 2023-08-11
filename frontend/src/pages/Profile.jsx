@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 // import Filter from "components/Filter";
 import { IonIcon } from "@ionic/react";
 import { person } from "ionicons/icons";
-import ProfilePost from "components/ProfilePost";
+// import ProfilePost from "components/ProfilePost";
 import ProjectCard from "components/ProjectCard";
 import { Grid } from "@mui/material";
 
@@ -271,7 +271,7 @@ function Profile() {
                       <div className="grid mt-5 h-[400px] w-full overflow-y-scroll scroll-smooth snap-y">
                         <Grid container spacing={2}>
                           {projectData.map((project, index) => (
-                            <Grid key={index} item xs={12} sm={6}>
+                            <Grid key={index} item xs={12} md={6}>
                               <ProjectCard
                                 key={index}
                                 id={project._id}
@@ -288,7 +288,7 @@ function Profile() {
                       <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-4xl">
                         My Posts
                       </div>
-                      <div className="grid grid-cols-2 gap-4 mt-5 h-[400px] overflow-y-scroll scroll-smooth snap-y">
+                      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 mt-5 h-[400px] overflow-y-scroll scroll-smooth snap-y">
                         {userPostsData.map((post, index) => (
                           <div
                             key={index}
