@@ -38,7 +38,7 @@ Users can post their thoughts on a community page and interact with others
 
 ## Getting Started
 
-#### Find us live!
+#### Find us Live!
 https://main.d2x6l17ovqqryi.amplifyapp.com/
 
 #### Set up Local Directories
