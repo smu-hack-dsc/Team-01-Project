@@ -13,7 +13,7 @@ const Home = () => {
   const size3 = isLargeScreen ? "large" : "small";
 
   const handleProjectsClick = async () => {
-    navigate("/projects");
+    navigate("/community");
   };
 
   return (
