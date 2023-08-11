@@ -14,7 +14,7 @@ Done by:
 
 ## What is it?
 
-GivingHands aims to serve as an all-in-one volunteering platform for organisations to share opportunities and users to volunteer for them!
+GivingHearts aims to serve as an all-in-one volunteering platform for organisations to share opportunities and users to volunteer for them!
 
 
 ## Key Features
