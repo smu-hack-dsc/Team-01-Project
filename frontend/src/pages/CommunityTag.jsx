@@ -59,9 +59,9 @@ const CommunityTag = () => {
 
   return (
     <div className="absolute top-20 left-0 w-full h-full flex flex-col justify-start items-center pt-5">
-      <div className="flex flex-col flex-between h-full sm:w-4/5 lg:w-2/3">
+      <div className="flex flex-col h-full xs:w-4/5 lg:w-2/3">
         {/* current interest information */}
-        <div className="flex flex-row w-full bg-gray-100 rounded-lg mt-4 mx-2 flex-shrink-0 mb-4">
+        <div className="flex flex-row w-full bg-gray-100 rounded-lg mt-4 flex-shrink-0 mb-4">
           {/* left side */}
           <div className="flex w-1/3">
             <img
@@ -74,7 +74,7 @@ const CommunityTag = () => {
 
           {/* right side */}
           {interest ? (
-            <div className="flex flex-col justify-center w-2/3">
+            <div className="flex flex-col xs:justify-start md:justify-center w-2/3">
               <div className="flex justify-between p-2">
                 <div className="flex justify-center text-black font-DMSans text-xl font-semibold ml-1">
                   {interest?.title.toUpperCase()}
@@ -89,7 +89,7 @@ const CommunityTag = () => {
 
         {/* actual posts */}
         {interest ? (
-          <div>
+          <div className="w-full">
             <CommunitiesPost tag={interest} />
           </div>
         ) : null}

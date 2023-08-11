@@ -85,7 +85,7 @@ function Community() {
 
   return (
     <div className="absolute top-20 overflow-x-clip w-[95vw] font-DMSans">
-      <div className="hidden md:flex flex-col h-screen fixed border-gray-300 border-r-2 text-white w-[16%] lg:min-w-[170px] md:min-w-[148px] mx-auto -mt-4">
+      <div className="hidden sm:flex flex-col h-screen fixed border-gray-300 border-r-2 text-white w-[16%] lg:min-w-[170px] xs:min-w-[148px] mx-auto -mt-4">
         <div className="p-4 text-black mt-8">
           <div className="font-semibold md:text-base lg:text-xl -pt-5">
             COMMUNITIES
@@ -98,8 +98,8 @@ function Community() {
         </div>
       </div>
 
-      <div className="md:ml-[7%] w-screen flex flex-col justify-start items-center pt-5">
-        <div className="flex flex-col justify-start items-end sm:w-[84%] md:w-[70%]">
+      <div className="sm:ml-[10%] md:ml-[7%] w-screen flex flex-col justify-start items-center pt-5">
+        <div className="flex flex-col justify-start items-center xs:w-[100%] sm:w-[84%] md:w-[70%]">
           <div className="flex justify-center xs:items-center  xs:flex-col md:flex-row w-full pb-5">
             <div className="text-purple_4000C1 text-shadow-lg font-RecoletaAlt font-semibold text-5xl xs:mb-5 md:mb-0">
               Community
@@ -108,9 +108,11 @@ function Community() {
               <SearchBar input={communityData.title} setInput={setSearchTerm} />
             </div>
           </div>
-          {/* <div className="flex w-full">
-            <CommunitiesPost tag={"general"} />
-          </div> */}
+          <div className="sm:hidden w-4/5 overflow-x-scroll flex flex-row justify-between">
+            {allInterests.map((interest) => (
+              <TagCard title={interest.title} handleTag={handleTag} />
+            ))}
+          </div>
           {communityData
             .filter((post) =>
               post.postTitle.toLowerCase().includes(searchTerm.toLowerCase())
