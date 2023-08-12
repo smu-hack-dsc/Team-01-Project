@@ -135,7 +135,9 @@ function Profile() {
                       onClick={handleButtonClick}
                     >
                       <IonIcon icon={person} size="large"></IonIcon>
-                      <div className="text-sm font-DMSans font-normal">Upload</div>
+                      <div className="text-sm font-DMSans font-normal">
+                        Upload
+                      </div>
                     </button>
                   </label>
                 </>
@@ -265,8 +267,14 @@ function Profile() {
                         <div className="text-purple_4000C1 font-RecoletaAlt font-semibold xs:text-3xl md:text-4xl xs:mb-4">
                           My Projects
                         </div>
-                        <button className="bg-yellow_FFDA7A hover:bg-yellow-400 xs:text-sm px-3 py-1 text-black rounded-full border-none font-semibold font-inherit md:text-base font-DMSans whitespace-nowrap mb-2">
-                          <Link to="/createproject">CREATE NEW PROJECT</Link>
+                        <button
+                          className="bg-yellow_FFDA7A hover:bg-yellow-400 xs:text-sm px-3 py-1 text-black rounded-full border-none font-semibold font-inherit md:text-base font-DMSans whitespace-nowrap mb-2"
+                          onClick={async () => {
+                            navigate("/createproject");
+                          }}
+                        >
+                          CREATE NEW PROJECT
+                          {/* <Link to="/createproject">CREATE NEW PROJECT</Link> */}
                         </button>
                       </div>
                       <div className="grid mt-5 h-[400px] w-full overflow-y-scroll scroll-smooth snap-y">

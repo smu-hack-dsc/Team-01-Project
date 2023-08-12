@@ -2,8 +2,8 @@ import axios from "axios";
 // require("dotenv").config();
 
 const api = axios.create({
-  // baseURL: "https://tree-5a0zt.onrender.com"
-  baseURL: "http://54.254.196.169:4001/",
+  baseURL: "https://tree-5a0zt.onrender.com"
+  // baseURL: "http://54.254.196.169:4001/",
 });
 
 // Add a request interceptor

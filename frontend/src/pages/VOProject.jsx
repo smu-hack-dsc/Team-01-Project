@@ -41,7 +41,7 @@ const VOProject = () => {
             <img
               src={projectData.imageUrl}
               alt={projectData.activityName}
-              className="rounded-md mb-15"
+              className="h-[200px] w-[200px] object-cover object-center rounded-lg mb-15"
             />
             <div className="text-black font-DM font-semibold xs:text-xl lg:text-2xl mt-3 mb-5">
               {projectData.activityName}
