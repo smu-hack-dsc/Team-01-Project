@@ -1,4 +1,4 @@
-# Team-01-Project
+# GivingHearts
 Repository for HEAP 2023
 
 Done by: 
@@ -26,14 +26,14 @@ Users can sign up and manage their registration for projects
 Organisations can post and manage their projects including which users they want to accept
 
 #### Interacting with a community
-Users can post their thoughts on a community page and interact with others
+Users can post their thoughts on a community forum page and interact with others
 
 
 ## Built With
 
 | ExpressJS                                                   | ReactJS                                           | MongoDB |
 | ----------------------------------------------------- | --------------------------------------------- | ---------------------------------------------
-| <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/cf6de398-3582-4152-9739-7d2658a9c48c" width="200px"> | <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/150fbc36-7daf-47e1-a7b8-e3df6c100083" width="200px"> | <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/60926adc-c7d4-4156-aab8-467ca7c48406" width="200px">
+| <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/cecec8b8-f542-4017-b366-0a3dcbb22c90" width="100px"> | &nbsp; <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/cfaecf87-35c3-4779-84bf-d989068b9ac7" width="90px"> &nbsp; | <img src="https://github.com/smu-hack-dsc/Team-01-Project/assets/80974220/e770ccc4-4704-4e89-9f11-b41cdc29b0db" width="100px">
 
 
 ## Getting Started
